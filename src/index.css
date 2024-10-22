@@ -1,0 +1,8 @@
+.tab {
+	box-shadow: none;
+	border-bottom: 1px solid #2f2f37;
+}
+
+.tab.tab_type_current {
+	border-bottom: 2px solid #4c4cff;
+}

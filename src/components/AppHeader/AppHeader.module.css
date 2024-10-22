@@ -22,3 +22,7 @@
 	padding: 16px 20px;
 	cursor: pointer;
 }
+
+.logoWrapper {
+	margin-left: -200px;
+}

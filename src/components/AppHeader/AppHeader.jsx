@@ -17,7 +17,7 @@ const AppHeader = () => {
 						<p className="text text_type_main-small text_color_inactive">Лента заказов</p>
 					</div>
 				</div>
-				<a href="#">
+				<a className={headerCss.logoWrapper} href="#">
 					<Logo />
 				</a>
 				<div className={headerCss.cabinet}>
