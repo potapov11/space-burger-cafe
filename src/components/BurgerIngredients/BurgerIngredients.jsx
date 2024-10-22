@@ -35,11 +35,11 @@ const BurgerIngredients = () => {
 					<h3 className="text text_type_main-medium" style={{ marginBottom: '25px' }}>
 						Булки
 					</h3>
-					<div className={ingredientCss.productsBox}>
+					<ul className={ingredientCss.productsBox}>
 						{rollsArray.map((item, i) => {
 							return <Ingredient key={item.id} {...item} />;
 						})}
-					</div>
+					</ul>
 				</div>
 			</div>
 		</section>

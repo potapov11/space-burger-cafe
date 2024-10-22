@@ -1,3 +1,14 @@
 .ingredient {
+	position: relative;
 	max-width: 277px;
+	list-style: none;
+}
+
+.ingredientCounter {
+}
+
+.textBox p {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
 }
