@@ -6,10 +6,3 @@
 .title {
 	margin-bottom: 20px;
 }
-
-.productsBox {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 20px;
-	padding: 0 16px;
-}
