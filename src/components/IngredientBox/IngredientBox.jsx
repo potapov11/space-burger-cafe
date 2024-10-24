@@ -1,9 +1,9 @@
 import IngredientBoxCss from './Ingredient.module.css';
 import Ingredient from '../Ingredient/Ingredient';
 
-const IngredientBox = ({ margin, data, title }) => {
+const IngredientBox = ({ margin, marginTop, data, title }) => {
 	return (
-		<div className="ingredientBox" style={margin}>
+		<div className="ingredientBox" style={(margin, marginTop)}>
 			<h3 className="text text_type_main-medium" style={{ marginBottom: '25px' }}>
 				{title}
 			</h3>

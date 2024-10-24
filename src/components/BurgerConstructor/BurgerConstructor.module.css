@@ -1,11 +1,7 @@
-.ingredients {
-	width: 50%;
-}
-
-.products {
+.constructorList {
 	margin: 0;
 	padding: 0;
-	height: 700px;
+	height: 574px;
 	list-style: none;
 	overflow: hidden;
 	overflow-y: scroll;
@@ -13,6 +9,9 @@
 	scrollbar-width: thin;
 }
 
-.title {
-	margin-bottom: 20px;
+.constructorListItem {
+	display: flex;
+	align-items: center;
+	margin-right: 8px;
+	gap: 8px;
 }
