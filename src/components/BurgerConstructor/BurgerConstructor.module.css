@@ -17,12 +17,12 @@
 }
 
 .mr10 {
-	margin-right: 10px;
+	margin-right: 14px;
 }
 
 .productsWrapper {
-	display: 'flex';
-	flex-direction: 'column';
-	margin-top: '80px';
-	align-items: 'end';
+	display: flex;
+	flex-direction: column;
+	margin-top: 80px;
+	align-items: end;
 }

@@ -40,7 +40,7 @@ const BurgerIngredients = (props) => {
 	return (
 		<section className={ingredientCss.ingredients}>
 			<h2 className={`${ingredientCss.title} text text_type_main-large`}>Соберите бургер</h2>
-			<div style={ingredientCss.tabWrapper}>
+			<div className={ingredientCss.tabWrapper}>
 				<Tab value="one" active={current === 'one'} onClick={setCurrent}>
 					One
 				</Tab>

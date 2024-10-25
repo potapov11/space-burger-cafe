@@ -33,7 +33,7 @@ const BurgerMainIngredients = ({ openModal }) => {
 		<section>
 			<div className="products">
 				<div className={BurgerConstructorCss.productsWrapper}>
-					<ConstructorElement extraClass={BurgerConstructorCss.mr10} type="top" isLocked={true} text="Краторная булка N-200i (верх)" price={200} thumbnail={bun} />
+					<ConstructorElement extraClass={`${BurgerConstructorCss.mr14} mb-4`} type="top" isLocked={true} text="Краторная булка N-200i (верх)" price={200} thumbnail={bun} />
 					<ul className={`${BurgerConstructorCss.constructorList} mt-4`}>
 						{mainArray.map((item) => {
 							return (
@@ -44,7 +44,7 @@ const BurgerMainIngredients = ({ openModal }) => {
 							);
 						})}
 					</ul>
-					<ConstructorElement extraClass={BurgerConstructorCss.mr10} type="bottom" isLocked={true} text="Краторная булка N-200i (низ)" price={200} thumbnail={bun} />
+					<ConstructorElement extraClass={BurgerConstructorCss.mr14} type="bottom" isLocked={true} text="Краторная булка N-200i (низ)" price={200} thumbnail={bun} />
 				</div>
 			</div>
 			<TotalPrice openModal={openModal} />
