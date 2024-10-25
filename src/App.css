@@ -3,3 +3,34 @@
 	width: 100%;
 	margin: 0 auto;
 }
+
+/*Modal*/
+.modal-image-box {
+	display: flex;
+	justify-content: center;
+}
+
+.modal-name {
+	text-align: center;
+}
+
+.modal-energy-info {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	margin-top: 32px;
+	gap: 20px;
+}
+
+.modal-info {
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+.modal-energy-subtext {
+	margin-top: 10px;
+}
+
+body.overlay-modal {
+	overflow: hidden;
+}

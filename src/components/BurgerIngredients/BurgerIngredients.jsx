@@ -4,7 +4,7 @@ import ingredientCss from './BurgerIngredients.module.css';
 import IngredientBox from '../IngredientBox/IngredientBox';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const BurgerIngredients = () => {
+const BurgerIngredients = (props) => {
 	const [current, setCurrent] = React.useState('one');
 	const [dataServer, setDataServer] = React.useState([]);
 	const [rollsArray, setRollsArray] = React.useState([]);
@@ -49,8 +49,8 @@ const BurgerIngredients = () => {
 			</div>
 			<div className={ingredientCss.products}>
 				<div className="rolls">
-					<IngredientBox margin={mb40} marginTop={mt40} data={rollsArray} title="Булки" />
-					<IngredientBox data={sauceArray} title="Соусы" />
+					<IngredientBox margin={mb40} marginTop={mt40} data={rollsArray} title="Булки" {...props} />
+					<IngredientBox data={sauceArray} title="Соусы" {...props} />
 				</div>
 			</div>
 		</section>
