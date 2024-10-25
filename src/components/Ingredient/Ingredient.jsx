@@ -1,13 +1,9 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import IngredientCss from './Ingredient.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const Ingredient = (props) => {
-	const { image, name, price, isModalOpen, openModal, closeModal } = props;
-
-	console.log(props, '...props.Ingredient..');
-
-	// console.log(props);
+	const { image, name, price, openModal } = props;
 
 	return (
 		<>
@@ -18,14 +14,21 @@ const Ingredient = (props) => {
 				</div>
 				<div className={IngredientCss.textBox}>
 					<p>
-						<span className="text text_type_digits-default">{price}</span>
+						<span className="text text_type_digits-default mb-1">{price}</span>
 						<CurrencyIcon type="primary" />
 					</p>
 				</div>
-				<p className="text text_type_main-default">{name}</p>
+				<p className={`text text_type_main-default ${IngredientCss.bottomText}`}>{name}</p>
 			</li>
 		</>
 	);
+};
+
+Ingredient.propTypes = {
+	image: PropTypes.string,
+	name: PropTypes.string,
+	price: PropTypes.number,
+	openModal: PropTypes.func,
 };
 
 export default Ingredient;

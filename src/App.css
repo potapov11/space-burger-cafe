@@ -1,3 +1,7 @@
+* {
+	box-sizing: border-box;
+}
+
 .container {
 	max-width: 1240px;
 	width: 100%;
@@ -29,8 +33,14 @@
 
 .modal-energy-subtext {
 	margin-top: 10px;
+	text-align: center;
 }
 
 body.overlay-modal {
 	overflow: hidden;
+}
+
+img {
+	width: 100%;
+	height: auto;
 }

@@ -1,20 +1,26 @@
-import Modal from '../Modal/Modal';
-import IngredientBoxCss from './Ingredient.module.css';
+import PropTypes from 'prop-types';
+import IngredientBoxCss from './IngredientBoxCss.module.css';
 import Ingredient from '../Ingredient/Ingredient';
 
-const IngredientBox = ({ margin, marginTop, data, title, isModalOpen, openModal, closeModal }) => {
+const IngredientBox = ({ data, title, isModalOpen, openModal, closeModal }) => {
 	return (
-		<div className="ingredientBox" style={(margin, marginTop)}>
-			<h3 className="text text_type_main-medium" style={{ marginBottom: '25px' }}>
-				{title}
-			</h3>
+		<div className={IngredientBoxCss.ingredientBox}>
+			<h3 className="text text_type_main-medium mb-6">{title}</h3>
 			<ul className={IngredientBoxCss.productsBox}>
-				{data.map((item, i) => {
+				{data.map((item) => {
 					return <Ingredient key={item.id} {...item} isModalOpen={isModalOpen} openModal={openModal} closeModal={closeModal} />;
 				})}
 			</ul>
 		</div>
 	);
+};
+
+IngredientBox.propTypes = {
+	data: PropTypes.array,
+	title: PropTypes.string,
+	isModalOpen: PropTypes.bool,
+	openModal: PropTypes.func,
+	closeModal: PropTypes.func,
 };
 
 export default IngredientBox;

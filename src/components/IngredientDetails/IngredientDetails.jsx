@@ -1,7 +1,7 @@
+import PropTypes from 'prop-types';
+
 const IngredientDetails = (props) => {
 	const { selectedIngredient } = props;
-
-	console.log(selectedIngredient, '...selectedIngredient..in ingredientDetails');
 
 	return (
 		<div className="modal-info">
@@ -29,6 +29,10 @@ const IngredientDetails = (props) => {
 			</div>
 		</div>
 	);
+};
+
+IngredientDetails.propTypes = {
+	selectedIngredient: PropTypes.object,
 };
 
 export default IngredientDetails;

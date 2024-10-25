@@ -1,21 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TotalPrice from '../TotalPrice/TotalPrice';
 import { serverURL } from '../../utils/vars';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorCss from './BurgerConstructor.module.css';
 import bun from '../../images/ingredientImgs/bun.png';
 
-const BurgerMainIngredients = () => {
+const BurgerMainIngredients = ({ openModal }) => {
 	const [dataServer, setDataServer] = React.useState([]);
 	const [mainArray, setMainArray] = React.useState([]);
-
-	const mb16 = {
-		marginBottom: '16px',
-	};
-
-	const mt16 = {
-		marginTop: '16px',
-	};
 
 	React.useEffect(() => {
 		const fetchServerData = async () => {
@@ -39,12 +32,12 @@ const BurgerMainIngredients = () => {
 	return (
 		<section>
 			<div className="products">
-				<div style={{ display: 'flex', flexDirection: 'column', marginTop: '80px', alignItems: 'end' }}>
+				<div className={BurgerConstructorCss.productsWrapper}>
 					<ConstructorElement extraClass={BurgerConstructorCss.mr10} type="top" isLocked={true} text="Краторная булка N-200i (верх)" price={200} thumbnail={bun} />
-					<ul className={BurgerConstructorCss.constructorList} style={mt16}>
+					<ul className={`${BurgerConstructorCss.constructorList} mt-4`}>
 						{mainArray.map((item) => {
 							return (
-								<li className={BurgerConstructorCss.constructorListItem} key={item.id} style={mb16}>
+								<li className={`${BurgerConstructorCss.constructorListItem} mb-4`} key={item.id}>
 									<DragIcon type="primary" />
 									<ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
 								</li>
@@ -54,9 +47,13 @@ const BurgerMainIngredients = () => {
 					<ConstructorElement extraClass={BurgerConstructorCss.mr10} type="bottom" isLocked={true} text="Краторная булка N-200i (низ)" price={200} thumbnail={bun} />
 				</div>
 			</div>
-			<TotalPrice />
+			<TotalPrice openModal={openModal} />
 		</section>
 	);
+};
+
+BurgerMainIngredients.propTypes = {
+	openModal: PropTypes.func,
 };
 
 export default BurgerMainIngredients;

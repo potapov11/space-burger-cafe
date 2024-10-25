@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { serverURL, mb40, mt40 } from '../../utils/vars';
 import ingredientCss from './BurgerIngredients.module.css';
 import IngredientBox from '../IngredientBox/IngredientBox';
@@ -39,7 +40,7 @@ const BurgerIngredients = (props) => {
 	return (
 		<section className={ingredientCss.ingredients}>
 			<h2 className={`${ingredientCss.title} text text_type_main-large`}>Соберите бургер</h2>
-			<div style={{ display: 'flex', mb40 }}>
+			<div style={ingredientCss.tabWrapper}>
 				<Tab value="one" active={current === 'one'} onClick={setCurrent}>
 					One
 				</Tab>
@@ -52,13 +53,20 @@ const BurgerIngredients = (props) => {
 			</div>
 			<div className={ingredientCss.products}>
 				<div className="rolls">
-					<IngredientBox margin={mb40} marginTop={mt40} data={rollsArray} title="Булки" {...props} />
-					<IngredientBox marginTop={mt40} data={sauceArray} title="Соусы" {...props} />
-					<IngredientBox marginTop={mt40} data={mainArray} title="Начинки" {...props} />
+					<IngredientBox data={rollsArray} title="Булки" {...props} />
+					<IngredientBox data={sauceArray} title="Соусы" {...props} />
+					<IngredientBox data={mainArray} title="Начинки" {...props} />
 				</div>
 			</div>
 		</section>
 	);
+};
+
+BurgerIngredients.propTypes = {
+	isModalOpen: PropTypes.bool,
+	openModal: PropTypes.func,
+	closeModal: PropTypes.func,
+	selectedIngredient: PropTypes.object,
 };
 
 export default BurgerIngredients;

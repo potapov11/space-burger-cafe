@@ -5,11 +5,13 @@
 	list-style: none;
 }
 
-.ingredientCounter {
-}
-
 .textBox p {
 	display: flex;
 	justify-content: center;
 	gap: 10px;
+	text-align: center;
+}
+
+.bottomText {
+	text-align: center;
 }

@@ -19,3 +19,10 @@
 .mr10 {
 	margin-right: 10px;
 }
+
+.productsWrapper {
+	display: 'flex';
+	flex-direction: 'column';
+	margin-top: '80px';
+	align-items: 'end';
+}

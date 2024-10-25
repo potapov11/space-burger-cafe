@@ -4,12 +4,20 @@ import Modal from '../Modal/Modal';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import OrderDetail from '../OrderDetails/OrderDetail';
 
 const MainBox = () => {
 	const [isModalOpen, setModalOpen] = React.useState(false);
+	const [isModalOrderOpen, setModalOrderOpen] = React.useState(false);
 	const [selectedIngredient, setSelectedIngredient] = React.useState(null);
 
+	const openOrderModal = () => {
+		setModalOrderOpen(true);
+	};
+
 	const openModal = (detail) => {
+		console.log('openModal');
+
 		const documentWidth = parseInt(document.documentElement.clientWidth);
 		const windowWidth = parseInt(window.innerWidth);
 		const scrollbarWidth = windowWidth - documentWidth;
@@ -24,12 +32,14 @@ const MainBox = () => {
 	const closeModal = () => {
 		document.body.classList.remove('overlay-modal');
 		document.body.style.marginRight = '';
+		setModalOrderOpen(false);
 		setModalOpen(false);
 	};
 
 	React.useEffect(() => {
 		const close = (e) => {
-			if (e.keyCode === 27) {
+			if (e.keyCode == 27) {
+				setModalOrderOpen(false);
 				setModalOpen(false);
 			}
 		};
@@ -41,7 +51,7 @@ const MainBox = () => {
 		<main className={MainBoxCss.main}>
 			<div className={`${MainBoxCss.container} container`}>
 				<BurgerIngredients isModalOpen={isModalOpen} openModal={openModal} closeModal={closeModal} selectedIngredient={selectedIngredient} />
-				<BurgerConstructor />
+				<BurgerConstructor openModal={openOrderModal} />
 			</div>
 			{selectedIngredient && (
 				<Modal isModalOpen={isModalOpen} onClose={closeModal}>
@@ -49,35 +59,10 @@ const MainBox = () => {
 					<IngredientDetails selectedIngredient={selectedIngredient} />
 				</Modal>
 			)}
-			{selectedIngredient && (
-				<Modal isModalOpen={isModalOpen} onClose={closeModal}>
-					<p className="text text_type_main-medium">Детали ингредиента</p>
-					<div className="modal-info">
-						<div className="modal-image-box">
-							<img src={selectedIngredient.image_large} alt={selectedIngredient.name} />
-						</div>
-						<p className="text text_type_main-medium modal-name">{selectedIngredient.name}</p>
-						<div className="modal-energy-info">
-							<div className="modal-energy-inner">
-								<p className="modal-energy-text text text_type_main-default text_color_inactive">Калории,ккал</p>
-								<p className="modal-energy-subtext text text_type_digits-default text_color_inactive mt-2">{selectedIngredient.calories}</p>
-							</div>
-							<div className="modal-energy-inner">
-								<p className="modal-energy-text text text_type_main-default text_color_inactive">Белки, г</p>
-								<p className="modal-energy-subtext text text_type_digits-default text_color_inactive mt-2">{selectedIngredient.proteins}</p>
-							</div>
-							<div className="modal-energy-inner">
-								<p className="modal-energy-text text text_type_main-default text_color_inactive">Жиры, г</p>
-								<p className="modal-energy-subtext text text_type_digits-default text_color_inactive mt-2">{selectedIngredient.fat}</p>
-							</div>
-							<div className="modal-energy-inner">
-								<p className="modal-energy-text text text_type_main-default text_color_inactive">Углеводы, г</p>
-								<p className="modal-energy-subtext text text_type_digits-default text_color_inactive mt-2">{selectedIngredient.carbohydrates}</p>
-							</div>
-						</div>
-					</div>
-				</Modal>
-			)}
+
+			<Modal isModalOpen={isModalOrderOpen} onClose={closeModal}>
+				<OrderDetail />
+			</Modal>
 		</main>
 	);
 };
