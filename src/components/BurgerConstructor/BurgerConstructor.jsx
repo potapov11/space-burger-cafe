@@ -39,8 +39,8 @@ const BurgerMainIngredients = () => {
 	return (
 		<section>
 			<div className="products">
-				<div style={{ display: 'flex', flexDirection: 'column', marginTop: '80px' }}>
-					<ConstructorElement type="top" isLocked={true} text="Краторная булка N-200i (верх)" price={200} thumbnail={bun} />
+				<div style={{ display: 'flex', flexDirection: 'column', marginTop: '80px', alignItems: 'end' }}>
+					<ConstructorElement extraClass={BurgerConstructorCss.mr10} type="top" isLocked={true} text="Краторная булка N-200i (верх)" price={200} thumbnail={bun} />
 					<ul className={BurgerConstructorCss.constructorList} style={mt16}>
 						{mainArray.map((item) => {
 							return (
@@ -51,7 +51,7 @@ const BurgerMainIngredients = () => {
 							);
 						})}
 					</ul>
-					<ConstructorElement type="bottom" isLocked={true} text="Краторная булка N-200i (низ)" price={200} thumbnail={bun} />
+					<ConstructorElement extraClass={BurgerConstructorCss.mr10} type="bottom" isLocked={true} text="Краторная булка N-200i (низ)" price={200} thumbnail={bun} />
 				</div>
 			</div>
 			<TotalPrice />

@@ -3,6 +3,7 @@ import MainBoxCss from './MainBox.module.css';
 import Modal from '../Modal/Modal';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
+import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 const MainBox = () => {
 	const [isModalOpen, setModalOpen] = React.useState(false);
@@ -21,15 +22,20 @@ const MainBox = () => {
 	};
 
 	const closeModal = () => {
-		console.log('closeModal');
 		document.body.classList.remove('overlay-modal');
 		document.body.style.marginRight = '';
 		setModalOpen(false);
 	};
 
 	React.useEffect(() => {
-		console.log(selectedIngredient, '...selectedIngredient.......');
-	}, [selectedIngredient]);
+		const close = (e) => {
+			if (e.keyCode === 27) {
+				setModalOpen(false);
+			}
+		};
+		window.addEventListener('keydown', close);
+		return () => window.removeEventListener('keydown', close);
+	}, []);
 
 	return (
 		<main className={MainBoxCss.main}>
@@ -37,6 +43,12 @@ const MainBox = () => {
 				<BurgerIngredients isModalOpen={isModalOpen} openModal={openModal} closeModal={closeModal} selectedIngredient={selectedIngredient} />
 				<BurgerConstructor />
 			</div>
+			{selectedIngredient && (
+				<Modal isModalOpen={isModalOpen} onClose={closeModal}>
+					<p className="text text_type_main-medium">Детали ингредиента</p>
+					<IngredientDetails selectedIngredient={selectedIngredient} />
+				</Modal>
+			)}
 			{selectedIngredient && (
 				<Modal isModalOpen={isModalOpen} onClose={closeModal}>
 					<p className="text text_type_main-medium">Детали ингредиента</p>

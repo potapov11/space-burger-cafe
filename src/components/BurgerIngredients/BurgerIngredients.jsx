@@ -9,6 +9,7 @@ const BurgerIngredients = (props) => {
 	const [dataServer, setDataServer] = React.useState([]);
 	const [rollsArray, setRollsArray] = React.useState([]);
 	const [sauceArray, setSauceArray] = React.useState([]);
+	const [mainArray, setMainArray] = React.useState([]);
 
 	React.useEffect(() => {
 		const fetchServerData = async () => {
@@ -21,9 +22,11 @@ const BurgerIngredients = (props) => {
 
 					const rollsArray = res.data.filter((item) => item.type === 'bun');
 					const sauceArray = res.data.filter((item) => item.type === 'sauce');
+					const mainArray = res.data.filter((item) => item.type === 'main');
 
 					setRollsArray(rollsArray);
 					setSauceArray(sauceArray);
+					setMainArray(mainArray);
 				}
 			} catch (error) {
 				console.log(error);
@@ -50,7 +53,8 @@ const BurgerIngredients = (props) => {
 			<div className={ingredientCss.products}>
 				<div className="rolls">
 					<IngredientBox margin={mb40} marginTop={mt40} data={rollsArray} title="Булки" {...props} />
-					<IngredientBox data={sauceArray} title="Соусы" {...props} />
+					<IngredientBox marginTop={mt40} data={sauceArray} title="Соусы" {...props} />
+					<IngredientBox marginTop={mt40} data={mainArray} title="Начинки" {...props} />
 				</div>
 			</div>
 		</section>
