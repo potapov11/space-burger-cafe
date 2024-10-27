@@ -3,8 +3,6 @@ import IngredientBoxCss from './IngredientBoxCss.module.css';
 import Ingredient from '../Ingredient/Ingredient';
 
 const IngredientBox = ({ data, title, isModalOpen, openModal, closeModal }) => {
-	console.log(data, '...IngredientBox...');
-
 	return (
 		<div className={IngredientBoxCss.ingredientBox}>
 			<h3 className="text text_type_main-medium mb-6">{title}</h3>
@@ -12,7 +10,7 @@ const IngredientBox = ({ data, title, isModalOpen, openModal, closeModal }) => {
 				{data &&
 					data.length > 0 &&
 					data.map((item) => {
-						return <Ingredient key={item.id} {...item} isModalOpen={isModalOpen} openModal={openModal} closeModal={closeModal} />;
+						return <Ingredient key={item._id} {...item} isModalOpen={isModalOpen} openModal={openModal} closeModal={closeModal} />;
 					})}
 			</ul>
 		</div>
@@ -20,7 +18,22 @@ const IngredientBox = ({ data, title, isModalOpen, openModal, closeModal }) => {
 };
 
 IngredientBox.propTypes = {
-	data: PropTypes.array,
+	data: PropTypes.arrayOf(
+		PropTypes.shape({
+			_id: PropTypes.string,
+			name: PropTypes.string,
+			type: PropTypes.string,
+			proteins: PropTypes.number,
+			fat: PropTypes.number,
+			carbohydrates: PropTypes.number,
+			calories: PropTypes.number,
+			price: PropTypes.number,
+			image: PropTypes.string,
+			image_mobile: PropTypes.string,
+			image_large: PropTypes.string,
+			__v: PropTypes.number,
+		}),
+	),
 	title: PropTypes.string,
 	isModalOpen: PropTypes.bool,
 	openModal: PropTypes.func,

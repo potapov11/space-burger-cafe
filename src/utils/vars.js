@@ -1,5 +1,5 @@
 const serverURL = 'https://norma.nomoreparties.space/api/ingredients';
-const keyButton = 27;
+const keyButton = 'Escape';
 
 const mb40 = {
 	marginBottom: '40px',

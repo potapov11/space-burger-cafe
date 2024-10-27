@@ -1,7 +1,6 @@
 import React from 'react';
 import MainBoxCss from './MainBox.module.css';
 import Modal from '../Modal/Modal';
-import { keyButton } from '../../utils/vars';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
@@ -17,12 +16,7 @@ const MainBox = () => {
 	};
 
 	const openModal = (detail) => {
-		const documentWidth = parseInt(document.documentElement.clientWidth);
-		const windowWidth = parseInt(window.innerWidth);
-		const scrollbarWidth = windowWidth - documentWidth;
-
 		document.body.classList.add('overlay-modal');
-		document.body.style.marginRight = `${scrollbarWidth}px`;
 
 		setSelectedIngredient(detail);
 		setModalOpen(true);
@@ -30,21 +24,10 @@ const MainBox = () => {
 
 	const closeModal = () => {
 		document.body.classList.remove('overlay-modal');
-		document.body.style.marginRight = '';
+
 		setModalOrderOpen(false);
 		setModalOpen(false);
 	};
-
-	React.useEffect(() => {
-		const close = (e) => {
-			if (e.keyCode == keyButton) {
-				setModalOrderOpen(false);
-				setModalOpen(false);
-			}
-		};
-		window.addEventListener('keydown', close);
-		return () => window.removeEventListener('keydown', close);
-	}, []);
 
 	return (
 		<main className={MainBoxCss.main}>
@@ -53,7 +36,7 @@ const MainBox = () => {
 				<BurgerConstructor openModal={openOrderModal} />
 			</div>
 			{selectedIngredient && (
-				<Modal isModalOpen={isModalOpen} onClose={closeModal}>
+				<Modal isModalOpen={isModalOpen} onClose={closeModal} setModalOrderOpen={setModalOrderOpen} setModalOpen={setModalOpen}>
 					<p className="text text_type_main-medium">Детали ингредиента</p>
 					<IngredientDetails selectedIngredient={selectedIngredient} />
 				</Modal>

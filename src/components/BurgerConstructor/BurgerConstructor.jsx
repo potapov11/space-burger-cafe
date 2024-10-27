@@ -7,22 +7,24 @@ import BurgerConstructorCss from './BurgerConstructor.module.css';
 import bun from '../../images/ingredientImgs/bun.png';
 
 const BurgerMainIngredients = ({ openModal }) => {
-	const [dataServer, setDataServer] = React.useState(null);
 	const [mainArray, setMainArray] = React.useState(null);
 
 	React.useEffect(() => {
 		const fetchServerData = async () => {
 			try {
 				const serverData = await fetch(serverURL);
+				if (!serverData.ok) {
+					throw new Error(`Ошибка сетевого ответа ${serverData.status}`);
+				}
+
 				const res = await serverData.json();
 
 				if (res) {
-					setDataServer(res.data);
 					const mainArray = res.data.filter((item) => item.type === 'main');
 					setMainArray(mainArray);
 				}
 			} catch (error) {
-				console.log(error);
+				console.error(`Произошла ошибка ${error}`);
 			}
 		};
 
@@ -39,7 +41,7 @@ const BurgerMainIngredients = ({ openModal }) => {
 							mainArray.length > 0 &&
 							mainArray.map((item) => {
 								return (
-									<li className={`${BurgerConstructorCss.constructorListItem} mb-4`} key={item.id}>
+									<li className={`${BurgerConstructorCss.constructorListItem} mb-4`} key={item._id}>
 										<DragIcon type="primary" />
 										<ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
 									</li>

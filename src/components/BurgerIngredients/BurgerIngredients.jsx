@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { serverURL, mb40, mt40 } from '../../utils/vars';
+import { serverURL } from '../../utils/vars';
 import ingredientCss from './BurgerIngredients.module.css';
 import IngredientBox from '../IngredientBox/IngredientBox';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const BurgerIngredients = (props) => {
 	const [current, setCurrent] = React.useState('one');
-	const [dataServer, setDataServer] = React.useState(null);
 	const [rollsArray, setRollsArray] = React.useState(null);
 	const [sauceArray, setSauceArray] = React.useState(null);
 	const [mainArray, setMainArray] = React.useState(null);
@@ -16,11 +15,14 @@ const BurgerIngredients = (props) => {
 		const fetchServerData = async () => {
 			try {
 				const serverData = await fetch(serverURL);
+
+				if (!serverData.ok) {
+					throw new Error(`Ошибка сетевого ответа ${serverData.status}`);
+				}
+
 				const res = await serverData.json();
 
 				if (res) {
-					setDataServer(res.data);
-
 					const rollsArray = res.data.filter((item) => item.type === 'bun');
 					const sauceArray = res.data.filter((item) => item.type === 'sauce');
 					const mainArray = res.data.filter((item) => item.type === 'main');
@@ -30,7 +32,7 @@ const BurgerIngredients = (props) => {
 					setMainArray(mainArray);
 				}
 			} catch (error) {
-				console.log(error);
+				console.error(`Произошла ошибка ${error}`);
 			}
 		};
 
