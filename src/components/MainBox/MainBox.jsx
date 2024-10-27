@@ -1,6 +1,7 @@
 import React from 'react';
 import MainBoxCss from './MainBox.module.css';
 import Modal from '../Modal/Modal';
+import { keyButton } from '../../utils/vars';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
@@ -16,8 +17,6 @@ const MainBox = () => {
 	};
 
 	const openModal = (detail) => {
-		console.log('openModal');
-
 		const documentWidth = parseInt(document.documentElement.clientWidth);
 		const windowWidth = parseInt(window.innerWidth);
 		const scrollbarWidth = windowWidth - documentWidth;
@@ -38,7 +37,7 @@ const MainBox = () => {
 
 	React.useEffect(() => {
 		const close = (e) => {
-			if (e.keyCode == 27) {
+			if (e.keyCode == keyButton) {
 				setModalOrderOpen(false);
 				setModalOpen(false);
 			}

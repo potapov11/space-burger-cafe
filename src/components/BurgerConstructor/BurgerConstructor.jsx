@@ -7,8 +7,8 @@ import BurgerConstructorCss from './BurgerConstructor.module.css';
 import bun from '../../images/ingredientImgs/bun.png';
 
 const BurgerMainIngredients = ({ openModal }) => {
-	const [dataServer, setDataServer] = React.useState([]);
-	const [mainArray, setMainArray] = React.useState([]);
+	const [dataServer, setDataServer] = React.useState(null);
+	const [mainArray, setMainArray] = React.useState(null);
 
 	React.useEffect(() => {
 		const fetchServerData = async () => {
@@ -35,14 +35,16 @@ const BurgerMainIngredients = ({ openModal }) => {
 				<div className={BurgerConstructorCss.productsWrapper}>
 					<ConstructorElement extraClass={`${BurgerConstructorCss.mr14} mb-4`} type="top" isLocked={true} text="Краторная булка N-200i (верх)" price={200} thumbnail={bun} />
 					<ul className={`${BurgerConstructorCss.constructorList} mt-4`}>
-						{mainArray.map((item) => {
-							return (
-								<li className={`${BurgerConstructorCss.constructorListItem} mb-4`} key={item.id}>
-									<DragIcon type="primary" />
-									<ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
-								</li>
-							);
-						})}
+						{mainArray &&
+							mainArray.length > 0 &&
+							mainArray.map((item) => {
+								return (
+									<li className={`${BurgerConstructorCss.constructorListItem} mb-4`} key={item.id}>
+										<DragIcon type="primary" />
+										<ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
+									</li>
+								);
+							})}
 					</ul>
 					<ConstructorElement extraClass={BurgerConstructorCss.mr14} type="bottom" isLocked={true} text="Краторная булка N-200i (низ)" price={200} thumbnail={bun} />
 				</div>

@@ -7,10 +7,10 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const BurgerIngredients = (props) => {
 	const [current, setCurrent] = React.useState('one');
-	const [dataServer, setDataServer] = React.useState([]);
-	const [rollsArray, setRollsArray] = React.useState([]);
-	const [sauceArray, setSauceArray] = React.useState([]);
-	const [mainArray, setMainArray] = React.useState([]);
+	const [dataServer, setDataServer] = React.useState(null);
+	const [rollsArray, setRollsArray] = React.useState(null);
+	const [sauceArray, setSauceArray] = React.useState(null);
+	const [mainArray, setMainArray] = React.useState(null);
 
 	React.useEffect(() => {
 		const fetchServerData = async () => {
