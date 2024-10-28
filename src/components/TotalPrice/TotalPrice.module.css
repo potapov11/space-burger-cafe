@@ -1,0 +1,12 @@
+.totalInner {
+	display: flex;
+	justify-content: end;
+	align-items: center;
+}
+
+.priceBox {
+	display: flex;
+	justify-content: end;
+	align-items: center;
+	margin-right: 40px;
+}

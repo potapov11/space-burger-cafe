@@ -1,0 +1,28 @@
+.constructorList {
+	margin: 0;
+	padding: 0;
+	height: 574px;
+	list-style: none;
+	overflow: hidden;
+	overflow-y: scroll;
+	scrollbar-color: #2f2f37 #76769b;
+	scrollbar-width: thin;
+}
+
+.constructorListItem {
+	display: flex;
+	align-items: center;
+	margin-right: 8px;
+	gap: 8px;
+}
+
+.mr10 {
+	margin-right: 14px;
+}
+
+.productsWrapper {
+	display: flex;
+	flex-direction: column;
+	margin-top: 80px;
+	align-items: end;
+}

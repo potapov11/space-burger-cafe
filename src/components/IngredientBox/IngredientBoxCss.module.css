@@ -1,0 +1,11 @@
+.productsBox {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0;
+	gap: 20px;
+	padding: 0 16px;
+}
+
+.ingredientBox {
+	margin-top: 40px;
+}

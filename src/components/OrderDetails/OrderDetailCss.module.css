@@ -1,0 +1,25 @@
+p {
+	margin: 0;
+	padding: 0;
+}
+
+.done {
+	width: 120px;
+	height: 120px;
+	margin: 0 auto;
+	margin-top: 60px;
+	background-image: url('../../images/icons/done.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.orderDetail {
+	text-align: center;
+}
+
+.subInfo {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-top: 92px;
+}
