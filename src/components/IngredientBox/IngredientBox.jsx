@@ -3,12 +3,6 @@ import IngredientBoxCss from './IngredientBoxCss.module.css';
 import Ingredient from '../Ingredient/Ingredient';
 
 const IngredientBox = ({ data, title, isModalOpen, openModal, closeModal }) => {
-	// const dispatch = useDispatch();
-
-	// const addIngredientToConstructor = (item) => {
-	// 	dispatch(addIngredient(item));
-	// };
-
 	return (
 		<div className={IngredientBoxCss.ingredientBox}>
 			<h3 className="text text_type_main-medium mb-6">{title}</h3>

@@ -1,11 +1,22 @@
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import addIngredient from '../../services/actions/constructor-action';
 import IngredientCss from './Ingredient.module.css';
+import { useDrag } from 'react-dnd';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const Ingredient = (props) => {
-	const { image, name, price, openModal, item } = props;
+	const { image, name, price, openModal, item, _id } = props;
+
+	const [, dragRef] = useDrag({
+		type: 'animal',
+		item: { item },
+		collect: (monitor) => {
+			return {
+				isDrag: monitor.isDragging(),
+			};
+		},
+	});
 
 	const dispatch = useDispatch();
 
@@ -17,6 +28,7 @@ const Ingredient = (props) => {
 		<>
 			<li
 				className={IngredientCss.ingredient}
+				ref={dragRef}
 				onClick={() => {
 					openModal(props);
 					addIngredientToConstructor(item);
