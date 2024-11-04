@@ -1,7 +1,7 @@
 .constructorList {
 	margin: 0;
 	padding: 0;
-	height: 574px;
+	max-height: 574px;
 	list-style: none;
 	overflow: hidden;
 	overflow-y: scroll;

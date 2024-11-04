@@ -1,35 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TotalPrice from '../TotalPrice/TotalPrice';
-import { serverURL } from '../../utils/vars';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorCss from './BurgerConstructor.module.css';
+import { useSelector } from 'react-redux';
 import bun from '../../images/ingredientImgs/bun.png';
 
 const BurgerMainIngredients = ({ openModal }) => {
-	const [mainArray, setMainArray] = React.useState(null);
-
-	React.useEffect(() => {
-		const fetchServerData = async () => {
-			try {
-				const serverData = await fetch(serverURL);
-				if (!serverData.ok) {
-					throw new Error(`Ошибка сетевого ответа ${serverData.status}`);
-				}
-
-				const res = await serverData.json();
-
-				if (res) {
-					const mainArray = res.data.filter((item) => item.type === 'main');
-					setMainArray(mainArray);
-				}
-			} catch (error) {
-				console.error(`Произошла ошибка ${error}`);
-			}
-		};
-
-		fetchServerData();
-	}, []);
+	const dataConstructor = useSelector((store) => store.constructorReducer.ingredients);
 
 	return (
 		<section>
@@ -37,9 +15,8 @@ const BurgerMainIngredients = ({ openModal }) => {
 				<div className={BurgerConstructorCss.productsWrapper}>
 					<ConstructorElement extraClass={`${BurgerConstructorCss.mr14} mb-4`} type="top" isLocked={true} text="Краторная булка N-200i (верх)" price={200} thumbnail={bun} />
 					<ul className={`${BurgerConstructorCss.constructorList} mt-4`}>
-						{mainArray &&
-							mainArray.length > 0 &&
-							mainArray.map((item) => {
+						{dataConstructor?.length > 0 &&
+							dataConstructor.map((item) => {
 								return (
 									<li className={`${BurgerConstructorCss.constructorListItem} mb-4`} key={item._id}>
 										<DragIcon type="primary" />

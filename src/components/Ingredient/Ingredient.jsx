@@ -1,13 +1,26 @@
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import addIngredient from '../../services/actions/constructor-action';
 import IngredientCss from './Ingredient.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const Ingredient = (props) => {
-	const { image, name, price, openModal } = props;
+	const { image, name, price, openModal, item } = props;
+
+	const dispatch = useDispatch();
+
+	const addIngredientToConstructor = (item) => {
+		dispatch(addIngredient(item));
+	};
 
 	return (
 		<>
-			<li className={IngredientCss.ingredient} onClick={() => openModal(props)}>
+			<li
+				className={IngredientCss.ingredient}
+				onClick={() => {
+					openModal(props);
+					addIngredientToConstructor(item);
+				}}>
 				<Counter count={1} size="default" extraClass="m-1" />
 				<div className="imgBox">
 					<img src={image} alt={name} />

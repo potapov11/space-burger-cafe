@@ -1,3 +1,5 @@
+import { SET_ROLLS_ARRAY, SET_SAUCE_ARRAY, SET_MAIN_ARRAY } from '../../utils/vars';
+
 const initialState = {
 	rollsArray: [],
 	sauceArray: [],
@@ -6,11 +8,11 @@ const initialState = {
 
 const dataReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case 'SET_ROLLS_ARRAY':
+		case SET_ROLLS_ARRAY:
 			return { ...state, rollsArray: action.payload };
-		case 'SET_SAUCE_ARRAY':
+		case SET_SAUCE_ARRAY:
 			return { ...state, sauceArray: action.payload };
-		case 'SET_MAIN_ARRAY':
+		case SET_MAIN_ARRAY:
 			return { ...state, mainArray: action.payload };
 		default:
 			return state;

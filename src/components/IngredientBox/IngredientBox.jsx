@@ -3,14 +3,19 @@ import IngredientBoxCss from './IngredientBoxCss.module.css';
 import Ingredient from '../Ingredient/Ingredient';
 
 const IngredientBox = ({ data, title, isModalOpen, openModal, closeModal }) => {
+	// const dispatch = useDispatch();
+
+	// const addIngredientToConstructor = (item) => {
+	// 	dispatch(addIngredient(item));
+	// };
+
 	return (
 		<div className={IngredientBoxCss.ingredientBox}>
 			<h3 className="text text_type_main-medium mb-6">{title}</h3>
 			<ul className={IngredientBoxCss.productsBox}>
-				{data &&
-					data.length > 0 &&
+				{data?.length > 0 &&
 					data.map((item) => {
-						return <Ingredient key={item._id} {...item} isModalOpen={isModalOpen} openModal={openModal} closeModal={closeModal} />;
+						return <Ingredient key={item._id} item={item} {...item} isModalOpen={isModalOpen} openModal={openModal} closeModal={closeModal} />;
 					})}
 			</ul>
 		</div>
