@@ -1,43 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { serverURL } from '../../utils/vars';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchServerData } from '../../services/actions/data-action';
+
 import ingredientCss from './BurgerIngredients.module.css';
 import IngredientBox from '../IngredientBox/IngredientBox';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const BurgerIngredients = (props) => {
 	const [current, setCurrent] = React.useState('one');
-	const [rollsArray, setRollsArray] = React.useState(null);
-	const [sauceArray, setSauceArray] = React.useState(null);
-	const [mainArray, setMainArray] = React.useState(null);
+	const stateData = useSelector((state) => state.data);
+	const dispatch = useDispatch();
 
-	React.useEffect(() => {
-		const fetchServerData = async () => {
-			try {
-				const serverData = await fetch(serverURL);
-
-				if (!serverData.ok) {
-					throw new Error(`Ошибка сетевого ответа ${serverData.status}`);
-				}
-
-				const res = await serverData.json();
-
-				if (res) {
-					const rollsArray = res.data.filter((item) => item.type === 'bun');
-					const sauceArray = res.data.filter((item) => item.type === 'sauce');
-					const mainArray = res.data.filter((item) => item.type === 'main');
-
-					setRollsArray(rollsArray);
-					setSauceArray(sauceArray);
-					setMainArray(mainArray);
-				}
-			} catch (error) {
-				console.error(`Произошла ошибка ${error}`);
-			}
-		};
-
-		fetchServerData();
-	}, []);
+	useEffect(() => {
+		dispatch(fetchServerData());
+	}, [dispatch]);
 
 	return (
 		<section className={ingredientCss.ingredients}>
@@ -55,9 +32,9 @@ const BurgerIngredients = (props) => {
 			</div>
 			<div className={ingredientCss.products}>
 				<div className="rolls">
-					<IngredientBox data={rollsArray} title="Булки" {...props} />
-					<IngredientBox data={sauceArray} title="Соусы" {...props} />
-					<IngredientBox data={mainArray} title="Начинки" {...props} />
+					<IngredientBox data={stateData.rollsArray} title="Булки" {...props} />
+					<IngredientBox data={stateData.sauceArray} title="Соусы" {...props} />
+					<IngredientBox data={stateData.mainArray} title="Начинки" {...props} />
 				</div>
 			</div>
 		</section>
