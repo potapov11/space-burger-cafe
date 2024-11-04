@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 const IngredientDetails = (props) => {
 	const { selectedIngredient } = props;
 
+	console.log(selectedIngredient, '...selectedIngredient...');
+
 	return (
 		<div className="modal-info">
 			<div className="modal-image-box">
