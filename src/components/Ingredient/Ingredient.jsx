@@ -31,7 +31,6 @@ const Ingredient = (props) => {
 				ref={dragRef}
 				onClick={() => {
 					openModal(props);
-					addIngredientToConstructor(item);
 				}}>
 				<Counter count={1} size="default" extraClass="m-1" />
 				<div className="imgBox">

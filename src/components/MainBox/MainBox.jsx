@@ -29,11 +29,12 @@ const MainBox = () => {
 		document.body.classList.add('overlay-modal');
 		dispatch(addModalIngredient(detail));
 		setModalOpen(true);
+		console.log(dataConstructor, '...dataConstructor...');
 	};
 
 	const handleDrop = (item) => {
-		console.log(item, '...dropped item');
-		dispatch(addIngredient(item));
+		console.log(item.item, '...dropped item');
+		dispatch(addIngredient(item.item));
 		console.log(dataConstructor, '...after drop dataConstructor');
 	};
 
