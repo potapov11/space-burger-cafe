@@ -5,9 +5,10 @@ import { removeIngredient } from '../../services/actions/constructor-action';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorCss from './BurgerConstructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { useDrop } from 'react-dnd';
+import { useDrag, useDrop } from 'react-dnd';
 import { addBun } from '../../services/actions/constructor-action';
 import { BUN_ITEM } from '../../utils/vars';
+import DraggableIngredient from '../DraggableConstructorEl/DraggableConstructorEl';
 
 const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 	const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
@@ -19,11 +20,21 @@ const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 	}
 
 	const [, dropTarget] = useDrop({
-		accept: 'animal',
+		accept: 'ingr',
 		drop(item) {
 			handleDrop(item);
 		},
 	});
+
+	// const [, dragRef] = useDrag({
+	// 	type: 'ingr',
+	// 	item: { item },
+	// 	collect: (monitor) => {
+	// 		return {
+	// 			isDrag: monitor.isDragging(),
+	// 		};
+	// 	},
+	// });
 
 	const handleClose = (id, index) => {
 		console.log(id, index, 'handleClose');
@@ -52,10 +63,7 @@ const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 						{ingredients
 							.filter((item) => item.type !== 'bun')
 							.map((item, index) => (
-								<li className={`${BurgerConstructorCss.constructorListItem} mb-4`} key={item._id + Math.random()}>
-									<DragIcon type="primary" />
-									<ConstructorElement text={item.name} price={item.price} thumbnail={item.image} handleClose={() => handleClose(item._id, index)} />
-								</li>
+								<DraggableIngredient key={item._id} item={item} index={index} handleClose={handleClose} />
 							))}
 						{bottomBun}
 					</ul>
