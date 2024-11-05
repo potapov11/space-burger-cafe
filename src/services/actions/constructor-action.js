@@ -1,8 +1,13 @@
-import { ADD_INGREDIENT } from '../../utils/vars';
+import { ADD_INGREDIENT, REMOVE_INGREDIENT } from '../../utils/vars';
 
 const addIngredient = (ingredient) => ({
 	type: ADD_INGREDIENT,
 	payload: ingredient,
 });
 
-export default addIngredient;
+const removeIngredient = (arr) => ({
+	type: REMOVE_INGREDIENT,
+	payload: arr,
+});
+
+export { addIngredient, removeIngredient };

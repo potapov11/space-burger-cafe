@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import addIngredient from '../../services/actions/constructor-action';
+// import { useDispatch } from 'react-redux';
+// import { addIngredient } from '../../services/actions/constructor-action';
 import IngredientCss from './Ingredient.module.css';
 import { useDrag } from 'react-dnd';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -18,11 +18,11 @@ const Ingredient = (props) => {
 		},
 	});
 
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 
-	const addIngredientToConstructor = (item) => {
-		dispatch(addIngredient(item));
-	};
+	// const addIngredientToConstructor = (item) => {
+	// 	dispatch(addIngredient(item));
+	// };
 
 	return (
 		<>

@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TotalPrice from '../TotalPrice/TotalPrice';
+import { removeIngredient } from '../../services/actions/constructor-action';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorCss from './BurgerConstructor.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { BUN_ITEM } from '../../utils/vars';
 
 const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 	const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
+	const dispatch = useDispatch();
 	let { bunItems, ingredients } = dataConstructor;
 	const uniqId = React.useId();
 
@@ -23,14 +25,20 @@ const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 		},
 	});
 
+	const handleClose = (id, index) => {
+		console.log(id, index, 'handleClose');
+		console.log(dataConstructor, '...dataConstructor...');
+		dispatch(removeIngredient([id, index]));
+	};
+
 	const topBun = bunItems ? (
-		<li className={`${BurgerConstructorCss.constructorListItem} mb-4`} key={uniqId}>
+		<li className={`${BurgerConstructorCss.constructorListItem} mb-4`} key={`top-${bunItems._id}`}>
 			<ConstructorElement extraClass={`${BurgerConstructorCss.mr14} mb-4`} type="top" isLocked={true} text={`${bunItems.name} (верх)`} price={bunItems.price} thumbnail={bunItems.image} />
 		</li>
 	) : null;
 
 	const bottomBun = bunItems ? (
-		<li className={`${BurgerConstructorCss.constructorListItem} mb-4`} key={uniqId}>
+		<li className={`${BurgerConstructorCss.constructorListItem} mb-4`} key={`bottom-${bunItems._id}`}>
 			<ConstructorElement extraClass={`${BurgerConstructorCss.mr14} mb-4`} type="bottom" isLocked={true} text={`${bunItems.name} (низ)`} price={bunItems.price} thumbnail={bunItems.image} />
 		</li>
 	) : null;
@@ -46,9 +54,9 @@ const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 						{ingredients
 							.filter((item) => item.type !== 'bun')
 							.map((item, index) => (
-								<li className={`${BurgerConstructorCss.constructorListItem} mb-4`} key={item._id || index}>
+								<li className={`${BurgerConstructorCss.constructorListItem} mb-4`} key={item._id + Math.random()}>
 									<DragIcon type="primary" />
-									<ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
+									<ConstructorElement text={item.name} price={item.price} thumbnail={item.image} handleClose={() => handleClose(item._id, index)} />
 								</li>
 							))}
 						{bottomBun}

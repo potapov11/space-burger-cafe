@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT } from '../../utils/vars';
+import { ADD_INGREDIENT, REMOVE_INGREDIENT } from '../../utils/vars';
 
 const initialState = {
 	constructorElems: {
@@ -36,6 +36,23 @@ const constructorReducer = (state = initialState, action) => {
 					},
 				};
 			}
+		}
+		case REMOVE_INGREDIENT: {
+			const stateIngredients = state.constructorElems.ingredients;
+			const [id, index] = action.payload; // Получаем id и index из payload
+
+			// Фильтруем массив, исключая элемент с заданным id и index
+			const filteredArrIngredient = stateIngredients.filter(
+				(item, i) => !(i === index && item._id === id), // Сравниваем id и index
+			);
+
+			return {
+				...state,
+				constructorElems: {
+					...state.constructorElems,
+					ingredients: filteredArrIngredient, // Обновляем массив ингредиентов
+				},
+			};
 		}
 		default:
 			return state;

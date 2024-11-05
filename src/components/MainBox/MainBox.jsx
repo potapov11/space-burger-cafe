@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { addModalIngredient, clearModalIngredient } from '../../services/actions/modal-ingredient-action';
-import addIngredient from '../../services/actions/constructor-action';
+import { addIngredient } from '../../services/actions/constructor-action';
 import MainBoxCss from './MainBox.module.css';
 import Modal from '../Modal/Modal';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
