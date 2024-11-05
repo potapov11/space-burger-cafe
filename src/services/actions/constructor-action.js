@@ -15,4 +15,9 @@ const addBun = (item) => ({
 	payload: item,
 });
 
-export { addIngredient, removeIngredient, addBun };
+const moveIngredient = (fromIndex, toIndex) => ({
+	type: 'MOVE_INGREDIENT',
+	payload: { fromIndex, toIndex },
+});
+
+export { addIngredient, removeIngredient, addBun, moveIngredient };

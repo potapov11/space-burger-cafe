@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT, REMOVE_INGREDIENT, COUNT_TOTAL, ADD_BUN } from '../../utils/vars';
+import { ADD_INGREDIENT, REMOVE_INGREDIENT, COUNT_TOTAL, ADD_BUN, MOVE_INGREDIENT } from '../../utils/vars';
 
 const initialState = {
 	constructorElems: {
@@ -26,6 +26,22 @@ const constructorReducer = (state = initialState, action) => {
 				constructorElems: {
 					...state.constructorElems,
 					bunItems: action.payload,
+				},
+			};
+		}
+		case MOVE_INGREDIENT: {
+			const { fromIndex, toIndex } = newIngredient;
+
+			const updatedIngredients = [...stateIngredients];
+			const [movedIngredient] = updatedIngredients.splice(fromIndex, 1);
+			updatedIngredients.splice(toIndex, 0, movedIngredient);
+
+			return {
+				...state,
+				constructorElems: {
+					...state.constructorElems,
+					ingredients: updatedIngredients,
+					allPrice: calculateTotalPrice(updatedIngredients, stateBunItems),
 				},
 			};
 		}
