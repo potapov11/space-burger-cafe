@@ -1,56 +1,75 @@
-import { ADD_INGREDIENT, REMOVE_INGREDIENT } from '../../utils/vars';
+import { ADD_INGREDIENT, REMOVE_INGREDIENT, COUNT_TOTAL, ADD_BUN } from '../../utils/vars';
 
 const initialState = {
 	constructorElems: {
 		bunItems: null,
 		ingredients: [],
+		allPrice: 0, // Изначально цена равна 0
 	},
 };
 
 const constructorReducer = (state = initialState, action) => {
 	const newIngredient = action.payload;
-	console.log(newIngredient, '...newIngredient...');
+	const stateIngredients = state.constructorElems.ingredients;
+	const stateBunItems = state.constructorElems.bunItems;
+
+	const calculateTotalPrice = (ingredients, bun) => {
+		const bunPrice = bun ? bun.price : 0;
+		const ingredientsPrice = ingredients.reduce((total, item) => total + item.price, 0);
+		return bunPrice * 2 + ingredientsPrice;
+	};
 
 	switch (action.type) {
+		case ADD_BUN: {
+			return {
+				...state,
+				constructorElems: {
+					...state.constructorElems,
+					bunItems: action.payload,
+				},
+			};
+		}
 		case ADD_INGREDIENT: {
 			if (newIngredient.type === 'bun') {
-				console.log('bun');
-				console.log(initialState.constructorElems.bunItems, '...initialState.constructorElems.bunItems...');
-
-				// Если это булка, обновляем соответствующее поле в состоянии
 				return {
 					...state,
 					constructorElems: {
 						...state.constructorElems,
 						bunItems: newIngredient,
+						allPrice: calculateTotalPrice(stateIngredients, newIngredient), // Обновляем общую цену
 					},
 				};
 			} else {
-				console.log('no-bun');
-				// Если это не булка, добавляем его в массив ингредиентов
 				return {
 					...state,
 					constructorElems: {
 						...state.constructorElems,
-						ingredients: [...state.constructorElems.ingredients, newIngredient],
+						ingredients: [...stateIngredients, newIngredient],
+						allPrice: calculateTotalPrice([...stateIngredients, newIngredient], stateBunItems), // Обновляем общую цену
 					},
 				};
 			}
 		}
 		case REMOVE_INGREDIENT: {
-			const stateIngredients = state.constructorElems.ingredients;
-			const [id, index] = action.payload; // Получаем id и index из payload
+			const [id, index] = action.payload;
 
-			// Фильтруем массив, исключая элемент с заданным id и index
-			const filteredArrIngredient = stateIngredients.filter(
-				(item, i) => !(i === index && item._id === id), // Сравниваем id и index
-			);
+			const filteredArrIngredient = stateIngredients.filter((item, i) => !(i === index && item._id === id));
 
 			return {
 				...state,
 				constructorElems: {
 					...state.constructorElems,
-					ingredients: filteredArrIngredient, // Обновляем массив ингредиентов
+					ingredients: filteredArrIngredient,
+					allPrice: calculateTotalPrice(filteredArrIngredient, stateBunItems), // Обновляем общую цену
+				},
+			};
+		}
+		case COUNT_TOTAL: {
+			return {
+				...state,
+				constructorElems: {
+					...state.constructorElems,
+					allPrice: calculateTotalPrice(stateIngredients, stateBunItems), // Пересчитываем общую цену
 				},
 			};
 		}

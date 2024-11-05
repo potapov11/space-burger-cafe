@@ -6,16 +6,16 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import BurgerConstructorCss from './BurgerConstructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
+import { addBun } from '../../services/actions/constructor-action';
 import { BUN_ITEM } from '../../utils/vars';
 
 const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 	const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
 	const dispatch = useDispatch();
 	let { bunItems, ingredients } = dataConstructor;
-	const uniqId = React.useId();
 
 	if (!bunItems) {
-		bunItems = BUN_ITEM;
+		dispatch(addBun(BUN_ITEM));
 	}
 
 	const [, dropTarget] = useDrop({
@@ -42,8 +42,6 @@ const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 			<ConstructorElement extraClass={`${BurgerConstructorCss.mr14} mb-4`} type="bottom" isLocked={true} text={`${bunItems.name} (низ)`} price={bunItems.price} thumbnail={bunItems.image} />
 		</li>
 	) : null;
-
-	console.log(bunItems, ingredients, '...bunItems, ingredients...');
 
 	return (
 		<section>
