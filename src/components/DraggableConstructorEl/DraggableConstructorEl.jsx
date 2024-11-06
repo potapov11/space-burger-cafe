@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useId } from 'react';
 // import PropTypes from 'prop-types';
 // import TotalPrice from '../TotalPrice/TotalPrice';
 // import { removeIngredient } from '../../services/actions/constructor-action';
@@ -12,6 +12,9 @@ import { useDrag, useDrop } from 'react-dnd';
 
 const DraggableIngredient = ({ item, index, handleClose }) => {
 	const dispatch = useDispatch();
+	const idUniq = useId();
+	console.log(idUniq, '...idUniq...');
+
 	const [{ isDragging }, dragRef] = useDrag({
 		type: 'ingr',
 		item: { index }, // Передаем только index для перемещения
@@ -24,14 +27,15 @@ const DraggableIngredient = ({ item, index, handleClose }) => {
 		accept: 'ingr',
 		hover: (draggedItem) => {
 			if (draggedItem.index !== index) {
-				dispatch(moveIngredient(draggedItem.index, index));
-				draggedItem.index = index; // Обновляем индекс перетаскиваемого элемента
+				const newIndex = index;
+				dispatch(moveIngredient(draggedItem.index, newIndex));
+				draggedItem.index = newIndex;
 			}
 		},
 	});
 
 	return (
-		<li className={`${BurgerConstructorCss.constructorListItem} mb-4 ${isDragging ? BurgerConstructorCss.dragging : ''}`} ref={(node) => dragRef(dropRef(node))} key={item._id}>
+		<li className={`${BurgerConstructorCss.constructorListItem} mb-4 ${isDragging ? BurgerConstructorCss.dragging : ''}`} ref={(node) => dragRef(dropRef(node))} key={idUniq}>
 			<DragIcon type="primary" />
 			<ConstructorElement text={item.name} price={item.price} thumbnail={item.image} handleClose={() => handleClose(item._id, index)} />
 		</li>

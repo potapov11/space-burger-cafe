@@ -32,6 +32,11 @@ const constructorReducer = (state = initialState, action) => {
 		case MOVE_INGREDIENT: {
 			const { fromIndex, toIndex } = newIngredient;
 
+			// Проверка на одинаковые индексы
+			if (fromIndex === toIndex) {
+				return state; // Возвращаем текущее состояние, если индексы одинаковые
+			}
+
 			const updatedIngredients = [...stateIngredients];
 			const [movedIngredient] = updatedIngredients.splice(fromIndex, 1);
 			updatedIngredients.splice(toIndex, 0, movedIngredient);
@@ -45,6 +50,7 @@ const constructorReducer = (state = initialState, action) => {
 				},
 			};
 		}
+
 		case ADD_INGREDIENT: {
 			if (newIngredient.type === 'bun') {
 				return {

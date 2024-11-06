@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useId } from 'react';
 import PropTypes from 'prop-types';
 import TotalPrice from '../TotalPrice/TotalPrice';
 import { removeIngredient } from '../../services/actions/constructor-action';
@@ -13,6 +13,7 @@ import DraggableIngredient from '../DraggableConstructorEl/DraggableConstructorE
 const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 	const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
 	const dispatch = useDispatch();
+	const idUniq = useId();
 	let { bunItems, ingredients } = dataConstructor;
 
 	if (!bunItems) {
@@ -63,7 +64,7 @@ const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 						{ingredients
 							.filter((item) => item.type !== 'bun')
 							.map((item, index) => (
-								<DraggableIngredient key={item._id} item={item} index={index} handleClose={handleClose} />
+								<DraggableIngredient key={idUniq} item={item} index={index} handleClose={handleClose} />
 							))}
 						{bottomBun}
 					</ul>
