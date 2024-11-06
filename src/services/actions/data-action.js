@@ -1,4 +1,4 @@
-import { serverURL, SET_MAIN_ARRAY, SET_SAUCE_ARRAY, SET_ROLLS_ARRAY, ORDER_SUCCESS, ORDER_FAILURE } from '../../utils/vars';
+import { serverURL, SET_MAIN_ARRAY, serverOrderURL, SET_SAUCE_ARRAY, SET_ROLLS_ARRAY, ORDER_SUCCESS, ORDER_FAILURE } from '../../utils/vars';
 
 export const fetchServerData = () => {
 	return async (dispatch) => {
@@ -37,7 +37,7 @@ export const fetchServerData = () => {
 
 export const createOrder = (ingredients) => async (dispatch) => {
 	try {
-		const response = await fetch('https://norma.nomoreparties.space/api/orders', {
+		const response = await fetch(serverOrderURL, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

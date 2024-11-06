@@ -1,10 +1,10 @@
-import { ADD_INGREDIENT, REMOVE_INGREDIENT, COUNT_TOTAL, ADD_BUN, MOVE_INGREDIENT } from '../../utils/vars';
+import { ADD_INGREDIENT, REMOVE_INGREDIENT, COUNT_TOTAL, ADD_BUN, MOVE_INGREDIENT, INITIAL_PRICE } from '../../utils/vars';
 
 const initialState = {
 	constructorElems: {
 		bunItems: null,
 		ingredients: [],
-		allPrice: 0, // Изначально цена равна 0
+		allPrice: INITIAL_PRICE,
 	},
 };
 

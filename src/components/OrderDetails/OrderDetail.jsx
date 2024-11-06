@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import orderDetailCss from './OrderDetailCss.module.css';
 
 const OrderDetail = ({ orderDataNumber }) => {
+	console.log(orderDataNumber, '...in asdasdasd');
+
 	return (
 		<div className={orderDetailCss.orderDetail}>
 			<p className="text text_type_digits-large">{orderDataNumber}</p>

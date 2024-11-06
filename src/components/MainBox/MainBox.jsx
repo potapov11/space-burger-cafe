@@ -27,11 +27,14 @@ const MainBox = () => {
 		storeIngredients.push(storeBun);
 		const ingredientIds = storeIngredients.map((ingredient) => ingredient._id);
 		const orderData = await dispatch(createOrder(ingredientIds));
-		const orderDataNum = orderData.order.number;
 
-		dispatch(createOrder(ingredientIds));
-		setOrderData(orderDataNum);
-		setModalOrderOpen(true);
+		if (orderData && orderData.order) {
+			const orderDataNum = orderData.order.number;
+			setOrderData(orderDataNum);
+			setModalOrderOpen(true);
+		} else {
+			console.error('Ошибка при создании заказа:', orderData);
+		}
 	};
 
 	const openModal = (detail) => {
@@ -69,7 +72,7 @@ const MainBox = () => {
 			)}
 
 			<Modal isModalOpen={isModalOrderOpen} onClose={closeModal}>
-				<OrderDetail orderData={orderDataNumber} />
+				{orderDataNumber !== null && <OrderDetail orderDataNumber={orderDataNumber} />}
 			</Modal>
 		</main>
 	);
