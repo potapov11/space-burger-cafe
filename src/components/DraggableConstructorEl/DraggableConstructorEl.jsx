@@ -1,23 +1,18 @@
-import React, { useCallback, useId } from 'react';
-// import PropTypes from 'prop-types';
-// import TotalPrice from '../TotalPrice/TotalPrice';
-// import { removeIngredient } from '../../services/actions/constructor-action';
-// import { addBun } from '../../services/actions/constructor-action';
-// import { BUN_ITEM } from '../../utils/vars';
+import React, { useId } from 'react';
+import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorCss from '../BurgerConstructor/BurgerConstructor.module.css';
 import { moveIngredient } from '../../services/actions/constructor-action';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 
 const DraggableIngredient = ({ item, index, handleClose }) => {
 	const dispatch = useDispatch();
 	const idUniq = useId();
-	console.log(idUniq, '...idUniq...');
 
 	const [{ isDragging }, dragRef] = useDrag({
 		type: 'ingr',
-		item: { index }, // Передаем только index для перемещения
+		item: { index },
 		collect: (monitor) => ({
 			isDragging: monitor.isDragging(),
 		}),
@@ -42,38 +37,23 @@ const DraggableIngredient = ({ item, index, handleClose }) => {
 	);
 };
 
+DraggableIngredient.propTypes = {
+	item: PropTypes.shape({
+		_id: PropTypes.string.isRequired,
+		name: PropTypes.string.isRequired,
+		type: PropTypes.string.isRequired,
+		proteins: PropTypes.number,
+		fat: PropTypes.number,
+		carbohydrates: PropTypes.number,
+		calories: PropTypes.number,
+		price: PropTypes.number.isRequired,
+		image: PropTypes.string.isRequired,
+		image_mobile: PropTypes.string,
+		image_large: PropTypes.string,
+		__v: PropTypes.number,
+	}).isRequired,
+	index: PropTypes.number.isRequired,
+	handleClose: PropTypes.func.isRequired,
+};
+
 export default DraggableIngredient;
-
-// const BurgerConstructor = ({ ingredients, topBun, bottomBun, handleClose, openModal }) => {
-// 	const moveIngredient = useCallback(
-// 		(fromIndex, toIndex) => {
-// 			const updatedIngredients = [...ingredients];
-// 			const [movedIngredient] = updatedIngredients.splice(fromIndex, 1);
-// 			updatedIngredients.splice(toIndex, 0, movedIngredient);
-// 			// Здесь нужно обновить состояние ingredients, например, с помощью useState
-// 			// setIngredients(updatedIngredients);
-// 		},
-// 		[ingredients],
-// 	);
-
-// 	return (
-// 		<section>
-// 			<div className="products">
-// 				<div className={BurgerConstructorCss.productsWrapper}>
-// 					<ul className={`${BurgerConstructorCss.constructorList} mt-4`}>
-// 						{topBun}
-// 						{ingredients
-// 							.filter((item) => item.type !== 'bun')
-// 							.map((item, index) => (
-// 								<DraggableIngredient key={item._id} item={item} index={index} moveIngredient={moveIngredient} handleClose={handleClose} />
-// 							))}
-// 						{bottomBun}
-// 					</ul>
-// 				</div>
-// 			</div>
-// 			<TotalPrice openModal={openModal} />
-// 		</section>
-// 	);
-// };
-
-// export default BurgerConstructor;

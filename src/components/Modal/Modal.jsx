@@ -38,6 +38,8 @@ Modal.propTypes = {
 	isModalOpen: PropTypes.bool,
 	onClose: PropTypes.func,
 	children: PropTypes.node,
+	setModalOrderOpen: PropTypes.func,
+	setModalOpen: PropTypes.func,
 };
 
 export default Modal;

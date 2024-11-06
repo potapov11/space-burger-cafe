@@ -1,11 +1,11 @@
-import React, { useCallback, useId } from 'react';
+import React, { useId } from 'react';
 import PropTypes from 'prop-types';
 import TotalPrice from '../TotalPrice/TotalPrice';
 import { removeIngredient } from '../../services/actions/constructor-action';
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorCss from './BurgerConstructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { useDrag, useDrop } from 'react-dnd';
+import { useDrop } from 'react-dnd';
 import { addBun } from '../../services/actions/constructor-action';
 import { BUN_ITEM } from '../../utils/vars';
 import DraggableIngredient from '../DraggableConstructorEl/DraggableConstructorEl';
@@ -27,19 +27,7 @@ const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 		},
 	});
 
-	// const [, dragRef] = useDrag({
-	// 	type: 'ingr',
-	// 	item: { item },
-	// 	collect: (monitor) => {
-	// 		return {
-	// 			isDrag: monitor.isDragging(),
-	// 		};
-	// 	},
-	// });
-
 	const handleClose = (id, index) => {
-		console.log(id, index, 'handleClose');
-		console.log(dataConstructor, '...dataConstructor...');
 		dispatch(removeIngredient([id, index]));
 	};
 

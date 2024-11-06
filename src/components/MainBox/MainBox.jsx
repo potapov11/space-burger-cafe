@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { addModalIngredient, clearModalIngredient } from '../../services/actions/modal-ingredient-action';
+import { createOrder } from '../../services/actions/data-action';
 import { addIngredient } from '../../services/actions/constructor-action';
 import MainBoxCss from './MainBox.module.css';
 import Modal from '../Modal/Modal';
@@ -14,28 +15,33 @@ import OrderDetail from '../OrderDetails/OrderDetail';
 const MainBox = () => {
 	const [isModalOpen, setModalOpen] = React.useState(false);
 	const [isModalOrderOpen, setModalOrderOpen] = React.useState(false);
+	const [orderDataNumber, setOrderData] = React.useState(null);
 	const dispatch = useDispatch();
-	const dataConstructor = useSelector((store) => store.constructorReducer.ingredients);
+	const storeBun = useSelector((store) => store.constructorReducer.constructorElems.bunItems);
+	const storeIngredients = useSelector((store) => store.constructorReducer.constructorElems.ingredients);
 	const ingredientModal = useSelector((store) => store.modalIngredientReducer.ingredientsModal);
 	const [targetIngredient] = ingredientModal;
 
-	const openOrderModal = () => {
+	const openOrderModal = async () => {
+		storeIngredients.unshift(storeBun);
+		storeIngredients.push(storeBun);
+		const ingredientIds = storeIngredients.map((ingredient) => ingredient._id);
+		const orderData = await dispatch(createOrder(ingredientIds));
+		const orderDataNum = orderData.order.number;
+
+		dispatch(createOrder(ingredientIds));
+		setOrderData(orderDataNum);
 		setModalOrderOpen(true);
 	};
 
 	const openModal = (detail) => {
-		console.log(detail, '...deat openModal');
-
 		document.body.classList.add('overlay-modal');
 		dispatch(addModalIngredient(detail));
 		setModalOpen(true);
-		console.log(dataConstructor, '...dataConstructor...');
 	};
 
 	const handleDrop = (item) => {
-		console.log(item.item, '...dropped item');
 		dispatch(addIngredient(item.item));
-		console.log(dataConstructor, '...after drop dataConstructor');
 	};
 
 	const closeModal = () => {
@@ -63,7 +69,7 @@ const MainBox = () => {
 			)}
 
 			<Modal isModalOpen={isModalOrderOpen} onClose={closeModal}>
-				<OrderDetail />
+				<OrderDetail orderData={orderDataNumber} />
 			</Modal>
 		</main>
 	);
