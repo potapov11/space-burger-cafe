@@ -27,3 +27,12 @@
 	margin-top: 80px;
 	align-items: end;
 }
+
+.emptyBox {
+	height: 350px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 150px;
+	text-align: center;
+}

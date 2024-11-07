@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT, REMOVE_INGREDIENT, ADD_BUN } from '../../utils/vars';
+import { ADD_INGREDIENT, REMOVE_INGREDIENT } from '../../utils/vars';
 
 const addIngredient = (ingredient) => ({
 	type: ADD_INGREDIENT,
@@ -10,14 +10,9 @@ const removeIngredient = (arr) => ({
 	payload: arr,
 });
 
-const addBun = (item) => ({
-	type: ADD_BUN,
-	payload: item,
-});
-
 const moveIngredient = (fromIndex, toIndex) => ({
 	type: 'MOVE_INGREDIENT',
 	payload: { fromIndex, toIndex },
 });
 
-export { addIngredient, removeIngredient, addBun, moveIngredient };
+export { addIngredient, removeIngredient, moveIngredient };

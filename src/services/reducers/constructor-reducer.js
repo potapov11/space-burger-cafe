@@ -1,4 +1,5 @@
-import { ADD_INGREDIENT, REMOVE_INGREDIENT, COUNT_TOTAL, ADD_BUN, MOVE_INGREDIENT, INITIAL_PRICE } from '../../utils/vars';
+import { v4 as uuidv4 } from 'uuid';
+import { ADD_INGREDIENT, REMOVE_INGREDIENT, COUNT_TOTAL, MOVE_INGREDIENT, INITIAL_PRICE } from '../../utils/vars';
 
 const initialState = {
 	constructorElems: {
@@ -20,21 +21,11 @@ const constructorReducer = (state = initialState, action) => {
 	};
 
 	switch (action.type) {
-		case ADD_BUN: {
-			return {
-				...state,
-				constructorElems: {
-					...state.constructorElems,
-					bunItems: action.payload,
-				},
-			};
-		}
 		case MOVE_INGREDIENT: {
 			const { fromIndex, toIndex } = newIngredient;
 
-			// Проверка на одинаковые индексы
 			if (fromIndex === toIndex) {
-				return state; // Возвращаем текущее состояние, если индексы одинаковые
+				return state;
 			}
 
 			const updatedIngredients = [...stateIngredients];
@@ -52,13 +43,19 @@ const constructorReducer = (state = initialState, action) => {
 		}
 
 		case ADD_INGREDIENT: {
+			const uniqId1 = uuidv4();
+			const uniqId2 = uuidv4();
+
 			if (newIngredient.type === 'bun') {
 				return {
 					...state,
 					constructorElems: {
 						...state.constructorElems,
-						bunItems: newIngredient,
-						allPrice: calculateTotalPrice(stateIngredients, newIngredient), // Обновляем общую цену
+						bunItems: [
+							{ ...newIngredient, uniqueId: uniqId1 },
+							{ ...newIngredient, uniqueId: uniqId2 },
+						],
+						allPrice: calculateTotalPrice(stateIngredients, newIngredient),
 					},
 				};
 			} else {
@@ -66,12 +63,13 @@ const constructorReducer = (state = initialState, action) => {
 					...state,
 					constructorElems: {
 						...state.constructorElems,
-						ingredients: [...stateIngredients, newIngredient],
-						allPrice: calculateTotalPrice([...stateIngredients, newIngredient], stateBunItems), // Обновляем общую цену
+						ingredients: [...stateIngredients, { ...newIngredient, uniqueId: uuidv4() }],
+						allPrice: calculateTotalPrice([...stateIngredients, newIngredient], stateBunItems),
 					},
 				};
 			}
 		}
+
 		case REMOVE_INGREDIENT: {
 			const [id, index] = action.payload;
 
@@ -82,7 +80,7 @@ const constructorReducer = (state = initialState, action) => {
 				constructorElems: {
 					...state.constructorElems,
 					ingredients: filteredArrIngredient,
-					allPrice: calculateTotalPrice(filteredArrIngredient, stateBunItems), // Обновляем общую цену
+					allPrice: calculateTotalPrice(filteredArrIngredient, stateBunItems),
 				},
 			};
 		}
@@ -95,6 +93,7 @@ const constructorReducer = (state = initialState, action) => {
 				},
 			};
 		}
+
 		default:
 			return state;
 	}

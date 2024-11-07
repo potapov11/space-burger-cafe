@@ -8,7 +8,6 @@ import { useDrag, useDrop } from 'react-dnd';
 
 const DraggableIngredient = ({ item, index, handleClose }) => {
 	const dispatch = useDispatch();
-	const idUniq = useId();
 
 	const [{ isDragging }, dragRef] = useDrag({
 		type: 'ingr',
@@ -30,7 +29,7 @@ const DraggableIngredient = ({ item, index, handleClose }) => {
 	});
 
 	return (
-		<li className={`${BurgerConstructorCss.constructorListItem} mb-4 ${isDragging ? BurgerConstructorCss.dragging : ''}`} ref={(node) => dragRef(dropRef(node))} key={idUniq}>
+		<li className={`${BurgerConstructorCss.constructorListItem} mb-4 ${isDragging ? BurgerConstructorCss.dragging : ''}`} ref={(node) => dragRef(dropRef(node))} key={item.uniqueId}>
 			<DragIcon type="primary" />
 			<ConstructorElement text={item.name} price={item.price} thumbnail={item.image} handleClose={() => handleClose(item._id, index)} />
 		</li>
