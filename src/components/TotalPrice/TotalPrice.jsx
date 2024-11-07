@@ -5,15 +5,18 @@ import TotalPriceCss from './TotalPrice.module.css';
 
 const TotalPrice = ({ openModal }) => {
 	const allPrice = useSelector((store) => store.constructorReducer.constructorElems.allPrice);
+	const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
+	const { bunItems } = dataConstructor;
+	console.log(bunItems, 'bunitems');
 
 	return (
-		<div className="mt-10">
+		<div className={TotalPriceCss.wrapper}>
 			<div className={TotalPriceCss.totalInner}>
 				<div className={TotalPriceCss.priceBox}>
 					<p className="text text_type_digits-medium">{allPrice}</p>
 					<CurrencyIcon type="primary" />
 				</div>
-				<Button htmlType="button" type="primary" size="medium" onClick={openModal}>
+				<Button disabled={bunItems ? false : true} htmlType="button" type="primary" size="medium" onClick={openModal}>
 					Оформить заказ
 				</Button>
 			</div>

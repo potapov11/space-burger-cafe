@@ -1,11 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
-import { ADD_INGREDIENT, REMOVE_INGREDIENT, COUNT_TOTAL, MOVE_INGREDIENT, INITIAL_PRICE } from '../../utils/vars';
+import { ADD_INGREDIENT, REMOVE_INGREDIENT, COUNT_TOTAL, MOVE_INGREDIENT } from '../../utils/vars';
 
 const initialState = {
 	constructorElems: {
 		bunItems: null,
 		ingredients: [],
-		allPrice: INITIAL_PRICE,
+		allPrice: 0,
 	},
 };
 
@@ -15,9 +15,9 @@ const constructorReducer = (state = initialState, action) => {
 	const stateBunItems = state.constructorElems.bunItems;
 
 	const calculateTotalPrice = (ingredients, bun) => {
-		const bunPrice = bun ? bun.price : 0;
+		const bunPrice = Array.isArray(bun) ? bun.reduce((total, item) => total + item.price, 0) : bun ? bun.price : 0;
 		const ingredientsPrice = ingredients.reduce((total, item) => total + item.price, 0);
-		return bunPrice * 2 + ingredientsPrice;
+		return bunPrice + ingredientsPrice;
 	};
 
 	switch (action.type) {

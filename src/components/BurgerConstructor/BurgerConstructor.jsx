@@ -11,7 +11,7 @@ const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 	const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
 	const dispatch = useDispatch();
 
-	let { bunItems, ingredients } = dataConstructor;
+	const { bunItems, ingredients } = dataConstructor;
 	const isEmpty = (value) => value === null || (Array.isArray(value) && value.length === 0);
 	const conditionArraysEmpty = isEmpty(bunItems) && isEmpty(ingredients);
 

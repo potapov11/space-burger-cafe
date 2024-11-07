@@ -17,8 +17,6 @@ const CLEAR_ORDER_DETAIL = 'CLEAR_ODER_DETAIL';
 const ORDER_SUCCESS = 'ORDER_SUCCESS';
 const ORDER_FAILURE = 'ORDER_FAILURE';
 
-const INITIAL_PRICE = 2510;
-
 const BUN_ITEM = {
 	_id: '643d69a5c3f7b9001cfa093c',
 	name: 'Краторная булка N-200i',
@@ -62,6 +60,5 @@ export {
 	CLEAR_ORDER_DETAIL,
 	ORDER_SUCCESS,
 	ORDER_FAILURE,
-	INITIAL_PRICE,
 	serverOrderURL,
 };
