@@ -7,7 +7,6 @@ const TotalPrice = ({ openModal }) => {
 	const allPrice = useSelector((store) => store.constructorReducer.constructorElems.allPrice);
 	const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
 	const { bunItems } = dataConstructor;
-	console.log(bunItems, 'bunitems');
 
 	return (
 		<div className={TotalPriceCss.wrapper}>

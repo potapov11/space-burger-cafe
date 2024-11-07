@@ -26,8 +26,6 @@ const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 		dispatch(removeIngredient([id, index]));
 	};
 
-	console.log(conditionArraysEmpty, '..ingredientscondtition...');
-
 	return (
 		<section ref={dropTarget}>
 			{conditionArraysEmpty ? (

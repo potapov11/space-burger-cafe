@@ -4,7 +4,22 @@ import { useDrag } from 'react-dnd';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const Ingredient = (props) => {
-	const { image, name, price, openModal, item } = props;
+	const { dataStore, image, name, price, openModal, item } = props;
+
+	function count(store, item) {
+		let count = 0;
+
+		if (store?.length > 0) {
+			store.forEach((itemStore) => {
+				if (itemStore._id === item._id) {
+					count++;
+				}
+			});
+		}
+		return count;
+	}
+
+	const quantityNum = count(dataStore, item);
 
 	const [, dragRef] = useDrag({
 		type: 'ingr',
@@ -24,7 +39,7 @@ const Ingredient = (props) => {
 				onClick={() => {
 					openModal(props);
 				}}>
-				<Counter count={1} size="default" extraClass="m-1" />
+				{quantityNum > 0 && <Counter count={quantityNum} size="default" extraClass="m-1" />}
 				<div className="imgBox">
 					<img src={image} alt={name} />
 				</div>

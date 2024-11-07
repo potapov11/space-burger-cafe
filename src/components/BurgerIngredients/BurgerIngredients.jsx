@@ -10,6 +10,8 @@ import IngredientBox from '../IngredientBox/IngredientBox';
 const BurgerIngredients = (props) => {
 	const [current, setCurrent] = React.useState('one');
 	const stateData = useSelector((state) => state.data);
+	const ingredientsData = useSelector((state) => state.constructorReducer.constructorElems);
+
 	const dispatch = useDispatch();
 
 	const bunRef = useRef(null);
@@ -59,13 +61,13 @@ const BurgerIngredients = (props) => {
 			<div className={ingredientCss.products}>
 				<div className="rolls">
 					<div ref={bunRefView}>
-						<IngredientBox ref={bunRef} data={stateData.rollsArray} title="Булки" {...props} />
+						<IngredientBox dataStore={ingredientsData.bunItems} ref={bunRef} data={stateData.rollsArray} title="Булки" {...props} />
 					</div>
 					<div ref={sauceRefView}>
-						<IngredientBox ref={sauceRef} data={stateData.sauceArray} title="Соусы" {...props} />
+						<IngredientBox dataStore={ingredientsData.ingredients} ref={sauceRef} data={stateData.sauceArray} title="Соусы" {...props} />
 					</div>
 					<div ref={mainRefView}>
-						<IngredientBox ref={mainRef} data={stateData.mainArray} title="Начинки" {...props} />
+						<IngredientBox dataStore={ingredientsData.ingredients} ref={mainRef} data={stateData.mainArray} title="Начинки" {...props} />
 					</div>
 				</div>
 			</div>
