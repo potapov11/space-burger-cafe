@@ -33,7 +33,7 @@ const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 					<p className="text text_type_main-large">Перенесите сюда булки и ингредиенты</p>
 				</div>
 			) : (
-				<div className="products">
+				<div className={BurgerConstructorCss.products}>
 					<div className={BurgerConstructorCss.productsWrapper}>
 						<ul className={`${BurgerConstructorCss.constructorList} mt-4`}>
 							{/* {topBun} */}

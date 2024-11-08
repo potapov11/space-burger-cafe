@@ -38,7 +38,7 @@ const MainBox = () => {
 	};
 
 	const openModal = (detail) => {
-		document.body.classList.add('overlay-modal');
+		document.body.classList.add(MainBoxCss.overlayModal);
 		dispatch(addModalIngredient(detail));
 		setModalOpen(true);
 	};
@@ -48,7 +48,7 @@ const MainBox = () => {
 	};
 
 	const closeModal = () => {
-		document.body.classList.remove('overlay-modal');
+		document.body.classList.remove(MainBoxCss.overlayModal);
 
 		dispatch(clearModalIngredient());
 		setModalOrderOpen(false);
@@ -58,7 +58,7 @@ const MainBox = () => {
 	return (
 		<main className={MainBoxCss.main}>
 			<DndProvider backend={HTML5Backend}>
-				<div className={`${MainBoxCss.container} container`}>
+				<div className={MainBoxCss.container}>
 					<BurgerIngredients isModalOpen={isModalOpen} openModal={openModal} closeModal={closeModal} />
 					<BurgerConstructor openModal={openOrderModal} handleDrop={handleDrop} />
 				</div>

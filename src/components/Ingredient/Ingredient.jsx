@@ -40,7 +40,7 @@ const Ingredient = (props) => {
 					openModal(props);
 				}}>
 				{quantityNum > 0 && <Counter count={quantityNum} size="default" extraClass="m-1" />}
-				<div className="imgBox">
+				<div>
 					<img src={image} alt={name} />
 				</div>
 				<div className={IngredientCss.textBox}>

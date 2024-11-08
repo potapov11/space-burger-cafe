@@ -59,7 +59,7 @@ const BurgerIngredients = (props) => {
 				</Tab>
 			</div>
 			<div className={ingredientCss.products}>
-				<div className="rolls">
+				<div>
 					<div ref={bunRefView}>
 						<IngredientBox dataStore={ingredientsData.bunItems} ref={bunRef} data={stateData.rollsArray} title="Булки" {...props} />
 					</div>

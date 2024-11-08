@@ -5,7 +5,7 @@ import { BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer
 const AppHeader = () => {
 	return (
 		<header className={`${headerCss.header} p-4`}>
-			<div className={` ${headerCss.container} container`}>
+			<div className={headerCss.container}>
 				<div className={headerCss.nav}>
 					<div className={headerCss.constructor}>
 						<BurgerIcon type="primary" />

@@ -1,4 +1,3 @@
-import React, { useId } from 'react';
 import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorCss from '../BurgerConstructor/BurgerConstructor.module.css';
