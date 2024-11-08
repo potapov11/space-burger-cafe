@@ -4,3 +4,6 @@ export const checkResponse = (res) => {
 	}
 	return res.json();
 };
+
+const isEmpty = (value) => value === null || (Array.isArray(value) && value.length === 0);
+export default isEmpty;

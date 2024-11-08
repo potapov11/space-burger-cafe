@@ -44,6 +44,8 @@ const MainBox = () => {
 	};
 
 	const handleDrop = (item) => {
+		console.log(item, 'asdasdasd------item');
+
 		dispatch(addIngredient(item.item));
 	};
 

@@ -61,7 +61,7 @@ Ingredient.propTypes = {
 	name: PropTypes.string,
 	price: PropTypes.number,
 	openModal: PropTypes.func,
-	item: IngredientType,
+	item: IngredientType.isRequired,
 };
 
 export default Ingredient;

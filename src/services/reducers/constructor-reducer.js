@@ -3,7 +3,7 @@ import { ADD_INGREDIENT, REMOVE_INGREDIENT, COUNT_TOTAL, MOVE_INGREDIENT } from 
 
 const initialState = {
 	constructorElems: {
-		bunItems: null,
+		bunItems: [],
 		ingredients: [],
 		allPrice: 0,
 	},
@@ -15,8 +15,9 @@ const constructorReducer = (state = initialState, action) => {
 	const stateBunItems = state.constructorElems.bunItems;
 
 	const calculateTotalPrice = (ingredients, bun) => {
-		const bunPrice = Array.isArray(bun) ? bun.reduce((total, item) => total + item.price, 0) : bun ? bun.price : 0;
-		const ingredientsPrice = ingredients.reduce((total, item) => total + item.price, 0);
+		const bunPrice = Array.isArray(bun) ? bun.reduce((total, item) => total + (item.price || 0), 0) : bun && bun.price ? bun.price : 0;
+		const ingredientsPrice = ingredients.reduce((total, item) => total + (item.price || 0), 0);
+
 		return bunPrice + ingredientsPrice;
 	};
 
@@ -29,6 +30,7 @@ const constructorReducer = (state = initialState, action) => {
 			}
 
 			const updatedIngredients = [...stateIngredients];
+
 			const [movedIngredient] = updatedIngredients.splice(fromIndex, 1);
 			updatedIngredients.splice(toIndex, 0, movedIngredient);
 
@@ -46,7 +48,7 @@ const constructorReducer = (state = initialState, action) => {
 			const uniqId1 = uuidv4();
 			const uniqId2 = uuidv4();
 
-			if (newIngredient.type === 'bun') {
+			if (newIngredient?.type === 'bun') {
 				return {
 					...state,
 					constructorElems: {
@@ -59,6 +61,9 @@ const constructorReducer = (state = initialState, action) => {
 					},
 				};
 			} else {
+				if (!newIngredient) {
+					return state;
+				}
 				return {
 					...state,
 					constructorElems: {

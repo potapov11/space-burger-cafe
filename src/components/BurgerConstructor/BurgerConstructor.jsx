@@ -5,14 +5,16 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import BurgerConstructorCss from './BurgerConstructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
+import isEmpty from '../../utils/utils';
 import DraggableIngredient from '../DraggableConstructorEl/DraggableConstructorEl';
+
+console.log(isEmpty, 'sdfsdfsdISEMPTY');
 
 const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 	const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
 	const dispatch = useDispatch();
 
 	const { bunItems, ingredients } = dataConstructor;
-	const isEmpty = (value) => value === null || (Array.isArray(value) && value.length === 0);
 	const conditionArraysEmpty = isEmpty(bunItems) && isEmpty(ingredients);
 
 	const [, dropTarget] = useDrop({
@@ -36,7 +38,6 @@ const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 				<div className={BurgerConstructorCss.products}>
 					<div className={BurgerConstructorCss.productsWrapper}>
 						<ul className={`${BurgerConstructorCss.constructorList} mt-4`}>
-							{/* {topBun} */}
 							{bunItems?.length > 0 && (
 								<ConstructorElement
 									extraClass={`${BurgerConstructorCss.mr14} mb-4`}
@@ -64,7 +65,6 @@ const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 									key={bunItems[1].uniqueId}
 								/>
 							)}
-							{/* {bottomBun} */}
 						</ul>
 					</div>
 				</div>
