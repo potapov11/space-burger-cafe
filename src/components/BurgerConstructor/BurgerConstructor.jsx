@@ -8,8 +8,6 @@ import { useDrop } from 'react-dnd';
 import isEmpty from '../../utils/utils';
 import DraggableIngredient from '../DraggableConstructorEl/DraggableConstructorEl';
 
-console.log(isEmpty, 'sdfsdfsdISEMPTY');
-
 const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 	const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
 	const dispatch = useDispatch();

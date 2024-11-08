@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { ADD_INGREDIENT, REMOVE_INGREDIENT, COUNT_TOTAL, MOVE_INGREDIENT } from '../../utils/vars';
+import { ADD_INGREDIENT, REMOVE_INGREDIENT, COUNT_TOTAL, MOVE_INGREDIENT, CLEAR_CONSRUCTOR } from '../../utils/vars';
 
 const initialState = {
 	constructorElems: {
@@ -97,6 +97,9 @@ const constructorReducer = (state = initialState, action) => {
 					allPrice: calculateTotalPrice(stateIngredients, stateBunItems), // Пересчитываем общую цену
 				},
 			};
+		}
+		case CLEAR_CONSRUCTOR: {
+			return initialState;
 		}
 
 		default:

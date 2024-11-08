@@ -2,12 +2,15 @@ import React from 'react';
 import { keyButton } from '../../utils/vars';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { modalRoot } from '../../utils/vars';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalCss from './ModalCss.module.css';
 import ModalOverlay from '../ModalOverlay/ModalOverLay';
 
 const Modal = ({ isModalOpen, onClose, children }) => {
+	const isloadBool = useSelector((store) => store.orderReducer.loading);
+
 	React.useEffect(() => {
 		const close = (e) => {
 			if (e.key === keyButton) {
@@ -23,10 +26,14 @@ const Modal = ({ isModalOpen, onClose, children }) => {
 	return ReactDOM.createPortal(
 		<>
 			<ModalOverlay onClose={onClose} />
-			<div className={ModalCss.content}>
-				<CloseIcon className={ModalCss.closeButton} type="primary" onClick={onClose} />
-				{children}
-			</div>
+			{isloadBool ? (
+				<p className={`${ModalCss.centered} text_type_main-medium`}>Ждем ответ...</p>
+			) : (
+				<div className={ModalCss.content}>
+					<CloseIcon className={ModalCss.closeButton} type="primary" onClick={onClose} />
+					{children}
+				</div>
+			)}
 		</>,
 		modalRoot,
 	);

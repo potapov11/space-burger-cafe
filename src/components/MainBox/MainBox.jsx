@@ -4,7 +4,8 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { addModalIngredient, clearModalIngredient } from '../../services/actions/modal-ingredient-action';
 import { createOrder } from '../../services/actions/data-action';
-import { addIngredient } from '../../services/actions/constructor-action';
+import { addOrderDetail, orderFailure, orderSuccess } from '../../services/actions/order-modal-action';
+import { addIngredient, clearConstructor } from '../../services/actions/constructor-action';
 import MainBoxCss from './MainBox.module.css';
 import Modal from '../Modal/Modal';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
@@ -23,17 +24,25 @@ const MainBox = () => {
 	const [targetIngredient] = ingredientModal;
 
 	const openOrderModal = async () => {
-		storeIngredients.unshift(storeBun);
-		storeIngredients.push(storeBun);
+		storeIngredients.unshift(storeBun[0]);
+		storeIngredients.push(storeBun[0]);
 		const ingredientIds = storeIngredients.map((ingredient) => ingredient._id);
-		const orderData = await dispatch(createOrder(ingredientIds));
+		try {
+			dispatch(addOrderDetail()); // Начинаем загрузку
+			const orderData = await dispatch(createOrder(ingredientIds)); // Создаем заказ
 
-		if (orderData && orderData.order) {
-			const orderDataNum = orderData.order.number;
-			setOrderData(orderDataNum);
-			setModalOrderOpen(true);
-		} else {
-			console.error('Ошибка при создании заказа:', orderData);
+			if (orderData && orderData.order) {
+				const orderDataNum = orderData.order.number;
+				setOrderData(orderDataNum);
+				setModalOrderOpen(true);
+				dispatch(orderSuccess(orderData)); // Передаем данные заказа
+				dispatch(clearConstructor());
+			} else {
+				throw new Error('Не удалось получить данные заказа');
+			}
+		} catch (error) {
+			console.error('Ошибка при создании заказа:', error);
+			dispatch(orderFailure(error.message)); // Обработка ошибки
 		}
 	};
 
@@ -44,8 +53,6 @@ const MainBox = () => {
 	};
 
 	const handleDrop = (item) => {
-		console.log(item, 'asdasdasd------item');
-
 		dispatch(addIngredient(item.item));
 	};
 

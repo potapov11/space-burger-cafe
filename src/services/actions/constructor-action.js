@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT } from '../../utils/vars';
+import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT, CLEAR_CONSRUCTOR } from '../../utils/vars';
 
 const addIngredient = (ingredient) => ({
 	type: ADD_INGREDIENT,
@@ -15,4 +15,8 @@ const moveIngredient = (fromIndex, toIndex) => ({
 	payload: { fromIndex, toIndex },
 });
 
-export { addIngredient, removeIngredient, moveIngredient };
+const clearConstructor = () => ({
+	type: CLEAR_CONSRUCTOR,
+});
+
+export { addIngredient, removeIngredient, moveIngredient, clearConstructor };
