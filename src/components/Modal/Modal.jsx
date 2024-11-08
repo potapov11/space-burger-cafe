@@ -6,14 +6,14 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalCss from './ModalCss.module.css';
 import ModalOverlay from '../ModalOverlay/ModalOverLay';
 
-const Modal = ({ isModalOpen, onClose, setModalOrderOpen, setModalOpen, children }) => {
+const Modal = ({ isModalOpen, onClose, children }) => {
 	const modalRoot = document.getElementById('modal-root');
 
 	React.useEffect(() => {
 		const close = (e) => {
 			if (e.key === keyButton) {
-				setModalOrderOpen(false);
-				setModalOpen(false);
+				console.log('here');
+				onClose();
 			}
 		};
 		window.addEventListener('keydown', close);
