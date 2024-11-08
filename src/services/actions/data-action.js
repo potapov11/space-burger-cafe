@@ -1,9 +1,9 @@
-import { serverURL, SET_MAIN_ARRAY, serverOrderURL, SET_SAUCE_ARRAY, SET_ROLLS_ARRAY, ORDER_SUCCESS, ORDER_FAILURE } from '../../utils/vars';
+import { baseURL, SET_MAIN_ARRAY, SET_SAUCE_ARRAY, SET_ROLLS_ARRAY, ORDER_SUCCESS, ORDER_FAILURE } from '../../utils/vars';
 
 export const fetchServerData = () => {
 	return async (dispatch) => {
 		try {
-			const response = await fetch(serverURL);
+			const response = await fetch(`${baseURL}ingredients`);
 
 			if (!response.ok) {
 				throw new Error(`Ошибка сетевого ответа ${response.status}`);
@@ -37,7 +37,7 @@ export const fetchServerData = () => {
 
 export const createOrder = (ingredients) => async (dispatch) => {
 	try {
-		const response = await fetch(serverOrderURL, {
+		const response = await fetch(`${baseURL}orders`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
