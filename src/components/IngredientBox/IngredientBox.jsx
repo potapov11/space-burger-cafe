@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { forwardRef } from 'react';
+import { IngredientType } from '../../utils/types';
 import IngredientBoxCss from './IngredientBoxCss.module.css';
 import Ingredient from '../Ingredient/Ingredient';
 
@@ -17,22 +18,7 @@ const IngredientBox = forwardRef(({ dataStore, data, title, isModalOpen, openMod
 IngredientBox.displayName = 'IngredientBox';
 
 IngredientBox.propTypes = {
-	data: PropTypes.arrayOf(
-		PropTypes.shape({
-			_id: PropTypes.string,
-			name: PropTypes.string,
-			type: PropTypes.string,
-			proteins: PropTypes.number,
-			fat: PropTypes.number,
-			carbohydrates: PropTypes.number,
-			calories: PropTypes.number,
-			price: PropTypes.number,
-			image: PropTypes.string,
-			image_mobile: PropTypes.string,
-			image_large: PropTypes.string,
-			__v: PropTypes.number,
-		}),
-	),
+	data: PropTypes.arrayOf(IngredientType),
 	title: PropTypes.string,
 	isModalOpen: PropTypes.bool,
 	openModal: PropTypes.func,

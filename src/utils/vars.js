@@ -1,5 +1,6 @@
 const baseURL = 'https://norma.nomoreparties.space/api/';
 const keyButton = 'Escape';
+const modalRoot = document.getElementById('modal-root');
 
 const SET_ROLLS_ARRAY = 'SET_ROLLS_ARRAY';
 const SET_SAUCE_ARRAY = 'SET_SAUCE_ARRAY';
@@ -43,4 +44,5 @@ export {
 	ORDER_SUCCESS,
 	ORDER_FAILURE,
 	baseURL,
+	modalRoot,
 };
