@@ -68,13 +68,13 @@ const MainBox = () => {
 		<main className={MainBoxCss.main}>
 			<DndProvider backend={HTML5Backend}>
 				<div className={MainBoxCss.container}>
-					<BurgerIngredients isModalOpen={isModalOpen} openModal={openModal} closeModal={closeModal} />
+					<BurgerIngredients isModalOpen={isModalOpen} openModal={openModal} />
 					<BurgerConstructor openModal={openOrderModal} handleDrop={handleDrop} />
 				</div>
 			</DndProvider>
 
 			{ingredientModal && (
-				<Modal isModalOpen={isModalOpen} onClose={closeModal} setModalOrderOpen={setModalOrderOpen} setModalOpen={setModalOpen}>
+				<Modal isModalOpen={isModalOpen} onClose={closeModal}>
 					<p className="text text_type_main-medium">Детали ингредиента</p>
 					<IngredientDetails selectedIngredient={targetIngredient} />
 				</Modal>

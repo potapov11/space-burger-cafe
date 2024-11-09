@@ -15,7 +15,7 @@ const TotalPrice = ({ openModal }) => {
 					<p className="text text_type_digits-medium">{allPrice}</p>
 					<CurrencyIcon type="primary" />
 				</div>
-				<Button disabled={bunItems ? false : true} htmlType="button" type="primary" size="medium" onClick={openModal}>
+				<Button disabled={bunItems.length === 0 ? true : false} htmlType="button" type="primary" size="medium" onClick={openModal}>
 					Оформить заказ
 				</Button>
 			</div>

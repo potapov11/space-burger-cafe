@@ -35,38 +35,36 @@ const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 					<p className="text text_type_main-large">Перенесите сюда булки и ингредиенты</p>
 				</div>
 			) : (
-				<div className={BurgerConstructorCss.products}>
-					<div className={BurgerConstructorCss.productsWrapper}>
-						<ul className={`${BurgerConstructorCss.constructorList} mt-4`}>
-							{bunItems?.length > 0 && (
-								<ConstructorElement
-									extraClass={`${BurgerConstructorCss.mr14} mb-4`}
-									type="top"
-									isLocked={true}
-									text={`${bunItems[0].name} (верх)`}
-									price={bunItems[0].price}
-									thumbnail={bunItems[0].image}
-									key={bunItems[0].uniqueId}
-								/>
-							)}
-							{ingredients
-								.filter((item) => item.type !== 'bun')
-								.map((item, index) => (
-									<DraggableIngredient key={item.uniqueId} item={item} index={index} handleClose={handleClose} />
-								))}
-							{bunItems?.length && (
-								<ConstructorElement
-									extraClass={`${BurgerConstructorCss.mr14} mb-4`}
-									type="bottom"
-									isLocked={true}
-									text={`${bunItems[1].name} (низ)`}
-									price={bunItems[1].price}
-									thumbnail={bunItems[1].image}
-									key={bunItems[1].uniqueId}
-								/>
-							)}
-						</ul>
-					</div>
+				<div className={BurgerConstructorCss.productsWrapper}>
+					{bunItems?.length > 0 && (
+						<ConstructorElement
+							extraClass={`${BurgerConstructorCss.mr14} mb-4`}
+							type="top"
+							isLocked={true}
+							text={`${bunItems[0].name} (верх)`}
+							price={bunItems[0].price}
+							thumbnail={bunItems[0].image}
+							key={bunItems[0].uniqueId}
+						/>
+					)}
+					<ul className={`${BurgerConstructorCss.constructorList} mt-4`}>
+						{ingredients
+							.filter((item) => item.type !== 'bun')
+							.map((item, index) => (
+								<DraggableIngredient key={item.uniqueId} item={item} index={index} handleClose={handleClose} />
+							))}
+					</ul>
+					{bunItems?.length && (
+						<ConstructorElement
+							extraClass={`${BurgerConstructorCss.mr14} mb-4`}
+							type="bottom"
+							isLocked={true}
+							text={`${bunItems[1].name} (низ)`}
+							price={bunItems[1].price}
+							thumbnail={bunItems[1].image}
+							key={bunItems[1].uniqueId}
+						/>
+					)}
 				</div>
 			)}
 

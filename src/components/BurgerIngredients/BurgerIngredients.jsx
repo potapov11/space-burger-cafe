@@ -78,7 +78,6 @@ const BurgerIngredients = (props) => {
 BurgerIngredients.propTypes = {
 	isModalOpen: PropTypes.bool,
 	openModal: PropTypes.func,
-	closeModal: PropTypes.func,
 	selectedIngredient: PropTypes.object,
 };
 
