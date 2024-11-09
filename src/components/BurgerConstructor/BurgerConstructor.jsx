@@ -18,7 +18,9 @@ const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 	const [, dropTarget] = useDrop({
 		accept: 'ingr',
 		drop(item) {
-			handleDrop(item);
+			if (item.item) {
+				handleDrop(item);
+			}
 		},
 	});
 

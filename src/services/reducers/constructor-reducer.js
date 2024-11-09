@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import { ADD_INGREDIENT, REMOVE_INGREDIENT, COUNT_TOTAL, MOVE_INGREDIENT, CLEAR_CONSRUCTOR } from '../../utils/vars';
 
 const initialState = {
@@ -11,6 +10,7 @@ const initialState = {
 
 const constructorReducer = (state = initialState, action) => {
 	const newIngredient = action.payload;
+
 	const stateIngredients = state.constructorElems.ingredients;
 	const stateBunItems = state.constructorElems.bunItems;
 
@@ -45,31 +45,27 @@ const constructorReducer = (state = initialState, action) => {
 		}
 
 		case ADD_INGREDIENT: {
-			const uniqId1 = uuidv4();
-			const uniqId2 = uuidv4();
+			const newIngredients = newIngredient;
 
-			if (newIngredient?.type === 'bun') {
+			if (newIngredients?.[0]?.type === 'bun') {
 				return {
 					...state,
 					constructorElems: {
 						...state.constructorElems,
-						bunItems: [
-							{ ...newIngredient, uniqueId: uniqId1 },
-							{ ...newIngredient, uniqueId: uniqId2 },
-						],
-						allPrice: calculateTotalPrice(stateIngredients, newIngredient),
+						bunItems: newIngredients,
+						allPrice: calculateTotalPrice(stateIngredients, newIngredients),
 					},
 				};
 			} else {
-				if (!newIngredient) {
+				if (!newIngredients) {
 					return state;
 				}
 				return {
 					...state,
 					constructorElems: {
 						...state.constructorElems,
-						ingredients: [...stateIngredients, { ...newIngredient, uniqueId: uuidv4() }],
-						allPrice: calculateTotalPrice([...stateIngredients, newIngredient], stateBunItems),
+						ingredients: [...stateIngredients, ...newIngredients],
+						allPrice: calculateTotalPrice([...stateIngredients, ...newIngredients], stateBunItems),
 					},
 				};
 			}
@@ -77,7 +73,6 @@ const constructorReducer = (state = initialState, action) => {
 
 		case REMOVE_INGREDIENT: {
 			const [id, index] = action.payload;
-
 			const filteredArrIngredient = stateIngredients.filter((item, i) => !(i === index && item._id === id));
 
 			return {
@@ -94,7 +89,7 @@ const constructorReducer = (state = initialState, action) => {
 				...state,
 				constructorElems: {
 					...state.constructorElems,
-					allPrice: calculateTotalPrice(stateIngredients, stateBunItems), // Пересчитываем общую цену
+					allPrice: calculateTotalPrice(stateIngredients, stateBunItems),
 				},
 			};
 		}
