@@ -4,7 +4,6 @@ const initialState = {
 	constructorElems: {
 		bunItems: [],
 		ingredients: [],
-		allPrice: 0,
 	},
 };
 
@@ -12,14 +11,6 @@ const constructorReducer = (state = initialState, action) => {
 	const newIngredient = action.payload;
 
 	const stateIngredients = state.constructorElems.ingredients;
-	const stateBunItems = state.constructorElems.bunItems;
-
-	const calculateTotalPrice = (ingredients, bun) => {
-		const bunPrice = Array.isArray(bun) ? bun.reduce((total, item) => total + (item.price || 0), 0) : bun && bun.price ? bun.price : 0;
-		const ingredientsPrice = ingredients.reduce((total, item) => total + (item.price || 0), 0);
-
-		return bunPrice + ingredientsPrice;
-	};
 
 	switch (action.type) {
 		case MOVE_INGREDIENT: {
@@ -39,7 +30,6 @@ const constructorReducer = (state = initialState, action) => {
 				constructorElems: {
 					...state.constructorElems,
 					ingredients: updatedIngredients,
-					allPrice: calculateTotalPrice(updatedIngredients, stateBunItems),
 				},
 			};
 		}
@@ -53,7 +43,6 @@ const constructorReducer = (state = initialState, action) => {
 					constructorElems: {
 						...state.constructorElems,
 						bunItems: newIngredients,
-						allPrice: calculateTotalPrice(stateIngredients, newIngredients),
 					},
 				};
 			} else {
@@ -65,7 +54,6 @@ const constructorReducer = (state = initialState, action) => {
 					constructorElems: {
 						...state.constructorElems,
 						ingredients: [...stateIngredients, ...newIngredients],
-						allPrice: calculateTotalPrice([...stateIngredients, ...newIngredients], stateBunItems),
 					},
 				};
 			}
@@ -80,16 +68,6 @@ const constructorReducer = (state = initialState, action) => {
 				constructorElems: {
 					...state.constructorElems,
 					ingredients: filteredArrIngredient,
-					allPrice: calculateTotalPrice(filteredArrIngredient, stateBunItems),
-				},
-			};
-		}
-		case COUNT_TOTAL: {
-			return {
-				...state,
-				constructorElems: {
-					...state.constructorElems,
-					allPrice: calculateTotalPrice(stateIngredients, stateBunItems),
 				},
 			};
 		}

@@ -7,3 +7,7 @@ export const checkResponse = (res) => {
 
 const isEmpty = (value) => value === null || (Array.isArray(value) && value.length === 0);
 export default isEmpty;
+
+export function calculateTotalPrice(items) {
+	return items.reduce((total, item) => total + item.price, 0);
+}

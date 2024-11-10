@@ -1,12 +1,17 @@
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import { calculateTotalPrice } from '../../utils/utils';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import TotalPriceCss from './TotalPrice.module.css';
 
 const TotalPrice = ({ openModal }) => {
-	const allPrice = useSelector((store) => store.constructorReducer.constructorElems.allPrice);
 	const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
 	const { bunItems } = dataConstructor;
+	const { ingredients } = dataConstructor;
+
+	const allIngredients = [...bunItems, ...ingredients];
+
+	const allPrice = calculateTotalPrice(allIngredients);
 
 	return (
 		<div className={TotalPriceCss.wrapper}>
