@@ -1,15 +1,47 @@
 import PropTypes from 'prop-types';
 import IngredientCss from './Ingredient.module.css';
+import { IngredientType } from '../../utils/types';
+import { useDrag } from 'react-dnd';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const Ingredient = (props) => {
-	const { image, name, price, openModal } = props;
+	const { dataStore, image, name, price, openModal, item } = props;
+
+	function count(store, item) {
+		let count = 0;
+
+		if (store?.length > 0) {
+			store.forEach((itemStore) => {
+				if (itemStore._id === item._id) {
+					count++;
+				}
+			});
+		}
+		return count;
+	}
+
+	const quantityNum = count(dataStore, item);
+
+	const [, dragRef] = useDrag({
+		type: 'ingr',
+		item: { item },
+		collect: (monitor) => {
+			return {
+				isDrag: monitor.isDragging(),
+			};
+		},
+	});
 
 	return (
 		<>
-			<li className={IngredientCss.ingredient} onClick={() => openModal(props)}>
-				<Counter count={1} size="default" extraClass="m-1" />
-				<div className="imgBox">
+			<li
+				className={IngredientCss.ingredient}
+				ref={dragRef}
+				onClick={() => {
+					openModal(props);
+				}}>
+				{quantityNum > 0 && <Counter count={quantityNum} size="default" extraClass="m-1" />}
+				<div>
 					<img src={image} alt={name} />
 				</div>
 				<div className={IngredientCss.textBox}>
@@ -29,6 +61,7 @@ Ingredient.propTypes = {
 	name: PropTypes.string,
 	price: PropTypes.number,
 	openModal: PropTypes.func,
+	item: IngredientType.isRequired,
 };
 
 export default Ingredient;

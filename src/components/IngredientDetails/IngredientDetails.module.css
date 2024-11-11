@@ -1,0 +1,26 @@
+.modalImageBox {
+	display: flex;
+	justify-content: center;
+}
+
+.modalName {
+	text-align: center;
+}
+
+.modalEnergyInfo {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	margin-top: 32px;
+	gap: 20px;
+}
+
+.modalInfo {
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+.modalEnergySubtext {
+	margin-top: 10px;
+	text-align: center;
+}

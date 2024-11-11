@@ -1,63 +1,74 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { serverURL } from '../../utils/vars';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchServerData } from '../../services/actions/data-action';
+import { useInView } from 'react-intersection-observer';
 import ingredientCss from './BurgerIngredients.module.css';
 import IngredientBox from '../IngredientBox/IngredientBox';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const BurgerIngredients = (props) => {
 	const [current, setCurrent] = React.useState('one');
-	const [rollsArray, setRollsArray] = React.useState(null);
-	const [sauceArray, setSauceArray] = React.useState(null);
-	const [mainArray, setMainArray] = React.useState(null);
+	const stateData = useSelector((state) => state.data);
+	const ingredientsData = useSelector((state) => state.constructorReducer.constructorElems);
 
-	React.useEffect(() => {
-		const fetchServerData = async () => {
-			try {
-				const serverData = await fetch(serverURL);
+	const dispatch = useDispatch();
 
-				if (!serverData.ok) {
-					throw new Error(`Ошибка сетевого ответа ${serverData.status}`);
-				}
+	const bunRef = useRef(null);
+	const sauceRef = useRef(null);
+	const mainRef = useRef(null);
 
-				const res = await serverData.json();
+	const setTabs = (value) => {
+		setCurrent(value);
 
-				if (res) {
-					const rollsArray = res.data.filter((item) => item.type === 'bun');
-					const sauceArray = res.data.filter((item) => item.type === 'sauce');
-					const mainArray = res.data.filter((item) => item.type === 'main');
+		if (value === 'one') {
+			bunRef.current.scrollIntoView({ behavior: 'smooth' });
+		} else if (value === 'two') {
+			sauceRef.current.scrollIntoView({ behavior: 'smooth' });
+		} else if (value === 'three') {
+			mainRef.current.scrollIntoView({ behavior: 'smooth' });
+		}
+	};
 
-					setRollsArray(rollsArray);
-					setSauceArray(sauceArray);
-					setMainArray(mainArray);
-				}
-			} catch (error) {
-				console.error(`Произошла ошибка ${error}`);
-			}
-		};
+	useEffect(() => {
+		dispatch(fetchServerData());
+	}, [dispatch]);
 
-		fetchServerData();
-	}, []);
+	const { ref: bunRefView, inView: bunInView } = useInView({ threshold: 0.5 });
+	const { ref: sauceRefView, inView: sauceInView } = useInView({ threshold: 0.5 });
+	const { ref: mainRefView, inView: mainInView } = useInView({ threshold: 0.5 });
+
+	useEffect(() => {
+		if (bunInView) setCurrent('one');
+		else if (sauceInView) setCurrent('two');
+		else if (mainInView) setCurrent('three');
+	}, [bunInView, sauceInView, mainInView]);
 
 	return (
 		<section className={ingredientCss.ingredients}>
 			<h2 className={`${ingredientCss.title} text text_type_main-large`}>Соберите бургер</h2>
 			<div className={ingredientCss.tabWrapper}>
-				<Tab value="one" active={current === 'one'} onClick={setCurrent}>
-					One
+				<Tab value="one" active={current === 'one'} onClick={() => setTabs('one')}>
+					Булки
 				</Tab>
-				<Tab value="two" active={current === 'two'} onClick={setCurrent}>
-					Two
+				<Tab value="two" active={current === 'two'} onClick={() => setTabs('two')}>
+					Соусы
 				</Tab>
-				<Tab value="three" active={current === 'three'} onClick={setCurrent}>
-					Three
+				<Tab value="three" active={current === 'three'} onClick={() => setTabs('three')}>
+					Начинки
 				</Tab>
 			</div>
 			<div className={ingredientCss.products}>
-				<div className="rolls">
-					<IngredientBox data={rollsArray} title="Булки" {...props} />
-					<IngredientBox data={sauceArray} title="Соусы" {...props} />
-					<IngredientBox data={mainArray} title="Начинки" {...props} />
+				<div>
+					<div ref={bunRefView}>
+						<IngredientBox dataStore={ingredientsData.bunItems} ref={bunRef} data={stateData.rollsArray} title="Булки" {...props} />
+					</div>
+					<div ref={sauceRefView}>
+						<IngredientBox dataStore={ingredientsData.ingredients} ref={sauceRef} data={stateData.sauceArray} title="Соусы" {...props} />
+					</div>
+					<div ref={mainRefView}>
+						<IngredientBox dataStore={ingredientsData.ingredients} ref={mainRef} data={stateData.mainArray} title="Начинки" {...props} />
+					</div>
 				</div>
 			</div>
 		</section>
@@ -67,7 +78,6 @@ const BurgerIngredients = (props) => {
 BurgerIngredients.propTypes = {
 	isModalOpen: PropTypes.bool,
 	openModal: PropTypes.func,
-	closeModal: PropTypes.func,
 	selectedIngredient: PropTypes.object,
 };
 

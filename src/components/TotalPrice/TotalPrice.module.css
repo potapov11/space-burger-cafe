@@ -4,9 +4,21 @@
 	align-items: center;
 }
 
+.wrapper {
+	position: fixed;
+	bottom: 60px;
+	right: 25%;
+	transform: translateX(50%);
+}
+
 .priceBox {
 	display: flex;
 	justify-content: end;
 	align-items: center;
 	margin-right: 40px;
+}
+
+.disabled {
+	pointer-events: none;
+	opacity: 0.8;
 }

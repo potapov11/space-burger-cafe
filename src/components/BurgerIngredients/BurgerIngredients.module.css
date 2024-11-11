@@ -2,17 +2,6 @@
 	width: 50%;
 }
 
-.products {
-	margin: 0;
-	padding: 0;
-	height: 700px;
-	list-style: none;
-	overflow: hidden;
-	overflow-y: scroll;
-	scrollbar-color: #2f2f37 #76769b;
-	scrollbar-width: thin;
-}
-
 .title {
 	margin-bottom: 20px;
 }
@@ -20,4 +9,14 @@
 .tabWrapper {
 	display: flex;
 	margin-bottom: 40px;
+}
+
+.products {
+	margin: 0;
+	padding: 0;
+	height: 700px;
+	list-style: none;
+	overflow: auto;
+	scrollbar-color: #2f2f37 #76769b;
+	scrollbar-width: thin;
 }
