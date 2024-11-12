@@ -1,0 +1,37 @@
+.container {
+	composes: container from '../Home/Home.module.css';
+}
+
+.formBlock {
+	composes: formBlock from '../Login/Login.module.css';
+}
+
+.textBlock {
+	composes: textBlock from '../Login/Login.module.css';
+	/* margin-top: 80px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px; */
+}
+
+.form {
+	composes: form from '../Login/Login.module.css';
+	/* display: flex;
+	flex-direction: column;
+	gap: 24px; */
+}
+
+.textCenter {
+	composes: textCenter from '../Login/Login.module.css';
+	text-align: center;
+}
+
+.button {
+	composes: button from '../Login/Login.module.css';
+	width: auto;
+	margin: 0 auto;
+}
+
+.textSpan {
+	composes: textSpan from '../Login/Login.module.css';
+}

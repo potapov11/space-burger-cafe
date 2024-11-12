@@ -1,12 +1,19 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from '../../pages/Home/Home';
+import LoginPage from '../../pages/Login/Login';
+import RegisterPage from '../../pages/Register/Register';
 import AppHeader from '../AppHeader/AppHeader';
-import MainBox from '../MainBox/MainBox';
 
 function App() {
 	return (
-		<>
+		<Router>
 			<AppHeader />
-			<MainBox />
-		</>
+			<Routes>
+				<Route path="/home" element={<HomePage />} />
+				<Route path="/login" element={<LoginPage />} />
+				<Route path="/reg" element={<RegisterPage />} />
+			</Routes>
+		</Router>
 	);
 }
 
