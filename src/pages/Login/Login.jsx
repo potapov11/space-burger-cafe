@@ -9,7 +9,7 @@ const LoginPage = () => {
 					<p className={`${LoginPageCss.textCenter} text text_type_main-default`}>Вход</p>
 					<EmailInput />
 					<PasswordInput />
-					<Button htmlType="button" type="primary" size="medium" extraClass={`${LoginPageCss.button}`}>
+					<Button htmlType="button" type="primary" size="medium" extraClass={LoginPageCss.button}>
 						Войти
 					</Button>
 				</form>

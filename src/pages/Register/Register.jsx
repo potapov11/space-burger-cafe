@@ -10,7 +10,7 @@ const RegisterPage = () => {
 					<Input type={'text'} placeholder={'Имя'} />
 					<EmailInput />
 					<PasswordInput />
-					<Button htmlType="button" type="primary" size="medium" extraClass={`${RegisterPageCss.button}`}>
+					<Button htmlType="button" type="primary" size="medium" extraClass={RegisterPageCss.button}>
 						Зарегистрироваться
 					</Button>
 				</form>
