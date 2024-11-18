@@ -25,8 +25,6 @@ const HomePage = () => {
 	const [targetIngredient] = ingredientModal;
 	const navigate = useNavigate();
 
-	console.log(ingredientModal, '...ingredientModal...');
-
 	const openOrderModal = async () => {
 		storeIngredients.unshift(storeBun[0]);
 		storeIngredients.push(storeBun[0]);
@@ -61,7 +59,6 @@ const HomePage = () => {
 	};
 
 	const handleModalClose = () => {
-		console.log('navigate');
 		navigate(-1);
 	};
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchServerData } from '../../services/actions/data-action';
@@ -9,10 +9,17 @@ const IngredientDetails = (props) => {
 	const dispatch = useDispatch();
 	const { id } = useParams();
 	const { selectedIngredient: propSelectedIngredient } = props;
+	const [classState, setClassState] = useState(false);
 
 	useEffect(() => {
 		dispatch(fetchServerData());
 	}, [dispatch]);
+
+	useEffect(() => {
+		if (!propSelectedIngredient) {
+			setClassState(true);
+		}
+	}, [propSelectedIngredient]);
 
 	const ingredientsData = useSelector((store) => store.data);
 	const { mainArray, rollsArray, sauceArray } = ingredientsData;
@@ -21,11 +28,11 @@ const IngredientDetails = (props) => {
 	const selectedIngredient = propSelectedIngredient || allsData.find((ingredient) => ingredient._id === id);
 
 	if (!selectedIngredient) {
-		return <p>Ингредиент не найден.</p>;
+		return <p>Ингредиент не был найден.</p>;
 	}
 
 	return (
-		<div className="modal-info">
+		<div className={classState ? `${IngredientDetailStyle.modalInfo} ${IngredientDetailStyle.centerWindow}` : `${IngredientDetailStyle.modalInfo}`}>
 			<div className={IngredientDetailStyle.modalImageBox}>
 				<img src={selectedIngredient.image_large} alt={selectedIngredient.name} />
 			</div>

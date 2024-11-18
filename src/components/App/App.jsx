@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Modal from '../Modal/Modal';
 import HomePage from '../../pages/Home/Home';
 import LoginPage from '../../pages/Login/Login';
@@ -12,10 +12,6 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails';
 function App() {
 	const location = useLocation();
 	const background = location.state && location.state.background;
-
-	console.log(location, '...location...');
-	console.log(background, '...background...');
-	console.log(IngredientDetails, '...IngredientDetails...');
 
 	return (
 		<>
