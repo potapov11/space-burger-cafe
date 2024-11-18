@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { addModalIngredient, clearModalIngredient } from '../../services/actions/modal-ingredient-action';
 import { createOrder } from '../../services/actions/data-action';
 import { addOrderDetail, orderFailure, orderSuccess } from '../../services/actions/order-modal-action';
@@ -22,14 +23,17 @@ const HomePage = () => {
 	const storeIngredients = useSelector((store) => store.constructorReducer.constructorElems.ingredients);
 	const ingredientModal = useSelector((store) => store.modalIngredientReducer.ingredientsModal);
 	const [targetIngredient] = ingredientModal;
+	const navigate = useNavigate();
+
+	console.log(ingredientModal, '...ingredientModal...');
 
 	const openOrderModal = async () => {
 		storeIngredients.unshift(storeBun[0]);
 		storeIngredients.push(storeBun[0]);
 		const ingredientIds = storeIngredients.map((ingredient) => ingredient._id);
 		try {
-			dispatch(addOrderDetail()); // Начинаем загрузку
-			const orderData = await dispatch(createOrder(ingredientIds)); // Создаем заказ
+			dispatch(addOrderDetail());
+			const orderData = await dispatch(createOrder(ingredientIds));
 
 			if (orderData && orderData.order) {
 				const orderDataNum = orderData.order.number;
@@ -56,9 +60,15 @@ const HomePage = () => {
 		dispatch(addIngredient(item.item));
 	};
 
+	const handleModalClose = () => {
+		console.log('navigate');
+		navigate(-1);
+	};
+
 	const closeModal = () => {
 		document.body.classList.remove(HomeCss.overlayModal);
 
+		handleModalClose();
 		dispatch(clearModalIngredient());
 		setModalOrderOpen(false);
 		setModalOpen(false);
