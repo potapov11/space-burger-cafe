@@ -6,6 +6,7 @@ import LoginPage from '../../pages/Login/Login';
 import RegisterPage from '../../pages/Register/Register';
 import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
+import ProfilePage from '../../pages/Profile/ProfilePage';
 import AppHeader from '../AppHeader/AppHeader';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
@@ -19,9 +20,10 @@ function App() {
 			<Routes location={background || location}>
 				<Route path="/" element={<HomePage />} />
 				<Route path="/login" element={<LoginPage />} />
-				<Route path="/reg" element={<RegisterPage />} />
-				<Route path="/forgot" element={<ForgotPassword />} />
-				<Route path="/reset" element={<ResetPassword />} />
+				<Route path="/register" element={<RegisterPage />} />
+				<Route path="/forgot-password" element={<ForgotPassword />} />
+				<Route path="/reset-password" element={<ResetPassword />} />
+				<Route path="/profile" element={<ProfilePage />} />
 				<Route path="/ingredients/:id" element={<IngredientDetails />} />
 			</Routes>
 
