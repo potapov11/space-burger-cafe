@@ -33,5 +33,6 @@
 }
 
 .textSpan {
+	cursor: pointer;
 	color: var(--text-blue);
 }

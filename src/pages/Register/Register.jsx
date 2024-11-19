@@ -1,7 +1,14 @@
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import RegisterPageCss from './Register.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
+	const navigate = useNavigate();
+
+	const onClickNavigate = () => {
+		navigate('/login');
+	};
+
 	return (
 		<div className={RegisterPageCss.container}>
 			<div className={RegisterPageCss.formBlock}>
@@ -10,13 +17,16 @@ const RegisterPage = () => {
 					<Input type={'text'} placeholder={'Имя'} />
 					<EmailInput />
 					<PasswordInput />
-					<Button htmlType="button" type="primary" size="medium" extraClass={RegisterPageCss.button}>
+					<Button htmlType="button" type="primary" size="large" extraClass={RegisterPageCss.button}>
 						Зарегистрироваться
 					</Button>
 				</form>
 				<div className={RegisterPageCss.textBlock}>
 					<p className={`${RegisterPageCss.textCenter} text text_type_main-default text_color_inactive`}>
-						Уже зарегестрированы? <a className={RegisterPageCss.textSpan}>Войти</a>
+						Уже зарегестрированы?
+						<span className={RegisterPageCss.textSpan} onClick={onClickNavigate}>
+							Войти
+						</span>
 					</p>
 				</div>
 			</div>
