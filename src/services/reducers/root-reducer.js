@@ -3,6 +3,7 @@ import constructorReducer from './constructor-reducer';
 import passwordReducer from './password-reducer';
 import modalIngredientReducer from './modal-ingredient-reducer';
 import orderReducer from './order-reducer';
+import registerReducer from './register-reducer';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
 	modalIngredientReducer: modalIngredientReducer,
 	orderReducer: orderReducer,
 	passwordReducer: passwordReducer,
+	registerReducer: registerReducer,
 });
 
 export default rootReducer;

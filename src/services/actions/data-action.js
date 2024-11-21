@@ -1,4 +1,4 @@
-import { baseURL, SET_MAIN_ARRAY, SET_SAUCE_ARRAY, SET_ROLLS_ARRAY, ORDER_SUCCESS, ORDER_FAILURE, EMAIL_SUCCESS, EMAIL_FAILURE } from '../../utils/vars';
+import { baseURL, SET_MAIN_ARRAY, SET_SAUCE_ARRAY, SET_ROLLS_ARRAY, ORDER_SUCCESS, ORDER_FAILURE, EMAIL_SUCCESS, EMAIL_FAILURE, REGISTER_USER, REGISTER_FAILURE } from '../../utils/vars';
 import { checkResponse } from '../../utils/utils';
 
 export const fetchServerData = () => {
@@ -70,5 +70,37 @@ export const resetPassword = (email) => async (dispatch) => {
 		return data;
 	} catch (error) {
 		dispatch({ type: EMAIL_FAILURE, payload: error.message });
+	}
+};
+
+// https://norma.nomoreparties.space/api/auth/register
+
+export const registerFunc = (object) => async (dispatch) => {
+	console.log(object, '...dataRegister.object.registerFunc.');
+
+	try {
+		const response = await fetch(`${baseURL}auth/register`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(object),
+		});
+
+		const data = await checkResponse(response);
+
+		console.log(data, '...data');
+
+		if (data.success) {
+			localStorage.setItem('refreshToken', data.refreshToken);
+		}
+
+		dispatch({ type: REGISTER_USER, payload: data });
+		return data;
+	} catch (error) {
+		console.log(error);
+		console.log(error.message);
+
+		dispatch({ type: REGISTER_FAILURE, payload: error.message });
 	}
 };
