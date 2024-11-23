@@ -11,7 +11,11 @@ import {
 	REGISTER_FAILURE,
 	LOGIN_USER,
 	LOGIN_FAILURE,
+	DATA_CHECK_USER,
+	DATA_FETCH_ERROR,
 } from '../../utils/vars';
+
+// import { getCookie, setCookie } from '../../utils/cookieUtils';
 
 import { checkResponse } from '../../utils/utils';
 
@@ -112,9 +116,6 @@ export const registerFunc = (object) => async (dispatch) => {
 		dispatch({ type: REGISTER_USER, payload: data });
 		return data;
 	} catch (error) {
-		console.log(error);
-		console.log(error.message);
-
 		dispatch({ type: REGISTER_FAILURE, payload: error.message });
 	}
 };
@@ -133,8 +134,6 @@ export const loginFunc = (object) => async (dispatch) => {
 
 		const data = await checkResponse(response);
 
-		console.log(data, '...data');
-
 		if (data.success) {
 			localStorage.setItem('refreshToken', data.refreshToken);
 			localStorage.setItem('accessToken', data.accessToken);
@@ -143,9 +142,106 @@ export const loginFunc = (object) => async (dispatch) => {
 		dispatch({ type: LOGIN_USER, payload: data });
 		return data;
 	} catch (error) {
-		console.log(error);
-		console.log(error.message);
+		if (error.message === 'jwt expired') {
+			try {
+				const refreshData = await refreshToken();
+				const retryResponse = await fetch(`${baseURL}auth/login`, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${refreshData.accessToken}`,
+					},
+					body: JSON.stringify(object),
+				});
 
-		dispatch({ type: LOGIN_FAILURE, payload: error.message });
+				const retryData = await checkResponse(retryResponse);
+				dispatch({ type: LOGIN_USER, payload: retryData });
+				return retryData;
+			} catch (refreshError) {
+				dispatch({ type: LOGIN_FAILURE, payload: refreshError.message });
+			}
+		} else {
+			dispatch({ type: LOGIN_FAILURE, payload: error.message });
+		}
+	}
+};
+
+export const checkAuth = () => {
+	const accessToken = localStorage.getItem('accessToken');
+
+	console.log(accessToken, '..accessToken.');
+
+	if (accessToken) {
+		fetchUserData(accessToken);
+	} else {
+		// Перенаправление на страницу авторизации
+	}
+};
+
+//Здесь
+
+export const fetchUserData = () => async (dispatch) => {
+	const accessToken = localStorage.getItem('accessToken');
+
+	console.log('fetchUserData');
+
+	try {
+		// Используем fetchWithRefresh для получения данных пользователя
+		const userData = await fetchWithRefresh(`${baseURL}auth/user`, {
+			method: 'GET',
+			headers: {
+				Authorization: accessToken,
+			},
+		});
+
+		dispatch({ type: DATA_CHECK_USER, payload: userData });
+		return userData;
+	} catch (error) {
+		console.error('Ошибка при получении данных пользователя:', error);
+		dispatch({ type: DATA_FETCH_ERROR, payload: error.message });
+	}
+};
+
+const checkReponse = (res) => {
+	return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+};
+
+export const refreshToken = () => {
+	return fetch(`${baseURL}auth/token`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json;charset=utf-8',
+		},
+		body: JSON.stringify({
+			token: localStorage.getItem('refreshToken'),
+		}),
+	})
+		.then(checkReponse)
+		.then((refreshData) => {
+			if (!refreshData.success) {
+				return Promise.reject(refreshData);
+			}
+			localStorage.setItem('refreshToken', refreshData.refreshToken);
+			localStorage.setItem('accessToken', refreshData.accessToken);
+			return refreshData;
+		});
+};
+
+export const fetchWithRefresh = async (url, options) => {
+	console.log(options, '...options...');
+
+	try {
+		const res = await fetch(url, options);
+
+		return await checkReponse(res);
+	} catch (err) {
+		if (err.message === 'jwt expired') {
+			const refreshData = await refreshToken();
+			options.headers.authorization = refreshData.accessToken;
+			const res = await fetch(url, options);
+			return await checkReponse(res);
+		} else {
+			return Promise.reject(err);
+		}
 	}
 };

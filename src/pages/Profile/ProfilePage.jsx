@@ -1,4 +1,4 @@
-import { EditIcon, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import ProfilePageCss from './Profile.module.css';
 
 const ProfilePage = () => {
