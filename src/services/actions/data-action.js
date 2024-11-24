@@ -63,11 +63,14 @@ export const createOrder = (ingredients) => async (dispatch) => {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				authorization: localStorage.getItem('accessToken'),
 			},
 			body: JSON.stringify({ ingredients }),
 		});
 
 		const data = await checkResponses(response);
+		// setModalOrderOpen(true);
+
 		dispatch({ type: ORDER_SUCCESS, payload: data });
 
 		return data;

@@ -26,7 +26,7 @@ const initialState = {
 // userReducer
 
 const userReducer = (state = initialState, action) => {
-	console.log(action, 'action');
+	console.log(action, 'action userReducer');
 
 	switch (action.type) {
 		case LOGIN_USER:
@@ -84,6 +84,7 @@ const userReducer = (state = initialState, action) => {
 				name: '',
 				success: '',
 				error: '',
+				isAuthChecked: true,
 				message: action.payload.message,
 			};
 		case LOGOUT_FAILURE:

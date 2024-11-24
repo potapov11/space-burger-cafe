@@ -12,6 +12,8 @@ const Protected = ({ onlyUnAuth = false, component }) => {
 	console.log(user, '...user Protected...');
 	console.log(onlyUnAuth, '...onlyUnAuth Protected...');
 
+	// alert(user, 'user', isAuthChecked, 'isAuthChecked');
+
 	const location = useLocation();
 
 	if (!isAuthChecked) {

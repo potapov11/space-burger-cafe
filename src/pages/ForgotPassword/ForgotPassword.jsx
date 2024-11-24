@@ -2,6 +2,7 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import ForgotPasswordCss from './ForgotPassword.module.css';
 import { resetPassword } from '../../services/actions/data-action';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 const ForgotPassword = () => {
@@ -35,7 +36,10 @@ const ForgotPassword = () => {
 				</form>
 				<div className={ForgotPasswordCss.textBlock}>
 					<p className={`${ForgotPasswordCss.textCenter} text text_type_main-default text_color_inactive`}>
-						Вспомнили пароль? <a className={ForgotPasswordCss.textSpan}>Войти</a>
+						Вспомнили пароль?
+						<Link to={'/login'} className={ForgotPasswordCss.textSpan}>
+							Войти
+						</Link>
 					</p>
 				</div>
 			</div>

@@ -1,7 +1,8 @@
 import { Input, ShowIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ResetPasswordCss from './ResetPasswordCss.module.css';
 import { resetPasswordReset } from '../../services/actions/data-action';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 const RecoverPassword = () => {
@@ -11,7 +12,6 @@ const RecoverPassword = () => {
 	const [inputTokenState, setInputTokenState] = useState('');
 
 	const changeInputState = (e) => {
-		console.log(e.target);
 		setInputPasswordState(e.target.value);
 	};
 
@@ -46,7 +46,10 @@ const RecoverPassword = () => {
 				</form>
 				<div className={ResetPasswordCss.textBlock}>
 					<p className={`${ResetPasswordCss.textCenter} text text_type_main-default text_color_inactive`}>
-						Вспомнили пароль? <a className={ResetPasswordCss.textSpan}>Войти</a>
+						Вспомнили пароль?{' '}
+						<Link to={'/login'} className={ResetPasswordCss.textSpan}>
+							Войти
+						</Link>
 					</p>
 				</div>
 			</div>

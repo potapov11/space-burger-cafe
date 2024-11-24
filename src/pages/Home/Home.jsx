@@ -29,15 +29,18 @@ const HomePage = () => {
 		storeIngredients.unshift(storeBun[0]);
 		storeIngredients.push(storeBun[0]);
 		const ingredientIds = storeIngredients.map((ingredient) => ingredient._id);
+		setModalOrderOpen(true);
+
 		try {
 			dispatch(addOrderDetail());
 			const orderData = await dispatch(createOrder(ingredientIds));
 
+			console.log(orderData, 'orderData openOrderModal');
+
 			if (orderData && orderData.order) {
 				const orderDataNum = orderData.order.number;
 				setOrderData(orderDataNum);
-				setModalOrderOpen(true);
-				dispatch(orderSuccess(orderData)); // Передаем данные заказа
+				dispatch(orderSuccess(orderData));
 				dispatch(clearConstructor());
 			} else {
 				throw new Error('Не удалось получить данные заказа');
@@ -49,6 +52,8 @@ const HomePage = () => {
 	};
 
 	const openModal = (detail) => {
+		console.log('openModal');
+
 		document.body.classList.add(HomeCss.overlayModal);
 		dispatch(addModalIngredient(detail));
 		setModalOpen(true);
