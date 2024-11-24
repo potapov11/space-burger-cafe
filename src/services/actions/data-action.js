@@ -103,8 +103,6 @@ export const resetPassword = (email) => async (dispatch) => {
 };
 
 export const resetPasswordReset = (obj) => async (dispatch) => {
-	console.log(obj, '...resetPasswordReset...');
-
 	try {
 		const response = await fetch(`${baseURL}password-reset/reset`, {
 			method: 'POST',
@@ -126,8 +124,6 @@ export const resetPasswordReset = (obj) => async (dispatch) => {
 // https://norma.nomoreparties.space/api/auth/register
 
 export const registerFunc = (object) => async (dispatch) => {
-	console.log(object, '...dataRegister.object.registerFunc.');
-
 	try {
 		const response = await fetch(`${baseURL}auth/register`, {
 			method: 'POST',
@@ -138,8 +134,6 @@ export const registerFunc = (object) => async (dispatch) => {
 		});
 
 		const data = await checkResponse(response);
-
-		console.log(data, '...data');
 
 		if (data.success) {
 			localStorage.setItem('refreshToken', data.refreshToken);
@@ -153,8 +147,6 @@ export const registerFunc = (object) => async (dispatch) => {
 };
 
 export const logOutFunc = () => async (dispatch) => {
-	console.log('...logOut.logOut.registerFunc.');
-
 	try {
 		const response = await fetch(`${baseURL}auth/logout`, {
 			method: 'POST',
@@ -178,8 +170,6 @@ export const logOutFunc = () => async (dispatch) => {
 };
 
 export const loginFunc = (object) => async (dispatch) => {
-	console.log(object, '...dataRegister.object.loginFunc.');
-
 	try {
 		const response = await fetch(`${baseURL}auth/login`, {
 			method: 'POST',
@@ -228,8 +218,6 @@ export const loginFunc = (object) => async (dispatch) => {
 export const fetchUserData = () => async (dispatch) => {
 	const accessToken = localStorage.getItem('accessToken');
 
-	console.log('fetchUserData');
-
 	try {
 		const userData = await fetchWithRefresh(`${baseURL}auth/user`, {
 			method: 'GET',
@@ -237,8 +225,6 @@ export const fetchUserData = () => async (dispatch) => {
 				Authorization: accessToken,
 			},
 		});
-
-		console.log(userData, '...userData...');
 
 		dispatch({ type: DATA_CHECK_USER, payload: userData });
 		return userData;
@@ -270,14 +256,8 @@ export const refreshToken = () => {
 };
 
 export const fetchWithRefresh = async (url, options) => {
-	console.log('fetchWithRefresh');
-	console.log(url, 'url fetchWithRefresh');
-	console.log(options, 'options fetchWithRefresh');
-
 	try {
 		const res = await fetch(url, options);
-
-		console.log(res, 'res fetchWithRefresh');
 
 		return await checkResponse(res);
 	} catch (err) {

@@ -19,23 +19,18 @@ const HomePage = () => {
 	const [isModalOrderOpen, setModalOrderOpen] = React.useState(false);
 	const [orderDataNumber, setOrderData] = React.useState(null);
 	const dispatch = useDispatch();
-	const storeBun = useSelector((store) => store.constructorReducer.constructorElems.bunItems);
-	const storeIngredients = useSelector((store) => store.constructorReducer.constructorElems.ingredients);
 	const ingredientModal = useSelector((store) => store.modalIngredientReducer.ingredientsModal);
+	const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
 	const [targetIngredient] = ingredientModal;
 	const navigate = useNavigate();
 
 	const openOrderModal = async () => {
-		storeIngredients.unshift(storeBun[0]);
-		storeIngredients.push(storeBun[0]);
-		const ingredientIds = storeIngredients.map((ingredient) => ingredient._id);
+		const ingredientIds = [...dataConstructor.bunItems.map((item) => item._id), ...dataConstructor.ingredients.map((item) => item._id), ...dataConstructor.bunItems.map((item) => item._id)];
 		setModalOrderOpen(true);
 
 		try {
 			dispatch(addOrderDetail());
 			const orderData = await dispatch(createOrder(ingredientIds));
-
-			console.log(orderData, 'orderData openOrderModal');
 
 			if (orderData && orderData.order) {
 				const orderDataNum = orderData.order.number;
@@ -52,8 +47,6 @@ const HomePage = () => {
 	};
 
 	const openModal = (detail) => {
-		console.log('openModal');
-
 		document.body.classList.add(HomeCss.overlayModal);
 		dispatch(addModalIngredient(detail));
 		setModalOpen(true);

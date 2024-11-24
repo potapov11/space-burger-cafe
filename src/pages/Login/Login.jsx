@@ -30,9 +30,7 @@ const LoginPage = () => {
 			email: userEmailInput,
 			password: userPasswordInput,
 		};
-		const registerResponse = await dispatch(loginFunc(dataRegister));
-
-		console.log(registerResponse, '...registerResponse...');
+		dispatch(loginFunc(dataRegister));
 	};
 
 	const handleEmailChange = (event) => {

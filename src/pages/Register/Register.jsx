@@ -18,9 +18,7 @@ const RegisterPage = () => {
 			password: userPasswordInput,
 			name: userNameState,
 		};
-		const registerResponse = await dispatch(registerFunc(dataRegister));
-
-		console.log(registerResponse, '...registerResponse...');
+		dispatch(registerFunc(dataRegister));
 	};
 
 	const onClickNavigate = () => {

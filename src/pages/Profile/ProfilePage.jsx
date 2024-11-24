@@ -11,8 +11,6 @@ const ProfilePage = () => {
 	const isActiveProfile = location.pathname === '/profile';
 
 	const logOutClick = () => {
-		console.log('logout');
-
 		dispatch(logOutFunc());
 	};
 	return (

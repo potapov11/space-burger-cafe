@@ -7,21 +7,15 @@ import { useState } from 'react';
 
 const ForgotPassword = () => {
 	const dispatch = useDispatch();
-	const emailStore = useSelector((store) => store);
-
-	console.log(emailStore, '...emailStore...');
 
 	const [inputState, setInputState] = useState('');
 
 	const changeInput = (e) => {
-		console.log(e.target.value);
 		setInputState(e.target.value);
 	};
 
 	const clickBtnRecover = async () => {
-		const emailResponse = await dispatch(resetPassword(inputState));
-
-		console.log(emailResponse, '...emailResponse...');
+		dispatch(resetPassword(inputState));
 	};
 
 	return (

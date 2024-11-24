@@ -8,8 +8,6 @@ const initialState = {
 };
 
 const constructorReducer = (state = initialState, action) => {
-	console.log(action, '...action. constructorReducer...');
-
 	const newIngredient = action.payload;
 
 	const stateIngredients = state.constructorElems.ingredients;

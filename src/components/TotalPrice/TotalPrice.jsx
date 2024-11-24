@@ -14,14 +14,8 @@ const TotalPrice = ({ openModal }) => {
 	const { bunItems } = dataConstructor;
 	const { ingredients } = dataConstructor;
 
-	console.log(dataConstructor, '...TotalPrice dataConstructor...');
-
-	console.log(bunItems, ingredients, '...TotalPrice ingredients...');
-
 	const allIngredients = [...bunItems, ...ingredients];
 	const allPrice = calculateTotalPrice(allIngredients);
-
-	console.log(allPrice, 'allprice');
 
 	const handleOrderBtn = () => {
 		if (isAuthChecked && user) {
@@ -30,11 +24,6 @@ const TotalPrice = ({ openModal }) => {
 			navigate('/login');
 		}
 	};
-
-	// console.log(isAuthChecked, '...isAuthChecked Protected...');
-	// console.log(user, '...user Protected...');
-
-	// alert(user, 'user', isAuthChecked, 'isAuthChecked');
 
 	return (
 		<div className={TotalPriceCss.wrapper}>

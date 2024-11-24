@@ -10,13 +10,9 @@ const AppHeader = () => {
 
 	const isActiveProfile = location.pathname;
 
-	console.log(isActiveProfile, '...isActiveProfile...');
-
 	const onClickNavigate = () => {
 		navigate('/profile');
 	};
-
-	// if(location.pathname)
 
 	return (
 		<header className={`${headerCss.header} p-4`}>

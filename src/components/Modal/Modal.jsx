@@ -9,11 +9,7 @@ import ModalCss from './ModalCss.module.css';
 import ModalOverlay from '../ModalOverlay/ModalOverLay';
 
 const Modal = ({ isModalOpen, onClose, children }) => {
-	// const isloadBool = useSelector((store) => store.orderReducer.loading);
-	// const isloadBool = useSelector((store) => store.orderReducer.loading);
-
-	const isloadBool = true;
-	console.log(isloadBool, '...isLoadBool..');
+	const isloadBool = useSelector((store) => store.orderReducer.loading);
 
 	React.useEffect(() => {
 		const close = (e) => {
@@ -30,15 +26,14 @@ const Modal = ({ isModalOpen, onClose, children }) => {
 	return ReactDOM.createPortal(
 		<>
 			<ModalOverlay onClose={onClose} />
-			{
-				isloadBool && <p className={`${ModalCss.centered} text_type_main-medium`}>Ждем ответ...</p>
-				// : (
-				// 	<div className={ModalCss.content}>
-				// 		<CloseIcon className={ModalCss.closeButton} type="primary" onClick={onClose} />
-				// 		{children}
-				// 	</div>
-				// )
-			}
+			{isloadBool ? (
+				<p className={`${ModalCss.centered} text_type_main-medium`}>Ждем ответ...</p>
+			) : (
+				<div className={ModalCss.content}>
+					<CloseIcon className={ModalCss.closeButton} type="primary" onClick={onClose} />
+					{children}
+				</div>
+			)}
 		</>,
 		modalRoot,
 	);
