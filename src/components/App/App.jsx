@@ -12,6 +12,7 @@ import ProfilePage from '../../pages/Profile/ProfilePage';
 import AppHeader from '../AppHeader/AppHeader';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { fetchUserData } from '../../services/actions/data-action';
+import { OnlyAuth, OnlyUnAuth } from '../ProtectedRoute/ProtectedRoute';
 
 console.log(fetchUserData, '...fetchUserdata');
 
@@ -23,6 +24,8 @@ function App() {
 	console.log(storeIngredients, '...storeIngredients...');
 
 	useEffect(() => {
+		console.log('useEffect here');
+
 		dispatch(fetchUserData());
 	}, []);
 
@@ -31,11 +34,11 @@ function App() {
 			<AppHeader />
 			<Routes location={background || location}>
 				<Route path="/" element={<HomePage />} />
-				<Route path="/login" element={<LoginPage />} />
-				<Route path="/register" element={<RegisterPage />} />
-				<Route path="/forgot-password" element={<ForgotPassword />} />
-				<Route path="/reset-password" element={<ResetPassword />} />
-				<Route path="/profile" element={<ProfilePage />} />
+				<Route path="/login" element={<OnlyUnAuth component={<LoginPage />} />} />
+				<Route path="/register" element={<OnlyUnAuth component={<RegisterPage />} />} />
+				<Route path="/register" element={<OnlyUnAuth component={<ForgotPassword />} />} />
+				<Route path="/register" element={<OnlyUnAuth component={<ResetPassword />} />} />
+				<Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} />
 				<Route path="/ingredients/:id" element={<IngredientDetails />} />
 			</Routes>
 

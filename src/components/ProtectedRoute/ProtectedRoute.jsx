@@ -5,11 +5,17 @@ const Protected = ({ onlyUnAuth = false, component }) => {
 	// isAuthChecked это флаг, показывающий что проверка токена произведена
 	// при этом результат этой проверки не имеет значения, важно только,
 	// что сам факт проверки имел место.
-	const isAuthChecked = useSelector((store) => store.user.isAuthChecked);
-	const user = useSelector((store) => store.user.user);
+	const isAuthChecked = useSelector((store) => store.loginReducer.isAuthChecked);
+	const user = useSelector((store) => store.loginReducer.name);
+
+	console.log(isAuthChecked, '...isAuthChecked Protected...');
+	console.log(user, '...user Protected...');
+	console.log(onlyUnAuth, '...onlyUnAuth Protected...');
+
 	const location = useLocation();
 
 	if (!isAuthChecked) {
+		console.log('Условие здесь !isAuthChecked');
 		// Запрос еще выполняется
 		// Выводим прелоадер в ПР
 		// Здесь возвращается просто null для экономии времени
@@ -17,6 +23,8 @@ const Protected = ({ onlyUnAuth = false, component }) => {
 	}
 
 	if (onlyUnAuth && user) {
+		console.log('Условие здесь onlyUnAuth && user');
+
 		// Пользователь авторизован, но роут предназначен для неавторизованного пользователя
 		// Делаем редирект на главную страницу или на тот адрес, что записан в location.state.from
 		const { from } = location.state || { from: { pathname: '/' } };

@@ -10,8 +10,6 @@ const ForgotPassword = () => {
 
 	console.log(emailStore, '...emailStore...');
 
-	// const orderData = await dispatch(createOrder(ingredientIds));
-
 	const [inputState, setInputState] = useState('');
 
 	const changeInput = (e) => {

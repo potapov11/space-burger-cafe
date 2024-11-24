@@ -2,7 +2,7 @@ import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-de
 import RegisterPageCss from './Register.module.css';
 import { useNavigate } from 'react-router-dom';
 import { registerFunc } from '../../services/actions/data-action';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 
 const RegisterPage = () => {

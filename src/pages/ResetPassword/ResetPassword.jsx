@@ -1,20 +1,46 @@
 import { Input, ShowIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ResetPasswordCss from './ResetPasswordCss.module.css';
+import { resetPasswordReset } from '../../services/actions/data-action';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
-const ForgotPassword = () => {
+const RecoverPassword = () => {
+	const dispatch = useDispatch();
+
+	const [inputPasswordState, setInputPasswordState] = useState('');
+	const [inputTokenState, setInputTokenState] = useState('');
+
+	const changeInputState = (e) => {
+		console.log(e.target);
+		setInputPasswordState(e.target.value);
+	};
+
+	const changeInputTokenState = (e) => {
+		setInputTokenState(e.target.value);
+	};
+
+	const clickBtnSave = () => {
+		dispatch(
+			resetPasswordReset({
+				password: inputPasswordState,
+				token: inputTokenState,
+			}),
+		);
+	};
+
 	return (
 		<div className={ResetPasswordCss.container}>
 			<div className={ResetPasswordCss.formBlock}>
 				<form className={ResetPasswordCss.form}>
 					<p className={`${ResetPasswordCss.textCenter} text text_type_main-default`}>Восстановление пароля</p>
 					<div className={ResetPasswordCss.block}>
-						<Input type={'text'} placeholder={'Введите новый пароль'} />
+						<Input type={'text'} placeholder={'Введите новый пароль'} value={inputPasswordState} onChange={changeInputState} />
 						<div className={ResetPasswordCss.icon}>
 							<ShowIcon />
 						</div>
 					</div>
-					<Input type={'text'} placeholder={'Введите код из письма'} />
-					<Button htmlType="button" type="primary" size="medium" extraClass={ResetPasswordCss.button}>
+					<Input type={'text'} placeholder={'Введите код из письма'} value={inputTokenState} onChange={changeInputTokenState} />
+					<Button htmlType="button" type="primary" size="medium" extraClass={ResetPasswordCss.button} onClick={clickBtnSave}>
 						Сохранить
 					</Button>
 				</form>
@@ -28,4 +54,4 @@ const ForgotPassword = () => {
 	);
 };
 
-export default ForgotPassword;
+export default RecoverPassword;
