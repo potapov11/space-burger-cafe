@@ -3,10 +3,15 @@ import ProfilePageCss from './Profile.module.css';
 import { logOutFunc } from '../../services/actions/data-action';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
 const ProfilePage = () => {
 	const dispatch = useDispatch();
 	const location = useLocation();
+
+	const [name, setName] = useState('');
+	const [login, setLogin] = useState('');
+	const [password, setPassword] = useState('');
 
 	const isActiveProfile = location.pathname === '/profile';
 
@@ -25,9 +30,9 @@ const ProfilePage = () => {
 						</p>
 					</div>
 					<form className={ProfilePageCss.form}>
-						<Input type={'text'} placeholder={'Имя'} icon={'EditIcon'} />
-						<Input type={'text'} placeholder={'Логин'} icon={'EditIcon'} />
-						<PasswordInput icon={'EditIcon'} />
+						<Input type={'text'} placeholder={'Имя'} icon={'EditIcon'} value={name} onChange={(e) => setName(e.target.value)} />
+						<Input type={'text'} placeholder={'Логин'} icon={'EditIcon'} value={login} onChange={(e) => setLogin(e.target.value)} />
+						<PasswordInput icon={'EditIcon'} value={password} onChange={(e) => setPassword(e.target.value)} />
 					</form>
 				</div>
 

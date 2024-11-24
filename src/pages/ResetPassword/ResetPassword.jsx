@@ -1,4 +1,4 @@
-import { Input, ShowIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, ShowIcon, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import ResetPasswordCss from './ResetPasswordCss.module.css';
 import { resetPasswordReset } from '../../services/actions/data-action';
 import { useDispatch, useSelector } from 'react-redux';
@@ -34,10 +34,7 @@ const RecoverPassword = () => {
 				<form className={ResetPasswordCss.form}>
 					<p className={`${ResetPasswordCss.textCenter} text text_type_main-default`}>Восстановление пароля</p>
 					<div className={ResetPasswordCss.block}>
-						<Input type={'text'} placeholder={'Введите новый пароль'} value={inputPasswordState} onChange={changeInputState} />
-						<div className={ResetPasswordCss.icon}>
-							<ShowIcon />
-						</div>
+						<PasswordInput placeholder={'Введите новый пароль'} value={inputPasswordState} onChange={changeInputState} />
 					</div>
 					<Input type={'text'} placeholder={'Введите код из письма'} value={inputTokenState} onChange={changeInputTokenState} />
 					<Button htmlType="button" type="primary" size="medium" extraClass={ResetPasswordCss.button} onClick={clickBtnSave}>

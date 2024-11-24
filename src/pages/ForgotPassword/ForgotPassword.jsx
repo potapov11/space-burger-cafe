@@ -1,4 +1,4 @@
-import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import ForgotPasswordCss from './ForgotPassword.module.css';
 import { resetPassword } from '../../services/actions/data-action';
 import { useDispatch, useSelector } from 'react-redux';
