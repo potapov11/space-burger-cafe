@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -11,7 +11,7 @@ import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredie
 import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstructor";
 import OrderDetail from "../../components/OrderDetails/OrderDetail";
 
-const HomePage = ({ openModal, closeModal, isModalOpen, isModalOrderOpen, setModalOrderOpen }) => {
+const HomePage = ({ openModal, onClose, isModalOpen, isModalOrderOpen, setModalOrderOpen }) => {
   const [orderDataNumber, setOrderData] = React.useState(null);
   const dispatch = useDispatch();
   const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
@@ -51,7 +51,7 @@ const HomePage = ({ openModal, closeModal, isModalOpen, isModalOrderOpen, setMod
         </div>
       </DndProvider>
 
-      <Modal isModalOpen={isModalOrderOpen} onClose={closeModal}>
+      <Modal isModalOpen={isModalOrderOpen} onClose={onClose}>
         {orderDataNumber !== null && <OrderDetail orderDataNumber={orderDataNumber} />}
       </Modal>
     </main>

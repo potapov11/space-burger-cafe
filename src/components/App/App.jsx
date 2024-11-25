@@ -41,7 +41,7 @@ function App() {
     <>
       <AppHeader />
       <Routes location={background || location}>
-        <Route path="/" element={<HomePage closeModal={closeModal} isModalOpen={isModalOpen} isModalOrderOpen={isModalOrderOpen} setModalOrderOpen={setModalOrderOpen} />} />
+        <Route path="/" element={<HomePage onClose={closeModal} isModalOpen={isModalOpen} isModalOrderOpen={isModalOrderOpen} setModalOrderOpen={setModalOrderOpen} />} />
         <Route path="/login" element={<OnlyUnAuth component={<LoginPage />} />} />
         <Route path="/register" element={<OnlyUnAuth component={<RegisterPage />} />} />
         <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword />} />} />

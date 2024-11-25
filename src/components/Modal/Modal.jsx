@@ -14,7 +14,9 @@ const Modal = ({ isModalOpen = true, onClose, children }) => {
   React.useEffect(() => {
     const close = (e) => {
       if (e.key === keyButton) {
-        onClose();
+        if (onClose) {
+          onClose();
+        }
       }
     };
     window.addEventListener("keydown", close);
