@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchServerData } from "../../services/actions/data-action";
 import PropTypes from "prop-types";
 import IngredientDetailStyle from "./IngredientDetails.module.css";
 
 const IngredientDetails = ({ styleCenter }) => {
-  const dispatch = useDispatch();
   const { id } = useParams();
-
-  useEffect(() => {
-    dispatch(fetchServerData());
-  }, [dispatch]);
 
   const ingredientsData = useSelector((store) => store.data);
   const { mainArray, rollsArray, sauceArray } = ingredientsData;

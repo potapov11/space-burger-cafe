@@ -2,8 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useNavigate } from "react-router-dom";
-import { clearModalIngredient } from "../../services/actions/modal-ingredient-action";
 import { createOrder } from "../../services/actions/data-action";
 import { addOrderDetail, orderFailure, orderSuccess } from "../../services/actions/order-modal-action";
 import { addIngredient, clearConstructor } from "../../services/actions/constructor-action";
@@ -13,13 +11,10 @@ import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredie
 import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstructor";
 import OrderDetail from "../../components/OrderDetails/OrderDetail";
 
-const HomePage = ({ openModal }) => {
-  const [isModalOpen, setModalOpen] = React.useState(false);
-  const [isModalOrderOpen, setModalOrderOpen] = React.useState(false);
+const HomePage = ({ openModal, closeModal, isModalOpen, isModalOrderOpen, setModalOrderOpen }) => {
   const [orderDataNumber, setOrderData] = React.useState(null);
   const dispatch = useDispatch();
   const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
-  const navigate = useNavigate();
 
   const openOrderModal = async () => {
     const ingredientIds = [...dataConstructor.bunItems.map((item) => item._id), ...dataConstructor.ingredients.map((item) => item._id), ...dataConstructor.bunItems.map((item) => item._id)];
@@ -39,25 +34,12 @@ const HomePage = ({ openModal }) => {
       }
     } catch (error) {
       console.error("Ошибка при создании заказа:", error);
-      dispatch(orderFailure(error.message)); // Обработка ошибки
+      dispatch(orderFailure(error.message));
     }
   };
 
   const handleDrop = (item) => {
     dispatch(addIngredient(item.item));
-  };
-
-  const handleModalClose = () => {
-    navigate(-1);
-  };
-
-  const closeModal = () => {
-    document.body.classList.remove(HomeCss.overlayModal);
-
-    handleModalClose();
-    dispatch(clearModalIngredient());
-    setModalOrderOpen(false);
-    setModalOpen(false);
   };
 
   return (

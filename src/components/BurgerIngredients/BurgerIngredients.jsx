@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchServerData } from "../../services/actions/data-action";
+import { useSelector } from "react-redux";
 import { useInView } from "react-intersection-observer";
 import ingredientCss from "./BurgerIngredients.module.css";
 import IngredientBox from "../IngredientBox/IngredientBox";
@@ -11,8 +10,6 @@ const BurgerIngredients = (props) => {
   const [current, setCurrent] = React.useState("one");
   const stateData = useSelector((state) => state.data);
   const ingredientsData = useSelector((state) => state.constructorReducer.constructorElems);
-
-  const dispatch = useDispatch();
 
   const bunRef = useRef(null);
   const sauceRef = useRef(null);
@@ -29,10 +26,6 @@ const BurgerIngredients = (props) => {
       mainRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
-
-  useEffect(() => {
-    dispatch(fetchServerData());
-  }, [dispatch]);
 
   const { ref: bunRefView, inView: bunInView } = useInView({ threshold: 0.5 });
   const { ref: sauceRefView, inView: sauceInView } = useInView({ threshold: 0.5 });

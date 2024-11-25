@@ -19,8 +19,6 @@ import {
 	LOGOUT_FAILURE,
 } from '../../utils/vars';
 
-// import { getCookie, setCookie } from '../../utils/cookieUtils';
-
 import { checkResponses } from '../../utils/utils';
 
 const checkResponse = (res) => {
