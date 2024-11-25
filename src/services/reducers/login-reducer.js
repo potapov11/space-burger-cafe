@@ -7,12 +7,10 @@ import {
 	REGISTER_FAILURE,
 	DATA_CHECK_USER,
 	DATA_FETCH_ERROR,
-	// RESET_PASSWORD_FAILURE,
 	RESET_PASSWORD_SUCCESS,
 	LOGOUT_USER,
 	LOGOUT_FAILURE,
 } from '../../utils/vars';
-// import userReducer from './user-reducer';
 
 const initialState = {
 	email: '',
@@ -24,6 +22,7 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
+
 	switch (action.type) {
 		case LOGIN_USER:
 			return {

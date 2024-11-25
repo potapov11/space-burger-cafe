@@ -19,7 +19,8 @@ const RecoverPassword = () => {
     setInputTokenState(e.target.value);
   };
 
-  const clickBtnSave = () => {
+  const handleSave = async (e) => {
+    e.preventDefault();
     dispatch(
       resetPasswordReset({
         password: inputPasswordState,
@@ -31,13 +32,13 @@ const RecoverPassword = () => {
   return (
     <div className={ResetPasswordCss.container}>
       <div className={ResetPasswordCss.formBlock}>
-        <form className={ResetPasswordCss.form}>
+        <form className={ResetPasswordCss.form} onSubmit={handleSave}>
           <p className={`${ResetPasswordCss.textCenter} text text_type_main-default`}>Восстановление пароля</p>
           <div className={ResetPasswordCss.block}>
             <PasswordInput placeholder={"Введите новый пароль"} value={inputPasswordState} onChange={changeInputState} />
           </div>
           <Input type={"text"} placeholder={"Введите код из письма"} value={inputTokenState} onChange={changeInputTokenState} />
-          <Button htmlType="button" type="primary" size="medium" extraClass={ResetPasswordCss.button} onClick={clickBtnSave}>
+          <Button htmlType="submit" type="primary" size="medium" extraClass={ResetPasswordCss.button}>
             Сохранить
           </Button>
         </form>
