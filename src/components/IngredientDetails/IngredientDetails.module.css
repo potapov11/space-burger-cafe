@@ -24,3 +24,8 @@
 	margin-top: 10px;
 	text-align: center;
 }
+
+.centerWindow {
+	width: 50%;
+	margin: 0 auto;
+}

@@ -72,7 +72,13 @@ const constructorReducer = (state = initialState, action) => {
 			};
 		}
 		case CLEAR_CONSRUCTOR: {
-			return initialState;
+			return {
+				...state,
+				constructorElems: {
+					bunItems: [],
+					ingredients: [],
+				},
+			};
 		}
 
 		default:

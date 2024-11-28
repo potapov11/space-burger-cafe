@@ -1,4 +1,4 @@
-export const checkResponse = (res) => {
+export const checkResponses = (res) => {
 	if (!res.ok) {
 		throw new Error(`Ошибка сетевого ответа ${res.status}`);
 	}
