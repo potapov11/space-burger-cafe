@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const AppHeader = () => {
+const AppHeader = (): React.JSX.Element => {
 	const navigate = useNavigate();
 	const location = useLocation();
 

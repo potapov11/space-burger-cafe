@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { AppDispatch } from '../../main.tsx';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Modal from '../Modal/Modal';
@@ -16,16 +15,18 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { fetchUserData, fetchServerData } from '../../services/actions/data-action';
 import { OnlyAuth, OnlyUnAuth } from '../ProtectedRoute/ProtectedRoute';
 
-const App: React.FC = () => {
+const App = (): React.JSX.Element => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const background = location.state && location.state.background;
-	const dispatch = useDispatch<AppDispatch>();
+	const dispatch = useDispatch();
 
-	const [isModalOrderOpen, setModalOrderOpen] = React.useState(false);
+	const [isModalOrderOpen, setModalOrderOpen] = React.useState<boolean>(false);
 
 	useEffect(() => {
+		//@ts-ignore
 		dispatch(fetchUserData());
+		//@ts-ignore
 		dispatch(fetchServerData());
 	}, [dispatch]);
 
