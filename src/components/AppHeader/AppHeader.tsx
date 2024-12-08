@@ -1,3 +1,4 @@
+import React from 'react';
 import headerCss from './AppHeader.module.css';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
@@ -27,7 +28,7 @@ const AppHeader = () => {
 						<p className="text text_type_main-small text_color_inactive">Лента заказов</p>
 					</div>
 				</div>
-				<Link to={'/'} className={headerCss.logoWrapper} href="#">
+				<Link to={'/'} className={headerCss.logoWrapper}>
 					<Logo />
 				</Link>
 				<div className={headerCss.cabinet}>

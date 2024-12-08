@@ -1,8 +1,9 @@
+import React from 'react';
 import PropTypes from 'prop-types';
+import BurgerConstructorCss from './BurgerConstructor.module.css';
 import TotalPrice from '../TotalPrice/TotalPrice';
 import { removeIngredient } from '../../services/actions/constructor-action';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import BurgerConstructorCss from './BurgerConstructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import isEmpty from '../../utils/utils';

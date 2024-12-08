@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { AppDispatch } from '../../main.tsx';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Modal from '../Modal/Modal';
-import { clearModalIngredient } from '../../services/actions/modal-ingredient-action';
 import HomePage from '../../pages/Home/Home';
 import LoginPage from '../../pages/Login/Login';
 import RegisterPage from '../../pages/Register/Register';
@@ -16,11 +16,11 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { fetchUserData, fetchServerData } from '../../services/actions/data-action';
 import { OnlyAuth, OnlyUnAuth } from '../ProtectedRoute/ProtectedRoute';
 
-function App() {
+const App: React.FC = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const background = location.state && location.state.background;
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<AppDispatch>();
 
 	const [isModalOrderOpen, setModalOrderOpen] = React.useState(false);
 
@@ -61,6 +61,6 @@ function App() {
 			)}
 		</>
 	);
-}
+};
 
 export default App;
