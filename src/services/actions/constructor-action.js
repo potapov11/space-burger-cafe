@@ -39,8 +39,10 @@ const moveIngredient = (fromIndex, toIndex) => ({
 	payload: { fromIndex, toIndex },
 });
 
-const clearConstructor = () => ({
-	type: CLEAR_CONSRUCTOR,
-});
+const clearConstructor = () => {
+	return {
+		type: CLEAR_CONSRUCTOR,
+	};
+};
 
 export { addIngredient, removeIngredient, moveIngredient, clearConstructor };

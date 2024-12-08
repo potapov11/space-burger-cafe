@@ -11,6 +11,14 @@
 	margin: 0 auto;
 }
 
+.container {
+	display: flex;
+	gap: 40px;
+	max-width: 1240px;
+	width: 100%;
+	margin: 0 auto;
+}
+
 .overlayModal {
 	overflow: hidden;
 	scrollbar-gutter: stable;

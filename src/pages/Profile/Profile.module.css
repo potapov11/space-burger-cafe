@@ -1,0 +1,52 @@
+.container {
+	composes: container from '../Home/Home.module.css';
+}
+
+.formBlock {
+	composes: formBlock from '../Login/Login.module.css';
+}
+
+.textBlock {
+	composes: textBlock from '../Login/Login.module.css';
+}
+
+.form {
+	composes: form from '../Login/Login.module.css';
+}
+
+.textCenter {
+	composes: textCenter from '../Login/Login.module.css';
+	text-align: center;
+}
+
+.button {
+	composes: button from '../Login/Login.module.css';
+	width: auto;
+	margin: 0 auto;
+}
+
+.textSpan {
+	composes: textSpan from '../Login/Login.module.css';
+}
+
+.icon {
+}
+
+.wrapper {
+	display: flex;
+	justify-content: space-between;
+	gap: 60px;
+}
+
+.textBlockWrap {
+	width: 320px;
+	margin-top: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 70px;
+}
+
+.textBottom {
+	margin-top: 10px;
+	max-width: 35%;
+}

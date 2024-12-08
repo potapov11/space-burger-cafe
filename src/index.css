@@ -2,6 +2,10 @@
 	box-sizing: border-box;
 }
 
+:root {
+	--text-blue: #4c4cff;
+}
+
 html,
 body {
 	scrollbar-gutter: stable;

@@ -1,0 +1,38 @@
+.container {
+	composes: container from '../Home/Home.module.css';
+}
+
+.formBlock {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	margin: 0 auto;
+}
+
+.textBlock {
+	margin-top: 80px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.textCenter {
+	text-align: center;
+}
+
+.button {
+	width: 128px;
+	margin: 0 auto;
+}
+
+.textSpan {
+	cursor: pointer;
+	color: var(--text-blue);
+}

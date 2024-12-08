@@ -8,13 +8,15 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalCss from './ModalCss.module.css';
 import ModalOverlay from '../ModalOverlay/ModalOverLay';
 
-const Modal = ({ isModalOpen, onClose, children }) => {
+const Modal = ({ isModalOpen = true, onClose, children }) => {
 	const isloadBool = useSelector((store) => store.orderReducer.loading);
 
 	React.useEffect(() => {
 		const close = (e) => {
 			if (e.key === keyButton) {
-				onClose();
+				if (onClose) {
+					onClose();
+				}
 			}
 		};
 		window.addEventListener('keydown', close);
