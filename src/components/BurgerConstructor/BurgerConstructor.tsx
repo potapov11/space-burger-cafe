@@ -11,7 +11,7 @@ import DraggableIngredient from '../DraggableConstructorEl/DraggableConstructorE
 
 interface BurgerMainIngredientsProps {
 	openModal: () => void;
-	handleDrop: (item: ItemConstructor) => void; // Укажите правильный тип
+	handleDrop: (item: ItemConstructor) => void;
 }
 
 const BurgerMainIngredients: React.FC<BurgerMainIngredientsProps> = ({ openModal, handleDrop }): React.JSX.Element => {

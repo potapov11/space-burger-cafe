@@ -1,12 +1,18 @@
-import PropTypes from 'prop-types';
+import React from 'react';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorCss from '../BurgerConstructor/BurgerConstructor.module.css';
 import { moveIngredient } from '../../services/actions/constructor-action';
 import { useDispatch } from 'react-redux';
-import { IngredientType } from '../../utils/types';
+import { DraggedItem } from '../../utils/types.tsx';
 import { useDrag, useDrop } from 'react-dnd';
 
-const DraggableIngredient = ({ item, index, handleClose }) => {
+interface DraggableIngredientProps {
+	item: DraggedItem;
+	index: number;
+	handleClose: (id: string, index: number) => void;
+}
+
+const DraggableIngredient: React.FC<DraggableIngredientProps> = ({ item, index, handleClose }): React.JSX.Element => {
 	const dispatch = useDispatch();
 
 	const [{ isDragging }, dragRef] = useDrag({
@@ -19,7 +25,9 @@ const DraggableIngredient = ({ item, index, handleClose }) => {
 
 	const [, dropRef] = useDrop({
 		accept: 'ingr',
-		hover: (draggedItem) => {
+		hover: (draggedItem: DraggedItem) => {
+			console.log(draggedItem, '...draggedItem...');
+
 			if (draggedItem.index !== index) {
 				const newIndex = index;
 				dispatch(moveIngredient(draggedItem.index, newIndex));
@@ -34,12 +42,6 @@ const DraggableIngredient = ({ item, index, handleClose }) => {
 			<ConstructorElement text={item.name} price={item.price} thumbnail={item.image} handleClose={() => handleClose(item._id, index)} />
 		</li>
 	);
-};
-
-DraggableIngredient.propTypes = {
-	item: IngredientType,
-	index: PropTypes.number,
-	handleClose: PropTypes.func,
 };
 
 export default DraggableIngredient;

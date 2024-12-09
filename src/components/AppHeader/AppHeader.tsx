@@ -19,11 +19,11 @@ const AppHeader = (): React.JSX.Element => {
 		<header className={`${headerCss.header} p-4`}>
 			<div className={headerCss.container}>
 				<div className={headerCss.nav}>
-					<div className={headerCss.constructor}>
+					<div className={headerCss.constructorMain}>
 						<BurgerIcon type={`${isActiveProfile === '/' ? 'primary' : 'secondary'}`} />
 						<p className={`text text_type_main-small ${isActiveProfile === '/' ? '' : 'text_color_inactive'}`}>Конструктор</p>
 					</div>
-					<div className={headerCss.constructor}>
+					<div className={headerCss.constructorMain}>
 						<ListIcon type="secondary" />
 						<p className="text text_type_main-small text_color_inactive">Лента заказов</p>
 					</div>

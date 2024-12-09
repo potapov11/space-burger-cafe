@@ -1,29 +1,31 @@
-import React, { useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useRef, useState } from 'react';
+import PropTypes, { string } from 'prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import ingredientCss from './BurgerIngredients.module.css';
 import IngredientBox from '../IngredientBox/IngredientBox';
 
-const BurgerIngredients = (props) => {
-	const [current, setCurrent] = React.useState('one');
+const BurgerIngredients = (): React.JSX.Element => {
+	const [current, setCurrent] = useState<string>('one');
+	//@ts-ignore
 	const stateData = useSelector((state) => state.data);
+	//@ts-ignore
 	const ingredientsData = useSelector((state) => state.constructorReducer.constructorElems);
 
-	const bunRef = useRef(null);
-	const sauceRef = useRef(null);
-	const mainRef = useRef(null);
+	const bunRef = useRef<HTMLDivElement | null>(null);
+	const sauceRef = useRef<HTMLDivElement | null>(null);
+	const mainRef = useRef<HTMLDivElement | null>(null);
 
 	const setTabs = (value) => {
 		setCurrent(value);
 
 		if (value === 'one') {
-			bunRef.current.scrollIntoView({ behavior: 'smooth' });
+			bunRef.current?.scrollIntoView({ behavior: 'smooth' });
 		} else if (value === 'two') {
-			sauceRef.current.scrollIntoView({ behavior: 'smooth' });
+			sauceRef.current?.scrollIntoView({ behavior: 'smooth' });
 		} else if (value === 'three') {
-			mainRef.current.scrollIntoView({ behavior: 'smooth' });
+			mainRef.current?.scrollIntoView({ behavior: 'smooth' });
 		}
 	};
 
@@ -54,23 +56,21 @@ const BurgerIngredients = (props) => {
 			<div className={ingredientCss.products}>
 				<div>
 					<div ref={bunRefView}>
-						<IngredientBox dataStore={ingredientsData.bunItems} ref={bunRef} data={stateData.rollsArray} title="Булки" {...props} />
+						{/* @ts-ignore */}
+						<IngredientBox dataStore={ingredientsData.bunItems} ref={bunRef} data={stateData.rollsArray} title="Булки" />
 					</div>
 					<div ref={sauceRefView}>
-						<IngredientBox dataStore={ingredientsData.ingredients} ref={sauceRef} data={stateData.sauceArray} title="Соусы" {...props} />
+						{/* @ts-ignore */}
+						<IngredientBox dataStore={ingredientsData.ingredients} ref={sauceRef} data={stateData.sauceArray} title="Соусы" />
 					</div>
 					<div ref={mainRefView}>
-						<IngredientBox dataStore={ingredientsData.ingredients} ref={mainRef} data={stateData.mainArray} title="Начинки" {...props} />
+						{/* @ts-ignore */}
+						<IngredientBox dataStore={ingredientsData.ingredients} ref={mainRef} data={stateData.mainArray} title="Начинки" />
 					</div>
 				</div>
 			</div>
 		</section>
 	);
-};
-
-BurgerIngredients.propTypes = {
-	isModalOpen: PropTypes.bool,
-	openModal: PropTypes.func,
 };
 
 export default BurgerIngredients;

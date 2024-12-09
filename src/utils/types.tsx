@@ -11,4 +11,9 @@ export interface ItemConstructor {
 	image_mobile: string;
 	image_large: string;
 	__v: number;
+	uniqueId?: string;
+}
+
+export interface DraggedItem extends ItemConstructor {
+	index?: number;
 }
