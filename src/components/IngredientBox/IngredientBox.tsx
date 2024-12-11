@@ -1,9 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { ItemConstructor } from '../../utils/types.tsx';
 import { forwardRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-// import { IngredientType } from '../../utils/types';
 import IngredientBoxCss from './IngredientBoxCss.module.css';
 import Ingredient from '../Ingredient/Ingredient';
 
