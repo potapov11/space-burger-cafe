@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { calculateTotalPrice } from '../../utils/utils';
+import { calculateTotalPrice } from '../../utils/utils.ts';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import TotalPriceCss from './TotalPrice.module.css';
 

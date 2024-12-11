@@ -1,5 +1,4 @@
 import 'react';
-import { compose } from 'redux';
 
 declare module 'react' {
 	interface HTMLAttributes<T> {

@@ -22,7 +22,7 @@ interface IngredientProps {
 const Ingredient: React.FC<IngredientProps> = (props): React.JSX.Element => {
 	const { dataStore, image, name, price, item } = props;
 
-	function count(store, item) {
+	function count(store: ItemConstructor[], item: Item): number {
 		let count = 0;
 
 		if (store?.length > 0) {

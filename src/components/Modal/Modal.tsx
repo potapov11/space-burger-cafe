@@ -8,9 +8,9 @@ import ModalCss from './ModalCss.module.css';
 import ModalOverlay from '../ModalOverlay/ModalOverLay';
 
 interface ModalProps {
-	isModalOpen: boolean;
+	isModalOpen?: boolean;
 	onClose: () => void;
-	children: ReactNode;
+	children?: ReactNode;
 }
 
 const Modal: React.FC<ModalProps> = ({ isModalOpen = true, onClose, children }): React.JSX.Element | null => {

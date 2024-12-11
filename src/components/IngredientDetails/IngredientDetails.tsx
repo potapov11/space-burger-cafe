@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import IngredientDetailStyle from './IngredientDetails.module.css';
 
-const IngredientDetails = ({ styleCenter }: { styleCenter: boolean }): React.JSX.Element => {
+const IngredientDetails = ({ styleCenter }: { styleCenter?: boolean }): React.JSX.Element => {
 	const { id } = useParams();
 
 	//@ts-ignore

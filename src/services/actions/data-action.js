@@ -19,7 +19,7 @@ import {
 	LOGOUT_FAILURE,
 } from '../../utils/vars';
 
-import { checkResponses } from '../../utils/utils';
+import { checkResponses } from '../../utils/utils.ts';
 
 const checkResponse = (res) => {
 	return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
