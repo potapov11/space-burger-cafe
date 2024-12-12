@@ -1,14 +1,18 @@
-import PropTypes from 'prop-types';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { calculateTotalPrice } from '../../utils/utils';
+import { calculateTotalPrice } from '../../utils/utils.ts';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import TotalPriceCss from './TotalPrice.module.css';
 
-const TotalPrice = ({ openModal }) => {
+const TotalPrice = ({ openModal }: { openModal: () => void }) => {
 	const navigate = useNavigate();
+
+	//@ts-ignore
 	const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
+	//@ts-ignore
 	const isAuthChecked = useSelector((store) => store.loginReducer.isAuthChecked);
+	//@ts-ignore
 	const user = useSelector((store) => store.loginReducer.name);
 
 	const { bunItems } = dataConstructor;
@@ -38,10 +42,6 @@ const TotalPrice = ({ openModal }) => {
 			</div>
 		</div>
 	);
-};
-
-TotalPrice.propTypes = {
-	openModal: PropTypes.func,
 };
 
 export default TotalPrice;

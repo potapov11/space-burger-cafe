@@ -1,18 +1,28 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { keyButton } from '../../utils/vars';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { modalRoot } from '../../utils/vars';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ModalCss from './ModalCss.module.css';
 import ModalOverlay from '../ModalOverlay/ModalOverLay';
 
-const Modal = ({ isModalOpen = true, onClose, children }) => {
+interface ModalProps {
+	isModalOpen?: boolean;
+	onClose: () => void;
+	children?: ReactNode;
+}
+
+const Modal: React.FC<ModalProps> = ({ isModalOpen = true, onClose, children }): React.JSX.Element | null => {
+	//@ts-ignore
 	const isloadBool = useSelector((store) => store.orderReducer.loading);
 
+	if (!modalRoot) {
+		return null;
+	}
+
 	React.useEffect(() => {
-		const close = (e) => {
+		const close = (e: KeyboardEvent): void => {
 			if (e.key === keyButton) {
 				if (onClose) {
 					onClose();
@@ -39,12 +49,6 @@ const Modal = ({ isModalOpen = true, onClose, children }) => {
 		</>,
 		modalRoot,
 	);
-};
-
-Modal.propTypes = {
-	isModalOpen: PropTypes.bool,
-	onClose: PropTypes.func,
-	children: PropTypes.node,
 };
 
 export default Modal;

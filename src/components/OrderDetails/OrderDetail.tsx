@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
+import React from 'react';
 import orderDetailCss from './OrderDetailCss.module.css';
 
-const OrderDetail = ({ orderDataNumber }) => {
+const OrderDetail = ({ orderDataNumber }: { orderDataNumber: number }): React.JSX.Element => {
 	return (
 		<div className={orderDetailCss.orderDetail}>
 			<p className="text text_type_digits-large">{orderDataNumber}</p>
@@ -13,10 +13,6 @@ const OrderDetail = ({ orderDataNumber }) => {
 			</div>
 		</div>
 	);
-};
-
-OrderDetail.propTypes = {
-	orderDataNumber: PropTypes.number,
 };
 
 export default OrderDetail;

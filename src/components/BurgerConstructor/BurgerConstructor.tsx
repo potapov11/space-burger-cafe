@@ -1,24 +1,31 @@
-import PropTypes from 'prop-types';
+import React from 'react';
+import BurgerConstructorCss from './BurgerConstructor.module.css';
+import { ItemConstructor } from '../../utils/types';
 import TotalPrice from '../TotalPrice/TotalPrice';
 import { removeIngredient } from '../../services/actions/constructor-action';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import BurgerConstructorCss from './BurgerConstructor.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import isEmpty from '../../utils/utils';
 import DraggableIngredient from '../DraggableConstructorEl/DraggableConstructorEl';
 
-const BurgerMainIngredients = ({ openModal, handleDrop }) => {
+interface BurgerMainIngredientsProps {
+	openModal: () => void;
+	handleDrop: (item: ItemConstructor) => void;
+}
+
+const BurgerMainIngredients: React.FC<BurgerMainIngredientsProps> = ({ openModal, handleDrop }): React.JSX.Element => {
+	// @ts-ignore
 	const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
 	const dispatch = useDispatch();
 
 	const { bunItems, ingredients } = dataConstructor;
 	const conditionArraysEmpty = isEmpty(bunItems) && isEmpty(ingredients);
 
-	const [, dropTarget] = useDrop({
+	const [, dropTarget] = useDrop<ItemConstructor>({
 		accept: 'ingr',
-		drop(item) {
-			if (item.item) {
+		drop(item: ItemConstructor) {
+			if (item) {
 				handleDrop(item);
 			}
 		},
@@ -71,11 +78,6 @@ const BurgerMainIngredients = ({ openModal, handleDrop }) => {
 			<TotalPrice openModal={openModal} />
 		</section>
 	);
-};
-
-BurgerMainIngredients.propTypes = {
-	openModal: PropTypes.func.isRequired,
-	handleDrop: PropTypes.func.isRequired,
 };
 
 export default BurgerMainIngredients;

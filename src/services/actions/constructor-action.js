@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT, CLEAR_CONSRUCTOR } from '../../utils/vars';
 
 const addIngredient = (ingredient) => {
-	if (ingredient.type === 'bun') {
+	if (ingredient?.type === 'bun') {
 		return {
 			type: ADD_INGREDIENT,
 			payload: [
