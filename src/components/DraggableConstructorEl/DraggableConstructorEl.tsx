@@ -26,8 +26,6 @@ const DraggableIngredient: React.FC<DraggableIngredientProps> = ({ item, index, 
 	const [, dropRef] = useDrop({
 		accept: 'ingr',
 		hover: (draggedItem: DraggedItem) => {
-			console.log(draggedItem, '...draggedItem...');
-
 			if (draggedItem.index !== index) {
 				const newIndex = index;
 				dispatch(moveIngredient(draggedItem.index, newIndex));
