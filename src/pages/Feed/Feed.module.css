@@ -1,0 +1,15 @@
+.container {
+	composes: container from '../Home/Home.module.css';
+	flex-direction: column;
+}
+
+.feedSection {
+	padding-top: 40px;
+	display: flex;
+	flex-direction: column;
+}
+
+.FeedBox {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
