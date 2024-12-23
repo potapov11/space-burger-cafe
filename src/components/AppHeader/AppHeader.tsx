@@ -11,7 +11,13 @@ const AppHeader = (): React.JSX.Element => {
 
 	const isActiveProfile = location.pathname;
 
-	const onClickNavigate = () => {
+	const onClickNavigate = (e: React.MouseEvent<HTMLParagraphElement>): void => {
+		console.log(e);
+		const resultTextContent = (e.target as HTMLParagraphElement).textContent;
+		if (resultTextContent === 'Лента заказов') {
+			navigate('/feed');
+			return;
+		}
 		navigate('/profile');
 	};
 
@@ -25,7 +31,9 @@ const AppHeader = (): React.JSX.Element => {
 					</div>
 					<div className={headerCss.constructorMain}>
 						<ListIcon type="secondary" />
-						<p className="text text_type_main-small text_color_inactive">Лента заказов</p>
+						<p onClick={onClickNavigate} className="text text_type_main-small text_color_inactive">
+							Лента заказов
+						</p>
 					</div>
 				</div>
 				<Link to={'/'} className={headerCss.logoWrapper}>
