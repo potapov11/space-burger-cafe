@@ -1,5 +1,15 @@
+.box {
+	height: 100px;
+	width: 100%;
+	margin-left: 60px;
+}
+
 .wrapper {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 40px;
+}
+
+.boxTop {
+	margin-top: 45px;
 }

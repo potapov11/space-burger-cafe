@@ -3,21 +3,14 @@ import OrderStatusCss from './OrderStatus.module.css';
 import OrderReady from '../OrdersReady/OrderReady';
 import OrderInWorks from '../../components/OrdersInWork/OrderInWorks';
 
-const styles = {
-	height: '100px',
-	width: '100%',
-	border: '1px, solid, red',
-	marginLeft: '60px',
-};
-
 const OrderStatus = (): React.JSX.Element => {
 	return (
-		<div style={styles}>
+		<div className={OrderStatusCss.box}>
 			<div className={OrderStatusCss.wrapper}>
 				<OrderReady />
 				<OrderInWorks />
 			</div>
-			<div>
+			<div className={OrderStatusCss.boxTop}>
 				<p className="text text_type_main-medium">Выполнено за все время:</p>
 				<p className="text text_type_digits-large">28 752</p>
 			</div>
