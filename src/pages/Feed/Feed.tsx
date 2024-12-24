@@ -3,7 +3,11 @@ import feedCss from './Feed.module.css';
 import FeedListOrders from '../../components/FeedListOrders/FeedListOrders';
 import OrderStatus from '../../components/OrdersStatus/OrderStatus';
 
-const Feed = (): React.JSX.Element => {
+interface FeedListOrdersProps {
+	height?: string;
+}
+
+const Feed: React.FC<FeedListOrdersProps> = ({ height }): React.JSX.Element => {
 	return (
 		<section className={feedCss.feedSection}>
 			<div className={feedCss.container}>

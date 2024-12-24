@@ -50,3 +50,8 @@
 	margin-top: 10px;
 	max-width: 35%;
 }
+
+.overflowBox {
+	overflow: hidden;
+	height: 500px;
+}
