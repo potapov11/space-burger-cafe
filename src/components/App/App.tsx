@@ -11,6 +11,7 @@ import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../../pages/ResetPassword/ResetPassword';
 import ProfilePage from '../../pages/Profile/ProfilePage';
 import Feed from '../../pages/Feed/Feed';
+import ProfileOrders from '../../pages/ProfileOrders/ProfileOrders';
 import AppHeader from '../AppHeader/AppHeader';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { fetchUserData, fetchServerData } from '../../services/actions/data-action';
@@ -45,6 +46,7 @@ const App = (): React.JSX.Element => {
 				<Route path="/register" element={<OnlyUnAuth component={<RegisterPage />} />} />
 				<Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword />} />} />
 				<Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword />} />} />
+				<Route path="/profile/orders" element={<OnlyAuth component={<ProfileOrders />} />} />
 				<Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} />
 				<Route path="/feed" element={<OnlyAuth component={<Feed />} />} />
 				<Route path="/ingredients/:id" element={<IngredientDetails styleCenter={true} />} />
