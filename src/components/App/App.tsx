@@ -62,6 +62,14 @@ const App = (): React.JSX.Element => {
 							</Modal>
 						}
 					/>
+					<Route
+						path="/profile/orders/:orderId"
+						element={
+							<Modal onClose={closeModal}>
+								<p>Модалка</p>
+							</Modal>
+						}
+					/>
 				</Routes>
 			)}
 		</>
