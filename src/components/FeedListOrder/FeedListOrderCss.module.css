@@ -19,10 +19,16 @@
 	justify-content: space-between;
 }
 
-.textName {
+.link {
+	display: inline-block;
+	margin-bottom: 21px;
+	width: 100%;
+	color: white;
+	text-decoration: none;
 }
 
-.ingredients {
+.textName {
+	width: 80%;
 }
 
 .imgWrapper {

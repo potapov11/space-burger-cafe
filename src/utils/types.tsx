@@ -14,6 +14,16 @@ export interface ItemConstructor {
 	uniqueId?: string;
 }
 
+export interface OrderFeed {
+	_id: string;
+	ingredients: string[];
+	status: string;
+	name: string;
+	createdAt: string;
+	updatedAt: string;
+	number: number;
+}
+
 export interface DraggedItem extends ItemConstructor {
 	index?: number;
 }
