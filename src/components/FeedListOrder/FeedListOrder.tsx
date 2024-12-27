@@ -6,7 +6,7 @@ import { OrderFeed } from "../../utils/types";
 import { formatDate } from "../../utils/utils";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const mockId = 10;
+// const mockId = 10;
 
 const FeedListOrder: React.FC<OrderFeed> = ({ _id, ingredients, status, name, createdAt, updatedAt, number }): React.JSX.Element => {
   const { mainArray, rollsArray, sauceArray } = useSelector((store) => store.data);
@@ -45,22 +45,22 @@ const FeedListOrder: React.FC<OrderFeed> = ({ _id, ingredients, status, name, cr
       };
     });
 
-  console.log(targetArrElements);
+  // console.log(targetArrElements);
 
-  console.log(quantity, "quantity");
-  console.log(ingredients);
-  console.log(targetArrElements, "targetArrElements");
+  // console.log(quantity, "quantity");
+  // console.log(ingredients);
+  // console.log(targetArrElements, "targetArrElements");
 
   const totalCost = ingredients.reduce((sum, id) => {
     const ingredient = targetArrElements.find((item) => item._id === id);
-    if (ingredient.type == "bun") {
-      return ingredient ? sum + ingredient.price * 2 : sum;
-    }
+    // if (ingredient.type == "bun") {
+    //   return ingredient ? sum + ingredient.price * 2 : sum;
+    // }
     return ingredient ? sum + ingredient.price : sum;
   }, 0);
 
   return (
-    <Link className={FeedListOrderCss.link} to={`/profile/orders/${mockId}`} state={{ background: location }}>
+    <Link className={FeedListOrderCss.link} to={`/profile/orders/${_id}`} state={{ background: location }}>
       <li key={_id} className={FeedListOrderCss.Item}>
         <div className={FeedListOrderCss.textDate}>
           <span className={`${FeedListOrderCss.textName} text text_type_main-default`}>#{number}</span>
