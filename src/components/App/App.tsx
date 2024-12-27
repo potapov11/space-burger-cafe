@@ -24,8 +24,7 @@ const App = (): React.JSX.Element => {
   console.log(location, "location");
 
   const navigate = useNavigate();
-  // const background = location.state && location.state.background;
-  const background = location.state?.background;
+  const background = location.state && location.state.background;
   console.log(background, "...background...");
   const dispatch = useDispatch();
 
@@ -48,13 +47,14 @@ const App = (): React.JSX.Element => {
       <AppHeader />
       <Routes location={background || location}>
         <Route path="/" element={<HomePage onClose={closeModal} isModalOrderOpen={isModalOrderOpen} setModalOrderOpen={setModalOrderOpen} />} />
+        <Route path="/feed" element={<Feed />} />
+        <Route path="/feed/:orderId" element={<OrderInfo styleCenter={true} />} />
         <Route path="/login" element={<OnlyUnAuth component={<LoginPage />} />} />
         <Route path="/register" element={<OnlyUnAuth component={<RegisterPage />} />} />
         <Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword />} />} />
         <Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword />} />} />
         <Route path="/profile/orders" element={<OnlyAuth component={<ProfileOrders />} />} />
         <Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} />
-        <Route path="/feed" element={<OnlyAuth component={<Feed />} />} />
         <Route path="/ingredients/:id" element={<IngredientDetails styleCenter={true} />} />
       </Routes>
 
@@ -80,7 +80,7 @@ const App = (): React.JSX.Element => {
             path="/feed/:orderId"
             element={
               <Modal onClose={closeModal}>
-                <OrderInfo />
+                <OrderInfo styleCenter={false} />
               </Modal>
             }
           />

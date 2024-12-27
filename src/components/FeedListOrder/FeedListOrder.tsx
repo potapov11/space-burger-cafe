@@ -12,10 +12,7 @@ const FeedListOrder: React.FC<OrderFeed> = ({ _id, ingredients, status, name, cr
   const { mainArray, rollsArray, sauceArray } = useSelector((store) => store.data);
   const concatedArrayIngredients = [...mainArray, ...rollsArray, ...sauceArray];
   const location = useLocation();
-
-  // console.log(_id, "..._id");
-  // console.log(ingredients, "...ingredients");
-
+	
   const quantity = {};
 
   for (let i = 0; i < ingredients.length; i++) {
@@ -60,7 +57,7 @@ const FeedListOrder: React.FC<OrderFeed> = ({ _id, ingredients, status, name, cr
   }, 0);
 
   return (
-    <Link className={FeedListOrderCss.link} to={`/profile/orders/${_id}`} state={{ background: location }}>
+    <Link className={FeedListOrderCss.link} key={_id} to={`/feed/${_id}`} state={{ background: location }}>
       <li key={_id} className={FeedListOrderCss.Item}>
         <div className={FeedListOrderCss.textDate}>
           <span className={`${FeedListOrderCss.textName} text text_type_main-default`}>#{number}</span>

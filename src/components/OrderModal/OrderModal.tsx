@@ -1,86 +1,74 @@
-import React from "react";
+import React, { useEffect } from "react";
 import OrderModalCss from "./OrderModal.module.css";
-import { useSelector } from "react-redux";
+import { connectFeed, disconnectFeed } from "../../services/actions/socket-action";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { formatDate } from "../../utils/utils";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FEED_SOCKET_URL_All } from "../../utils/vars";
 
-const OrderInfo = () => {
+const OrderInfo = ({ styleCenter }: { styleCenter?: boolean }): React.JSX.Element => {
   const { orderId } = useParams();
+  const dispatch = useDispatch();
   const { mainArray, rollsArray, sauceArray } = useSelector((store) => store.data);
   const concatedArrayIngredients = [...mainArray, ...rollsArray, ...sauceArray];
+
+  useEffect(() => {
+    dispatch(connectFeed(FEED_SOCKET_URL_All));
+    return () => {
+      dispatch(disconnectFeed());
+    };
+  }, [dispatch]);
+
   const arrayAllOrdersSocket = useSelector((store) => store.feedReducer.orders.orders);
-  const selectedOrder = arrayAllOrdersSocket.find((socketItem) => socketItem._id == orderId);
-  const ingredients = selectedOrder.ingredients;
+  const selectedOrder = arrayAllOrdersSocket?.find((socketItem) => socketItem._id === orderId);
 
-  // console.log(orderId, "..id.selectedOrder...");
-  // console.log(arrayAllOrdersSocket, "...arrayAllOrdersSocket...");
-  // console.log(selectedOrder, "...selectedOrder...");
-
-  const quantity = {};
-
-  for (let i = 0; i < ingredients.length; i++) {
-    const ingredientId = ingredients[i];
-    if (quantity[ingredientId]) {
-      quantity[ingredientId] += 1;
-    } else {
-      quantity[ingredientId] = 1;
-    }
+  if (!selectedOrder) {
+    return <p>Заказ не найден.</p>;
   }
 
-  // Шаг 2: Фильтрация и добавление поля quantity
+  const ingredients = selectedOrder.ingredients;
+  const quantity = ingredients.reduce((acc, ingredientId) => {
+    acc[ingredientId] = (acc[ingredientId] || 0) + 1;
+    return acc;
+  }, {});
+
   const targetArrElements = concatedArrayIngredients
-    .filter((item) => {
-      return ingredients.some((someItem) => item._id === someItem);
-    })
-    .map((item) => {
-      if (item.type === "bun") {
-        return {
-          ...item,
-          quantity: 0,
-        };
-      }
-      return {
-        ...item,
-        quantity: quantity[item._id] || 0,
-      };
-    });
+    .filter((item) => ingredients.includes(item._id))
+    .map((item) => ({
+      ...item,
+      quantity: item.type === "bun" ? 0 : quantity[item._id] || 0,
+    }));
 
   const totalCost = ingredients.reduce((sum, id) => {
     const ingredient = targetArrElements.find((item) => item._id === id);
-    // if (ingredient.type == "bun") {
-    //   return ingredient ? sum + ingredient.price * 2 : sum;
-    // }
     return ingredient ? sum + ingredient.price : sum;
   }, 0);
 
   return (
-    <div className={OrderModalCss.modalWrapper}>
+    <div className={styleCenter ? OrderModalCss.otherPage : OrderModalCss.modalWrapper}>
       <p className={`${OrderModalCss.textCenter} text text_type_digits-default`}>#{selectedOrder.number}</p>
       <p className="text text_type_main-medium">{selectedOrder.name}</p>
       <p className={`${OrderModalCss.textStatus} text text_type_main-default`}>{selectedOrder.status}</p>
       <div className={OrderModalCss.wrapper}>
         <p className="text text_type_main-default">Состав :</p>
         <ul className={OrderModalCss.list}>
-          {targetArrElements?.length > 0 &&
-            targetArrElements.map((item) => {
-              return (
-                <li className={OrderModalCss.item}>
-                  <div className={OrderModalCss.imgWrapper}>
-                    <img src={item.image} alt={item.name} />
-                  </div>
-                  <p className="text text_type_main-default">{item.name}</p>
-                  <div className={OrderModalCss.priceWrapper}>
-                    {item.type === "bun" ? <span className="text text_type_digits-default">2</span> : <span className="text text_type_digits-default">{item.quantity}</span>}
-                    <span>Х</span>
-                    <span className="text text_type_digits-default">{item.price}</span>
-                    <span>
-                      <CurrencyIcon type="primary" />
-                    </span>
-                  </div>
-                </li>
-              );
-            })}
+          {targetArrElements.map((item) => (
+            <li key={item._id} className={OrderModalCss.item}>
+              <div className={OrderModalCss.imgWrapper}>
+                <img src={item.image} alt={item.name} />
+              </div>
+              <p className="text text_type_main-default">{item.name}</p>
+              <div className={OrderModalCss.priceWrapper}>
+                {item.type === "bun" ? <span className="text text_type_digits-default">2</span> : <span className="text text_type_digits-default">{item.quantity}</span>}
+                <span>Х</span>
+                <span className="text text_type_digits-default">{item.price}</span>
+                <span>
+                  <CurrencyIcon type="primary" />
+                </span>
+              </div>
+            </li>
+          ))}
         </ul>
       </div>
       <div className={OrderModalCss.bottomWrapper}>

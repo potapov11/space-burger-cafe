@@ -1,5 +1,4 @@
 import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT, CLEAR_CONSRUCTOR } from "../../utils/vars";
-
 import { ItemConstructor } from "../../utils/types";
 
 // Тип для состояния конструктора
@@ -18,7 +17,7 @@ interface AddIngredientAction {
 
 interface RemoveIngredientAction {
   type: typeof REMOVE_INGREDIENT;
-  payload: [string, number];
+  payload: [string, number]; // [id, index]
 }
 
 interface MoveIngredientAction {
@@ -45,19 +44,15 @@ const initialState: ConstructorState = {
 
 // Редюсер
 const constructorReducer = (state = initialState, action: ConstructorAction): ConstructorState => {
-  const newIngredient = action.payload;
-
-  const stateIngredients = state.constructorElems.ingredients;
-
   switch (action.type) {
     case MOVE_INGREDIENT: {
-      const { fromIndex, toIndex } = newIngredient;
+      const { fromIndex, toIndex } = action.payload; // Используем action.payload
 
       if (fromIndex === toIndex) {
         return state;
       }
 
-      const updatedIngredients = [...stateIngredients];
+      const updatedIngredients = [...state.constructorElems.ingredients];
       const [movedIngredient] = updatedIngredients.splice(fromIndex, 1);
       updatedIngredients.splice(toIndex, 0, movedIngredient);
 
@@ -71,7 +66,7 @@ const constructorReducer = (state = initialState, action: ConstructorAction): Co
     }
 
     case ADD_INGREDIENT: {
-      const newIngredients = newIngredient;
+      const newIngredients = action.payload;
 
       if (newIngredients?.[0]?.type === "bun") {
         return {
@@ -89,7 +84,7 @@ const constructorReducer = (state = initialState, action: ConstructorAction): Co
           ...state,
           constructorElems: {
             ...state.constructorElems,
-            ingredients: [...stateIngredients, ...newIngredients],
+            ingredients: [...state.constructorElems.ingredients, ...newIngredients],
           },
         };
       }
@@ -97,7 +92,7 @@ const constructorReducer = (state = initialState, action: ConstructorAction): Co
 
     case REMOVE_INGREDIENT: {
       const [id, index] = action.payload;
-      const filteredArrIngredient = stateIngredients.filter((item, i) => !(i === index && item._id === id));
+      const filteredArrIngredient = state.constructorElems.ingredients.filter((item, i) => !(i === index && item._id === id));
 
       return {
         ...state,
