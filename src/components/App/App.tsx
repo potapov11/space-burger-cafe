@@ -20,8 +20,13 @@ import { OnlyAuth, OnlyUnAuth } from "../ProtectedRoute/ProtectedRoute";
 
 const App = (): React.JSX.Element => {
   const location = useLocation();
+
+  console.log(location, "location");
+
   const navigate = useNavigate();
-  const background = location.state && location.state.background;
+  // const background = location.state && location.state.background;
+  const background = location.state?.background;
+  console.log(background, "...background...");
   const dispatch = useDispatch();
 
   const [isModalOrderOpen, setModalOrderOpen] = React.useState<boolean>(false);
@@ -67,7 +72,14 @@ const App = (): React.JSX.Element => {
             path="/profile/orders/:orderId"
             element={
               <Modal onClose={closeModal}>
-                <p>Модалка</p>
+                <OrderInfo />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feed/:orderId"
+            element={
+              <Modal onClose={closeModal}>
                 <OrderInfo />
               </Modal>
             }

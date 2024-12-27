@@ -13,11 +13,9 @@ const OrderInfo = () => {
   const selectedOrder = arrayAllOrdersSocket.find((socketItem) => socketItem._id == orderId);
   const ingredients = selectedOrder.ingredients;
 
-  console.log(orderId, "..id.selectedOrder...");
-
-  console.log(arrayAllOrdersSocket, "...arrayAllOrdersSocket...");
-
-  console.log(selectedOrder, "...selectedOrder...");
+  // console.log(orderId, "..id.selectedOrder...");
+  // console.log(arrayAllOrdersSocket, "...arrayAllOrdersSocket...");
+  // console.log(selectedOrder, "...selectedOrder...");
 
   const quantity = {};
 
@@ -55,8 +53,6 @@ const OrderInfo = () => {
     // }
     return ingredient ? sum + ingredient.price : sum;
   }, 0);
-
-  console.log(targetArrElements, "...targetArrElements...OrderInfo...");
 
   return (
     <div className={OrderModalCss.modalWrapper}>

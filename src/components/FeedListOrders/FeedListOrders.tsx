@@ -14,7 +14,7 @@ const FeedListOrders = () => {
   const isLoadingOrders = useSelector((store) => store.feedReducer.isLoading);
   const slicedArrayOrders: OrderFeed[] = arrayAllOrdersSocket?.slice(0, MAX_ORDERS_COUNT);
 
-  console.log(arrayAllOrdersSocket, "..arrayAllOrders...");
+  // console.log(arrayAllOrdersSocket, "..arrayAllOrders...");
 
   useEffect(() => {
     // Подключение к WebSocket

@@ -13,8 +13,8 @@ const FeedListOrder: React.FC<OrderFeed> = ({ _id, ingredients, status, name, cr
   const concatedArrayIngredients = [...mainArray, ...rollsArray, ...sauceArray];
   const location = useLocation();
 
-  console.log(_id, "..._id");
-  console.log(ingredients, "...ingredients");
+  // console.log(_id, "..._id");
+  // console.log(ingredients, "...ingredients");
 
   const quantity = {};
 
