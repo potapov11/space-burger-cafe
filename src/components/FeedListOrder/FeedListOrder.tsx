@@ -1,18 +1,16 @@
 import React from "react";
 import FeedListOrderCss from "./FeedListOrderCss.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { OrderFeed } from "../../utils/types";
 import { formatDate } from "../../utils/utils";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-// const mockId = 10;
-
 const FeedListOrder: React.FC<OrderFeed> = ({ _id, ingredients, status, name, createdAt, updatedAt, number }): React.JSX.Element => {
   const { mainArray, rollsArray, sauceArray } = useSelector((store) => store.data);
   const concatedArrayIngredients = [...mainArray, ...rollsArray, ...sauceArray];
   const location = useLocation();
-	
+
   const quantity = {};
 
   for (let i = 0; i < ingredients.length; i++) {
@@ -24,7 +22,6 @@ const FeedListOrder: React.FC<OrderFeed> = ({ _id, ingredients, status, name, cr
     }
   }
 
-  // Шаг 2: Фильтрация и добавление поля quantity
   const targetArrElements = concatedArrayIngredients
     .filter((item) => {
       return ingredients.some((someItem) => item._id === someItem);
@@ -42,17 +39,8 @@ const FeedListOrder: React.FC<OrderFeed> = ({ _id, ingredients, status, name, cr
       };
     });
 
-  // console.log(targetArrElements);
-
-  // console.log(quantity, "quantity");
-  // console.log(ingredients);
-  // console.log(targetArrElements, "targetArrElements");
-
   const totalCost = ingredients.reduce((sum, id) => {
     const ingredient = targetArrElements.find((item) => item._id === id);
-    // if (ingredient.type == "bun") {
-    //   return ingredient ? sum + ingredient.price * 2 : sum;
-    // }
     return ingredient ? sum + ingredient.price : sum;
   }, 0);
 
