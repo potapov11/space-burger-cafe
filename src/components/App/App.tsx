@@ -20,13 +20,8 @@ import { OnlyAuth, OnlyUnAuth } from "../ProtectedRoute/ProtectedRoute";
 
 const App = (): React.JSX.Element => {
   const location = useLocation();
-
-  // console.log(location, "location");
-
   const navigate = useNavigate();
   const background = location.state && location.state.background;
-
-  // console.log(background, "...background...");
 
   const dispatch = useDispatch();
   const [isModalOrderOpen, setModalOrderOpen] = React.useState<boolean>(false);

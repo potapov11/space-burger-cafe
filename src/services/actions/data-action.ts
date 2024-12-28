@@ -226,8 +226,10 @@ export const loginFunc = (object: { email: string; password: string }) => async 
     if (data.success) {
       console.log("HERE");
 
-      localStorage.setItem("refreshToken", data.data?.refreshToken || "");
-      localStorage.setItem("accessToken", data.data?.accessToken || "");
+      console.log(data, "...data....>>>>>>>>>>>>>>>>>>>>>");
+
+      localStorage.setItem("refreshToken", data.refreshToken || "");
+      localStorage.setItem("accessToken", data.accessToken || "");
     }
 
     dispatch({ type: LOGIN_USER, payload: data });

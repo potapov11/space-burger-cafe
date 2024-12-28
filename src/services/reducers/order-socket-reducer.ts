@@ -3,6 +3,7 @@ import { TOrder } from "../../utils/types";
 const initialState = {
   feedSocket: null,
   orders: [],
+  isLoading: true,
 };
 
 interface FeedState {
@@ -31,11 +32,13 @@ const orderSocketReducer = (state = initialState, action) => {
     case "UPDATE_ORDERS":
       return {
         ...state,
+        isLoading: false,
         orders: action.payload,
       };
     case "CONNECT_FEED":
       return {
         ...state,
+        isLoading: false,
         feedSocket: action.payload,
       };
     case "DISCONNECT_FEED":

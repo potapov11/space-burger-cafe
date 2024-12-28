@@ -29,10 +29,14 @@ let socket: WebSocket | null = null;
 export const websocketMiddleware = (store: any) => (next: Dispatch) => (action: FeedActions) => {
   switch (action.type) {
     case CONNECT_FEED: {
+      console.log("herererrererrer");
+
       const { url, token } = action.payload;
       if (socket) {
         socket.close();
       }
+
+      console.log(url, token, "token token rerrer");
 
       const socketUrl = token ? `${url}?token=${token}` : url;
       socket = new WebSocket(socketUrl);

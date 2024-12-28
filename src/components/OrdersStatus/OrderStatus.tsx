@@ -1,25 +1,29 @@
-import React from 'react';
-import OrderStatusCss from './OrderStatus.module.css';
-import OrderReady from '../OrdersReady/OrderReady';
-import OrderInWorks from '../../components/OrdersInWork/OrderInWorks';
+import React from "react";
+import OrderStatusCss from "./OrderStatus.module.css";
+import OrderReady from "../OrdersReady/OrderReady";
+import { useSelector, useDispatch } from "react-redux";
+import OrderInWorks from "../../components/OrdersInWork/OrderInWorks";
 
 const OrderStatus = (): React.JSX.Element => {
-	return (
-		<div className={OrderStatusCss.box}>
-			<div className={OrderStatusCss.wrapper}>
-				<OrderReady />
-				<OrderInWorks />
-			</div>
-			<div className={OrderStatusCss.boxTop}>
-				<p className="text text_type_main-medium">Выполнено за все время:</p>
-				<p className="text text_type_digits-large">28 752</p>
-			</div>
-			<div>
-				<p className="text text_type_main-medium">Выполнено за все время:</p>
-				<p className="text text_type_digits-large">28 752</p>
-			</div>
-		</div>
-	);
+  const OrdersSocketTotal = useSelector((store) => store.orderSocketReducer.orders.total);
+  const OrdersSockettotalToday = useSelector((store) => store.orderSocketReducer.orders.totalToday);
+
+  return (
+    <div className={OrderStatusCss.box}>
+      <div className={OrderStatusCss.wrapper}>
+        <OrderReady />
+        <OrderInWorks />
+      </div>
+      <div className={OrderStatusCss.boxTop}>
+        <p className="text text_type_main-medium">Выполнено за все время:</p>
+        <p className="text text_type_digits-large">{OrdersSocketTotal}</p>
+      </div>
+      <div>
+        <p className="text text_type_main-medium">Выполнено за все время:</p>
+        <p className="text text_type_digits-large">{OrdersSockettotalToday}</p>
+      </div>
+    </div>
+  );
 };
 
 export default OrderStatus;

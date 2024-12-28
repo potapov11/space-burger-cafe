@@ -15,7 +15,6 @@ export const connectUserOrders = (url: string) => {
 
     const token = (localStorage.getItem("accessToken") || "").substring("Bearer ".length);
     const socketUrl = token ? `${url}?token=${token}` : url;
-
     socket = new WebSocket(socketUrl);
 
     socket.onopen = () => {

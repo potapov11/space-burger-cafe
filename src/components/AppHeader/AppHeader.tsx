@@ -12,7 +12,6 @@ const AppHeader = (): React.JSX.Element => {
   const isActiveProfile = location.pathname;
 
   const onClickNavigate = (e: React.MouseEvent<HTMLParagraphElement>): void => {
-    console.log(e);
     const resultTextContent = (e.target as HTMLParagraphElement).textContent;
     if (resultTextContent === "Лента заказов") {
       navigate("/feed");

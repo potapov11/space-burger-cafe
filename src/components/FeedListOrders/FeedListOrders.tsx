@@ -10,45 +10,41 @@ const MAX_ORDERS_COUNT = 5;
 
 const FeedListOrders = () => {
   const dispatch = useDispatch();
-  const arrayAllOrdersSocket = useSelector((store) => store);
-  // const isLoadingOrders = useSelector((store) => store.feedReducer.isLoading);
-  // const slicedArrayOrders: OrderFeed[] = arrayAllOrdersSocket?.slice(0, MAX_ORDERS_COUNT);
-
-  console.log(arrayAllOrdersSocket, "..arrayAllOrders...");
 
   useEffect(() => {
-    // Подключение к WebSocket
-    dispatch(connectFeed(FEED_SOCKET_URL_All));
-
-    // Очистка при размонтировании компонента
+    const token = (localStorage.getItem("accessToken") || "").substring("Bearer ".length);
+    dispatch(connectFeed({ url: FEED_SOCKET_URL_All, token })); // Передаем объект с URL и токеном
     return () => {
-      dispatch(disconnectFeed());
+      dispatch(disconnectFeed()); // Отключение от WebSocket при размонтировании компонента
     };
   }, [dispatch]);
 
-  // return (
-  //   <div>
-  //     {isLoadingOrders && <p className="text text_type_main-default">Заказы загружаются...</p>}
+  const arrayAllOrdersSocket = useSelector((store) => store.feedReducer.orders.orders);
+  const isLoadingOrders = useSelector((store) => store.feedReducer.isLoading);
+  const slicedArrayOrders: OrderFeed[] = arrayAllOrdersSocket?.slice(0, MAX_ORDERS_COUNT);
 
-  //     {!isLoadingOrders && (
-  //       <ul className={FeedListOrdersCss.list}>
-  //         {slicedArrayOrders?.length > 0 &&
-  //           slicedArrayOrders.map((item) => (
-  //             <FeedListOrder
-  //               key={item._id}
-  //               _id={item._id}
-  //               ingredients={item.ingredients}
-  //               status={item.status}
-  //               name={item.name}
-  //               createdAt={item.createdAt}
-  //               updatedAt={item.updatedAt}
-  //               number={item.number}
-  //             />
-  //           ))}
-  //       </ul>
-  //     )}
-  //   </div>
-  // );
+  return (
+    <div>
+      {isLoadingOrders && <p className="text text_type_main-default">Заказы загружаются...</p>}
+      {!isLoadingOrders && (
+        <ul className={FeedListOrdersCss.list}>
+          {slicedArrayOrders?.length > 0 &&
+            slicedArrayOrders.map((item) => (
+              <FeedListOrder
+                key={item._id}
+                _id={item._id}
+                ingredients={item.ingredients}
+                status={item.status}
+                name={item.name}
+                createdAt={item.createdAt}
+                updatedAt={item.updatedAt}
+                number={item.number}
+              />
+            ))}
+        </ul>
+      )}
+    </div>
+  );
 };
 
 export default FeedListOrders;
