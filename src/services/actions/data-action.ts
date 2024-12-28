@@ -224,6 +224,8 @@ export const loginFunc = (object: { email: string; password: string }) => async 
     const data: ServerResponse<TokenResponse> = await checkResponse(response);
 
     if (data.success) {
+      console.log("HERE");
+
       localStorage.setItem("refreshToken", data.data?.refreshToken || "");
       localStorage.setItem("accessToken", data.data?.accessToken || "");
     }
@@ -257,6 +259,8 @@ export const loginFunc = (object: { email: string; password: string }) => async 
 
 export const fetchUserData = () => async (dispatch: Dispatch) => {
   const accessToken = localStorage.getItem("accessToken");
+
+  console.log(accessToken, "................>>>>>>>>>>>>>>>>>>>>accessToken>>>>>>>>>>>>");
 
   try {
     const userData: ServerResponse<any> = await fetchWithRefresh(`${baseURL}auth/user`, {

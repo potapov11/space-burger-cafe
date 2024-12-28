@@ -26,7 +26,7 @@ interface DisconnectFeedAction {
 
 type FeedAction = UpdateOrdersAction | ConnectFeedAction | DisconnectFeedAction;
 
-const feedReducer = (state = initialState, action) => {
+const orderSocketReducer = (state = initialState, action) => {
   switch (action.type) {
     case "UPDATE_ORDERS":
       return {
@@ -47,4 +47,4 @@ const feedReducer = (state = initialState, action) => {
   }
 };
 
-export default feedReducer;
+export default orderSocketReducer;
