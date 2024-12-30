@@ -19,9 +19,11 @@ const FeedListOrders = () => {
 		};
 	}, [dispatch]);
 
-	const arrayAllOrdersSocket = useSelector((store) => store.feedReducer.orders.orders);
+	const arrayAllOrdersSocket = useSelector((store) => store.orderSocketReducer.orders);
 	const isLoadingOrders = useSelector((store) => store.feedReducer.isLoading);
 	const slicedArrayOrders: OrderFeed[] = arrayAllOrdersSocket?.slice(0, MAX_ORDERS_COUNT);
+	const Store = useSelector((store) => store);
+	console.log(Store, '...Store in FeedListOrders');
 
 	return (
 		<div>

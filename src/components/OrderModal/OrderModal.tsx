@@ -14,14 +14,18 @@ const OrderInfo = ({ styleCenter }: { styleCenter?: boolean }): React.JSX.Elemen
 	const { mainArray, rollsArray, sauceArray } = useSelector((store) => store.data);
 	const concatedArrayIngredients = [...mainArray, ...rollsArray, ...sauceArray];
 
-	// useEffect(() => {
-	// 	dispatch(connectFeed(FEED_SOCKET_URL_All));
-	// 	return () => {
-	// 		dispatch(disconnectFeed());
-	// 	};
-	// }, [dispatch]);
+	useEffect(() => {
+		// Подключаемся к WebSocket без токена
+		dispatch(connectFeed({ url: `${ORDERS_SOCKET}/all` })); // Передаем только URL
+		return () => {
+			dispatch(disconnectFeed()); // Отключение от WebSocket при размонтировании компонента
+		};
+	}, [dispatch]);
 
-	const arrayAllOrdersSocket = useSelector((store) => store.feedReducer.orders.orders);
+	const Store = useSelector((store) => store);
+	console.log(Store, '...Store in OrderInfo');
+
+	const arrayAllOrdersSocket = useSelector((store) => store.orderSocketReducer.orders);
 	const selectedOrder = arrayAllOrdersSocket?.find((socketItem) => socketItem._id === orderId);
 
 	if (!selectedOrder) {
