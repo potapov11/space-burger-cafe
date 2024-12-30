@@ -13,7 +13,7 @@ const FeedListOrders = () => {
 
 	useEffect(() => {
 		// Подключаемся к WebSocket без токена
-		dispatch(connectFeed({ url: `${ORDERS_SOCKET}/all` })); // Передаем только URL
+		dispatch(connectFeed(`${ORDERS_SOCKET}/all`)); // Передаем только URL
 		return () => {
 			dispatch(disconnectFeed()); // Отключение от WebSocket при размонтировании компонента
 		};

@@ -8,7 +8,7 @@ import { connectFeed, disconnectFeed } from '../../services/actions/socket-actio
 // import { USER_ORDERS_SOCKET_URL } from "../../utils/vars";
 
 const OrderReady = (): React.JSX.Element => {
-	const arrayAllOrdersSocket = useSelector((store) => store.orderSocketReducer.orders.orders);
+	const arrayAllOrdersSocket = useSelector((store) => store.orderSocketReducer.orders);
 	const doneOrders = arrayAllOrdersSocket?.filter((item) => item.status === 'done').slice(0, 10);
 
 	return (

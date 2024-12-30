@@ -55,9 +55,19 @@ export const ordersSocketMiddleware = (wsUrl: string): Middleware => {
 
 					socket.onmessage = (event) => {
 						const data = JSON.parse(event.data);
+
+						console.log(data, '...ordersSocketMiddleware');
+
 						if (data.success) {
 							const orders = data.orders.filter((order) => order && order._id);
+
+							console.log('Orders:', orders);
+							console.log('Total:', data.total);
+							console.log('Total Today:', data.totalToday);
+
 							dispatch({ type: 'UPDATE_ORDERS', payload: orders });
+							dispatch({ type: 'UPDATE_TOTAL', payload: data.total });
+							dispatch({ type: 'UPDATE_TOTAL_TODAY', payload: data.totalToday });
 						} else {
 							console.error('Ошибка:', data.message);
 							if (data.message === 'Invalid or missing token') {

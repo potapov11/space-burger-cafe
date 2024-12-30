@@ -60,7 +60,7 @@ const OrderInfo = ({ styleCenter }: { styleCenter?: boolean }): React.JSX.Elemen
 	}
 
 	if (!selectedOrder) {
-		return <p>Заказ не найден.</p>;
+		return <p className="text text_type_main-medium">Ищем заказ...</p>;
 	}
 
 	const ingredients = selectedOrder.ingredients;
