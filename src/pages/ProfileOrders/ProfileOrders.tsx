@@ -39,7 +39,7 @@ const ProfileOrders = () => {
 					</div>
 
 					<div className={ProfilePageCss.overflowBox}>
-						<ProfileFeedListOrders socketUrl={USER_ORDERS_SOCKET_URL} />
+						<ProfileFeedListOrders />
 					</div>
 				</div>
 

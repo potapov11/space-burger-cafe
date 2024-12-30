@@ -26,24 +26,28 @@ type GetState = () => { feedSocket?: WebSocket };
 
 let socket: WebSocket | null = null;
 
-export const ordersSocketMiddleware = (wsUrl: string, accessToken?: string): Middleware => {
-	console.log(wsUrl, 'url в middleware');
+export const ordersSocketMiddleware = (wsUrl: string): Middleware => {
+	let socket: WebSocket | null = null;
 
 	return (store: MiddlewareAPI<Dispatch>) => {
-		let socket: WebSocket | null = null;
-
 		return (next) => (action: TWSActions) => {
 			const { dispatch } = store;
 			const { type, payload } = action;
 
-			console.log(type, '...type в middleware');
-
 			switch (type) {
 				case CONNECT_FEED: {
-					const socketUrl = payload.url; // Используем URL из payload
-					socket = accessToken ? new WebSocket(`${socketUrl}?token=${accessToken}`) : new WebSocket(socketUrl);
+					if (socket) {
+						console.warn('WebSocket уже подключен'); // Предупреждение, если сокет уже открыт
+						return;
+					}
 
-					console.log(socketUrl, '...socketUrl в middleware');
+					console.log(payload, '.....payload....');
+
+					const socketUrl = payload; // Используем URL из payload
+
+					console.log(socketUrl, '...socketUrl...');
+
+					socket = new WebSocket(socketUrl);
 
 					socket.onopen = () => {
 						console.log('WebSocket connected');
@@ -51,11 +55,8 @@ export const ordersSocketMiddleware = (wsUrl: string, accessToken?: string): Mid
 
 					socket.onmessage = (event) => {
 						const data = JSON.parse(event.data);
-						console.log(data, 'here');
-
 						if (data.success) {
 							const orders = data.orders.filter((order) => order && order._id);
-							console.log(orders, '... orders в middleware');
 							dispatch({ type: 'UPDATE_ORDERS', payload: orders });
 						} else {
 							console.error('Ошибка:', data.message);
@@ -71,16 +72,16 @@ export const ordersSocketMiddleware = (wsUrl: string, accessToken?: string): Mid
 
 					socket.onclose = () => {
 						console.log('WebSocket closed');
-						socket = null;
+						socket = null; // Освобождаем сокет
 					};
 
 					break;
 				}
 
-				case 'WS_CONNECTION_CLOSED': {
+				case DISCONNECT_FEED: {
 					if (socket) {
 						socket.close();
-						socket = null;
+						socket = null; // Освобождаем сокет
 					}
 					break;
 				}
@@ -93,3 +94,74 @@ export const ordersSocketMiddleware = (wsUrl: string, accessToken?: string): Mid
 		};
 	};
 };
+
+// export const ordersSocketMiddleware = (wsUrl: string, accessToken?: string): Middleware => {
+// 	console.log(wsUrl, 'url в middleware');
+
+// 	return (store: MiddlewareAPI<Dispatch>) => {
+// 		let socket: WebSocket | null = null;
+
+// 		return (next) => (action: TWSActions) => {
+// 			const { dispatch } = store;
+// 			const { type, payload } = action;
+
+// 			console.log(type, '...type в middleware');
+
+// 			switch (type) {
+// 				case CONNECT_FEED: {
+// 					const socketUrl = payload.url; // Используем URL из payload
+
+// 					console.log(socketUrl, '.....socketUrl...ordersSocketMiddleware...');
+
+// 					socket = accessToken ? new WebSocket(`${socketUrl}?token=${accessToken}`) : new WebSocket(socketUrl);
+
+// 					console.log(socketUrl, '...socketUrl в middleware');
+
+// 					socket.onopen = () => {
+// 						console.log('WebSocket connected');
+// 					};
+
+// 					socket.onmessage = (event) => {
+// 						const data = JSON.parse(event.data);
+// 						console.log(data, 'here');
+
+// 						if (data.success) {
+// 							const orders = data.orders.filter((order) => order && order._id);
+// 							console.log(orders, '... orders в middleware');
+// 							dispatch({ type: 'UPDATE_ORDERS', payload: orders });
+// 						} else {
+// 							console.error('Ошибка:', data.message);
+// 							if (data.message === 'Invalid or missing token') {
+// 								dispatch({ type: 'TOKEN_INVALID' });
+// 							}
+// 						}
+// 					};
+
+// 					socket.onerror = (error) => {
+// 						console.error('WebSocket error:', error);
+// 					};
+
+// 					socket.onclose = () => {
+// 						console.log('WebSocket closed');
+// 						socket = null;
+// 					};
+
+// 					break;
+// 				}
+
+// 				case 'WS_CONNECTION_CLOSED': {
+// 					if (socket) {
+// 						socket.close();
+// 						socket = null;
+// 					}
+// 					break;
+// 				}
+
+// 				default:
+// 					break;
+// 			}
+
+// 			return next(action);
+// 		};
+// 	};
+// };

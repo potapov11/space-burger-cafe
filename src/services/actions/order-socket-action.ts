@@ -1,62 +1,64 @@
-import { Dispatch, Middleware } from "redux";
-// import { CONNECT_USER_ORDERS, DISCONNECT_USER_ORDERS, UPDATE_USER_ORDERS } from "./actionTypes"; // Импортируйте ваши типы действий
+// import { Dispatch, Middleware } from 'redux';
+// // import { CONNECT_USER_ORDERS, DISCONNECT_USER_ORDERS, UPDATE_USER_ORDERS } from "./actionTypes"; // Импортируйте ваши типы действий
 
-let socket: WebSocket | null = null;
+// let socket: WebSocket | null = null;
 
-const CONNECT_USER_ORDERS = "CONNECT_USER_ORDERS";
-const DISCONNECT_USER_ORDERS = "DISCONNECT_FEED";
-const UPDATE_USER_ORDERS = "UPDATE_ORDERS";
+// const CONNECT_USER_ORDERS = 'CONNECT_USER_ORDERS';
+// const DISCONNECT_USER_ORDERS = 'DISCONNECT_FEED';
+// const UPDATE_USER_ORDERS = 'UPDATE_ORDERS';
 
-export const connectUserOrders = (url: string) => {
-  return (dispatch: Dispatch) => {
-    if (socket) {
-      socket.close();
-    }
+// export const connectUserOrders = (url: string) => {
+// 	console.log('pltcm');
 
-    const token = (localStorage.getItem("accessToken") || "").substring("Bearer ".length);
-    const socketUrl = token ? `${url}?token=${token}` : url;
-    socket = new WebSocket(socketUrl);
+// 	return (dispatch: Dispatch) => {
+// 		if (socket) {
+// 			socket.close();
+// 		}
 
-    socket.onopen = () => {
-      console.log("WebSocket connected");
-      dispatch({ type: CONNECT_USER_ORDERS });
-    };
+// 		const token = (localStorage.getItem('accessToken') || '').substring('Bearer '.length);
+// 		const socketUrl = token ? `${url}?token=${token}` : url;
+// 		socket = new WebSocket(socketUrl);
 
-    socket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      dispatch({ type: UPDATE_USER_ORDERS, payload: data });
-    };
+// 		socket.onopen = () => {
+// 			console.log('WebSocket connected');
+// 			dispatch({ type: CONNECT_USER_ORDERS });
+// 		};
 
-    socket.onerror = (error) => {
-      console.error("WebSocket error:", error);
-      dispatch({ type: "USER_ORDERS_ERROR", payload: error });
-    };
+// 		socket.onmessage = (event) => {
+// 			const data = JSON.parse(event.data);
+// 			dispatch({ type: UPDATE_USER_ORDERS, payload: data });
+// 		};
 
-    socket.onclose = () => {
-      console.log("WebSocket closed");
-      dispatch({ type: DISCONNECT_USER_ORDERS });
-    };
-  };
-};
+// 		socket.onerror = (error) => {
+// 			console.error('WebSocket error:', error);
+// 			dispatch({ type: 'USER_ORDERS_ERROR', payload: error });
+// 		};
 
-export const disconnectUserOrders = () => {
-  return (dispatch: Dispatch) => {
-    if (socket) {
-      socket.close();
-      socket = null;
-      dispatch({ type: DISCONNECT_USER_ORDERS });
-    }
-  };
-};
+// 		socket.onclose = () => {
+// 			console.log('WebSocket closed');
+// 			dispatch({ type: DISCONNECT_USER_ORDERS });
+// 		};
+// 	};
+// };
 
-export const userOrdersWebsocketMiddleware: Middleware = (store) => (next) => (action) => {
-  if (connectUserOrders.match(action)) {
-    store.dispatch(connectUserOrders(action.payload));
-  }
+// export const disconnectUserOrders = () => {
+// 	return (dispatch: Dispatch) => {
+// 		if (socket) {
+// 			socket.close();
+// 			socket = null;
+// 			dispatch({ type: DISCONNECT_USER_ORDERS });
+// 		}
+// 	};
+// };
 
-  if (disconnectUserOrders.match(action)) {
-    store.dispatch(disconnectUserOrders());
-  }
+// export const userOrdersWebsocketMiddleware: Middleware = (store) => (next) => (action) => {
+// 	if (connectUserOrders.match(action)) {
+// 		store.dispatch(connectUserOrders(action.payload));
+// 	}
 
-  return next(action);
-};
+// 	if (disconnectUserOrders.match(action)) {
+// 		store.dispatch(disconnectUserOrders());
+// 	}
+
+// 	return next(action);
+// };
