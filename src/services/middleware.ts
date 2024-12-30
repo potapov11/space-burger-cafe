@@ -1,21 +1,21 @@
-import { TOrder } from "../utils/types";
+import { TOrder } from '../utils/types';
 
-const CONNECT_FEED = "CONNECT_FEED";
-const DISCONNECT_FEED = "DISCONNECT_FEED";
-const UPDATE_ORDERS = "UPDATE_ORDERS";
+const CONNECT_FEED = 'CONNECT_FEED';
+const DISCONNECT_FEED = 'DISCONNECT_FEED';
+const UPDATE_ORDERS = 'UPDATE_ORDERS';
 
 interface ConnectFeedAction {
-  type: typeof CONNECT_FEED;
-  payload: { url: string; token?: string };
+	type: typeof CONNECT_FEED;
+	payload: { url: string; token?: string };
 }
 
 interface DisconnectFeedAction {
-  type: typeof DISCONNECT_FEED;
+	type: typeof DISCONNECT_FEED;
 }
 
 interface UpdateOrdersAction {
-  type: typeof UPDATE_ORDERS;
-  payload: TOrder[];
+	type: typeof UPDATE_ORDERS;
+	payload: TOrder[];
 }
 
 type FeedActions = ConnectFeedAction | DisconnectFeedAction;
@@ -26,52 +26,70 @@ type GetState = () => { feedSocket?: WebSocket };
 
 let socket: WebSocket | null = null;
 
-export const websocketMiddleware = (store: any) => (next: Dispatch) => (action: FeedActions) => {
-  switch (action.type) {
-    case CONNECT_FEED: {
-      console.log("herererrererrer");
+export const ordersSocketMiddleware = (wsUrl: string, accessToken?: string): Middleware => {
+	console.log(wsUrl, 'url в middleware');
 
-      const { url, token } = action.payload;
-      if (socket) {
-        socket.close();
-      }
+	return (store: MiddlewareAPI<Dispatch>) => {
+		let socket: WebSocket | null = null;
 
-      console.log(url, token, "token token rerrer");
+		return (next) => (action: TWSActions) => {
+			const { dispatch } = store;
+			const { type, payload } = action;
 
-      const socketUrl = token ? `${url}?token=${token}` : url;
-      socket = new WebSocket(socketUrl);
+			console.log(type, '...type в middleware');
 
-      socket.onopen = () => {
-        console.log("WebSocket connected");
-      };
+			switch (type) {
+				case CONNECT_FEED: {
+					const socketUrl = payload.url; // Используем URL из payload
+					socket = accessToken ? new WebSocket(`${socketUrl}?token=${accessToken}`) : new WebSocket(socketUrl);
 
-      socket.onmessage = (event) => {
-        const data = JSON.parse(event.data);
-        store.dispatch({ type: UPDATE_ORDERS, payload: data });
-      };
+					console.log(socketUrl, '...socketUrl в middleware');
 
-      socket.onerror = (error) => {
-        console.error("WebSocket error:", error);
-      };
+					socket.onopen = () => {
+						console.log('WebSocket connected');
+					};
 
-      socket.onclose = () => {
-        console.log("WebSocket closed");
-      };
+					socket.onmessage = (event) => {
+						const data = JSON.parse(event.data);
+						console.log(data, 'here');
 
-      break;
-    }
+						if (data.success) {
+							const orders = data.orders.filter((order) => order && order._id);
+							console.log(orders, '... orders в middleware');
+							dispatch({ type: 'UPDATE_ORDERS', payload: orders });
+						} else {
+							console.error('Ошибка:', data.message);
+							if (data.message === 'Invalid or missing token') {
+								dispatch({ type: 'TOKEN_INVALID' });
+							}
+						}
+					};
 
-    case DISCONNECT_FEED: {
-      if (socket) {
-        socket.close();
-        socket = null;
-      }
-      break;
-    }
+					socket.onerror = (error) => {
+						console.error('WebSocket error:', error);
+					};
 
-    default:
-      break;
-  }
+					socket.onclose = () => {
+						console.log('WebSocket closed');
+						socket = null;
+					};
 
-  return next(action);
+					break;
+				}
+
+				case 'WS_CONNECTION_CLOSED': {
+					if (socket) {
+						socket.close();
+						socket = null;
+					}
+					break;
+				}
+
+				default:
+					break;
+			}
+
+			return next(action);
+		};
+	};
 };
