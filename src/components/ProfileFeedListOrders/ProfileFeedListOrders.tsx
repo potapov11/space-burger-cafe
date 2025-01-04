@@ -19,6 +19,7 @@ const ProfileFeedListOrders = () => {
 	const isLoadingOrders = useSelector((store) => store.orderSocketReducer.isLoading);
 
 	console.log(arrayAllOrdersSocket, '..arrayAllOrders.ProfileFeedListOrders..');
+	console.log(isLoadingOrders, '..isLoadingOrders.ProfileFeedListOrders..');
 
 	useEffect(() => {
 		const accessToken = localStorage.getItem('accessToken'); // Получаем токен из localStorage

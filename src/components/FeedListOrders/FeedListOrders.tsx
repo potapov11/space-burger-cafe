@@ -24,6 +24,7 @@ const FeedListOrders = () => {
 	const slicedArrayOrders: OrderFeed[] = arrayAllOrdersSocket?.slice(0, MAX_ORDERS_COUNT);
 	const Store = useSelector((store) => store);
 	console.log(Store, '...Store in FeedListOrders');
+	console.log(isLoadingOrders, '...isLoadingOrders in FeedListOrders');
 
 	return (
 		<div>

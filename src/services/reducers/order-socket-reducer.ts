@@ -34,6 +34,7 @@ const orderSocketReducer = (state = initialState, action) => {
 			return {
 				...state,
 				orders: action.payload,
+				isLoading: false,
 			};
 		case 'UPDATE_TOTAL':
 			return {
@@ -49,10 +50,12 @@ const orderSocketReducer = (state = initialState, action) => {
 			return {
 				...state,
 				feedSocket: action.payload,
+				isLoading: false,
 			};
 		case 'DISCONNECT_FEED':
 			return {
 				...state,
+				isLoading: true,
 			};
 		default:
 			return state;
