@@ -105,7 +105,7 @@ export const fetchServerData = () => {
 				dispatch({ type: SET_MAIN_ARRAY, payload: mainArray });
 			}
 		} catch (error) {
-			console.error(`Произошла ошибка ${error}`);
+			// console.error(`Произошла ошибка ${error}`);
 		}
 	};
 };
@@ -274,7 +274,7 @@ export const fetchUserData = () => async (dispatch: Dispatch) => {
 		dispatch({ type: DATA_CHECK_USER, payload: userData });
 		return userData;
 	} catch (error) {
-		console.error('Ошибка при получении данных пользователя:', error);
+		// console.error('Ошибка при получении данных пользователя:', error);
 		dispatch({ type: DATA_FETCH_ERROR, payload: error.message });
 	}
 };

@@ -4,6 +4,7 @@ import { ItemConstructor } from '../../utils/types';
 import TotalPrice from '../TotalPrice/TotalPrice';
 import { removeIngredient } from '../../services/actions/constructor-action';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+// import { useSelector } from 'react-redux';
 import { useDispatch, useSelector } from '../../main';
 import { useDrop } from 'react-dnd';
 import isEmpty from '../../utils/utils';
@@ -19,6 +20,7 @@ const BurgerMainIngredients: React.FC<BurgerMainIngredientsProps> = ({ openModal
 	const dispatch = useDispatch();
 
 	const { bunItems, ingredients } = dataConstructor;
+
 	const conditionArraysEmpty = isEmpty(bunItems) && isEmpty(ingredients);
 
 	const [, dropTarget] = useDrop<ItemConstructor>({
@@ -55,10 +57,10 @@ const BurgerMainIngredients: React.FC<BurgerMainIngredientsProps> = ({ openModal
 					)}
 					<ul className={`${BurgerConstructorCss.constructorList} mt-4`}>
 						{ingredients
-							.filter((item) => item.type !== 'bun')
-							.map((item, index) => (
-								<DraggableIngredient key={item.uniqueId} item={item} index={index} handleClose={handleClose} />
-							))}
+							.filter((item) => item.type !== 'bun' && item._id)
+							.map((item, index) => {
+								return <DraggableIngredient key={item.uniqueId} item={item} index={index} handleClose={handleClose} />;
+							})}
 					</ul>
 					{bunItems?.length && (
 						<ConstructorElement

@@ -15,7 +15,10 @@ const TotalPrice = ({ openModal }: { openModal: () => void }) => {
 	const { bunItems } = dataConstructor;
 	const { ingredients } = dataConstructor;
 
+	console.log(ingredients, '...ingredients..TotalPrice...');
+
 	const allIngredients = [...bunItems, ...ingredients];
+
 	const allPrice = calculateTotalPrice(allIngredients);
 
 	const handleOrderBtn = () => {

@@ -39,7 +39,7 @@ const HomePage: React.FC<HomePageProps> = ({ onClose, isModalOrderOpen, setModal
 				throw new Error('Не удалось получить данные заказа');
 			}
 		} catch (error) {
-			console.error('Ошибка при создании заказа:', error);
+			// console.error('Ошибка при создании заказа:', error);
 		}
 	};
 

@@ -1,5 +1,4 @@
 import { CLEAR_ORDER_DETAIL, ADD_ORDER_DETAIL, ORDER_SUCCESS, ORDER_FAILURE } from '../../utils/vars';
-import { OrderFeed } from '../../utils/types';
 
 interface AddOrderDetailAction {
 	type: typeof ADD_ORDER_DETAIL;

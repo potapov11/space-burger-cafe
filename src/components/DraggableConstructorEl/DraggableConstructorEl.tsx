@@ -9,6 +9,7 @@ import { useDrag, useDrop } from 'react-dnd';
 interface DraggableIngredientProps {
 	item: DraggedItem;
 	index: number;
+	key: string;
 	handleClose: (id: string, index: number) => void;
 }
 
@@ -37,7 +38,7 @@ const DraggableIngredient: React.FC<DraggableIngredientProps> = ({ item, index, 
 	});
 
 	return (
-		<li className={`${BurgerConstructorCss.constructorListItem} mb-4 ${isDragging ? BurgerConstructorCss.dragging : ''}`} ref={(node) => dragRef(dropRef(node))} key={item.uniqueId}>
+		<li className={`${BurgerConstructorCss.constructorListItem} mb-4 ${isDragging ? BurgerConstructorCss.dragging : ''}`} ref={(node) => dragRef(dropRef(node))}>
 			<DragIcon type="primary" />
 			<ConstructorElement text={item.name} price={item.price} thumbnail={item.image} handleClose={() => handleClose(item._id, index)} />
 		</li>
