@@ -7,11 +7,6 @@ const initialState = {
 	total_today: '',
 };
 
-interface FeedState {
-	feedSocket: WebSocket | null;
-	orders: TOrder[];
-}
-
 interface UpdateOrdersAction {
 	type: 'UPDATE_ORDERS';
 	payload: TOrder[];
@@ -25,8 +20,6 @@ interface ConnectFeedAction {
 interface DisconnectFeedAction {
 	type: 'DISCONNECT_FEED';
 }
-
-type FeedAction = UpdateOrdersAction | ConnectFeedAction | DisconnectFeedAction;
 
 const orderSocketReducer = (state = initialState, action) => {
 	switch (action.type) {

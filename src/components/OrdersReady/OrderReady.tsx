@@ -1,11 +1,6 @@
 import React from 'react';
 import OrderReadyCss from './OrderReady.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { connectUserOrders, disconnectUserOrders } from '../../services/actions/order-socket-action';
-import { connectFeed, disconnectFeed } from '../../services/actions/socket-action';
-// import { FEED_SOCKET_URL_All } from "../../utils/vars";
-// import { USER_ORDERS_SOCKET_URL } from "../../utils/vars";
+import { useSelector } from '../../main';
 
 const OrderReady = (): React.JSX.Element => {
 	const arrayAllOrdersSocket = useSelector((store) => store.orderSocketReducer.orders);

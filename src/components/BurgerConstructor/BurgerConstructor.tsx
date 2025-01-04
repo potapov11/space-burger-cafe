@@ -4,7 +4,7 @@ import { ItemConstructor } from '../../utils/types';
 import TotalPrice from '../TotalPrice/TotalPrice';
 import { removeIngredient } from '../../services/actions/constructor-action';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from '../../main';
 import { useDrop } from 'react-dnd';
 import isEmpty from '../../utils/utils';
 import DraggableIngredient from '../DraggableConstructorEl/DraggableConstructorEl';
@@ -15,7 +15,6 @@ interface BurgerMainIngredientsProps {
 }
 
 const BurgerMainIngredients: React.FC<BurgerMainIngredientsProps> = ({ openModal, handleDrop }): React.JSX.Element => {
-	// @ts-ignore
 	const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
 	const dispatch = useDispatch();
 

@@ -3,7 +3,7 @@ import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-de
 import RegisterPageCss from './Register.module.css';
 import { useNavigate } from 'react-router-dom';
 import { registerFunc } from '../../services/actions/data-action';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../main';
 import { useState } from 'react';
 
 const RegisterPage = () => {
@@ -20,7 +20,6 @@ const RegisterPage = () => {
 			password: userPasswordInput,
 			name: userNameState,
 		};
-		//@ts-ignore
 		dispatch(registerFunc(dataRegister));
 	};
 

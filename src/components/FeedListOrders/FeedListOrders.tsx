@@ -1,8 +1,8 @@
 import React from 'react';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { connectFeed, disconnectFeed } from '../../services/actions/socket-action';
 import FeedListOrdersCss from './FeedListOrders.module.css';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from '../../main';
+import { connectFeed, disconnectFeed } from '../../services/actions/socket-action';
 import FeedListOrder from '../FeedListOrder/FeedListOrder';
 import { OrderFeed } from '../../utils/types';
 import { ORDERS_SOCKET } from '../../utils/vars';
@@ -12,19 +12,15 @@ const FeedListOrders = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		// Подключаемся к WebSocket без токена
 		dispatch(connectFeed(`${ORDERS_SOCKET}/all`)); // Передаем только URL
 		return () => {
-			dispatch(disconnectFeed()); // Отключение от WebSocket при размонтировании компонента
+			dispatch(disconnectFeed());
 		};
 	}, [dispatch]);
 
 	const arrayAllOrdersSocket = useSelector((store) => store.orderSocketReducer.orders);
 	const isLoadingOrders = useSelector((store) => store.feedReducer.isLoading);
 	const slicedArrayOrders: OrderFeed[] = arrayAllOrdersSocket?.slice(0, MAX_ORDERS_COUNT);
-	const Store = useSelector((store) => store);
-	console.log(Store, '...Store in FeedListOrders');
-	console.log(isLoadingOrders, '...isLoadingOrders in FeedListOrders');
 
 	return (
 		<div>

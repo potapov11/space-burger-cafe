@@ -3,7 +3,7 @@ import { PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-co
 import ProfilePageCss from './Profile.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { logOutFunc } from '../../services/actions/data-action';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../main';
 import { useState } from 'react';
 
 const ProfilePage = () => {
@@ -22,7 +22,6 @@ const ProfilePage = () => {
 
 	const logOutClick = (): void => {
 		localStorage.removeItem('accessToken');
-		// @ts-ignore
 		dispatch(logOutFunc());
 	};
 

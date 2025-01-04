@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from '../../main';
 import OrderInWorksCss from './OrderInWorks.module.css';
 
 const OrderInWorks = (): React.JSX.Element => {

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ForgotPasswordCss from './ForgotPassword.module.css';
+import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { resetPassword } from '../../services/actions/data-action';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../main';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -17,7 +17,6 @@ const ForgotPassword = (): React.JSX.Element => {
 
 	const handleRecover = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		//@ts-ignore
 		dispatch(resetPassword(inputState));
 	};
 

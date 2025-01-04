@@ -1,14 +1,10 @@
 import React from 'react';
 import OrderStatusCss from './OrderStatus.module.css';
 import OrderReady from '../OrdersReady/OrderReady';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from '../../main';
 import OrderInWorks from '../../components/OrdersInWork/OrderInWorks';
 
 const OrderStatus = (): React.JSX.Element => {
-	console.log(
-		useSelector((store) => store),
-		'...store OrderStatus',
-	);
 	const OrdersSocketTotal = useSelector((store) => store.orderSocketReducer.total);
 	const OrdersSockettotalToday = useSelector((store) => store.orderSocketReducer.total_today);
 

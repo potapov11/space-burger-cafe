@@ -2,14 +2,10 @@ import React from 'react';
 import ProfilePageCss from './ProfileOrders.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { logOutFunc } from '../../services/actions/data-action';
-import { useDispatch } from 'react-redux';
-import FeedListOrders from '../../components/FeedListOrders/FeedListOrders';
+import { useDispatch } from '../../main';
 import ProfileFeedListOrders from '../../components/ProfileFeedListOrders/ProfileFeedListOrders';
-// import { USER_ORDERS_SOCKET_URL } from "../../utils/vars";
 
 const ProfileOrders = () => {
-	// console.log(USER_ORDERS_SOCKET_URL, "....USER_ORDERS_SOCKET_URL....");
-
 	const dispatch = useDispatch();
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -20,7 +16,6 @@ const ProfileOrders = () => {
 
 	const logOutClick = (): void => {
 		localStorage.removeItem('accessToken');
-		// @ts-ignore
 		dispatch(logOutFunc());
 	};
 

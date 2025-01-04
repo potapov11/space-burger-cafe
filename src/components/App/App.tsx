@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../main';
 import Modal from '../Modal/Modal';
 import HomePage from '../../pages/Home/Home';
 import LoginPage from '../../pages/Login/Login';
@@ -27,9 +27,7 @@ const App = (): React.JSX.Element => {
 	const [isModalOrderOpen, setModalOrderOpen] = React.useState<boolean>(false);
 
 	useEffect(() => {
-		//@ts-ignore
 		dispatch(fetchUserData());
-		//@ts-ignore
 		dispatch(fetchServerData());
 	}, [dispatch]);
 

@@ -1,32 +1,9 @@
-import { TOrder } from '../../utils/types';
-
 const initialState = {
 	feedSocket: null,
 	orders: [],
 	total: '',
 	total_today: '',
 };
-
-interface FeedState {
-	feedSocket: WebSocket | null;
-	orders: TOrder[];
-}
-
-interface UpdateOrdersAction {
-	type: 'UPDATE_ORDERS';
-	payload: TOrder[];
-}
-
-interface ConnectFeedAction {
-	type: 'CONNECT_FEED';
-	payload: WebSocket;
-}
-
-interface DisconnectFeedAction {
-	type: 'DISCONNECT_FEED';
-}
-
-type FeedAction = UpdateOrdersAction | ConnectFeedAction | DisconnectFeedAction;
 
 const feedReducer = (state = initialState, action) => {
 	switch (action.type) {

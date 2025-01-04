@@ -1,15 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
-import { useInView } from 'react-intersection-observer';
 import ingredientCss from './BurgerIngredients.module.css';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector } from '../../main';
+import { useInView } from 'react-intersection-observer';
 import IngredientBox from '../IngredientBox/IngredientBox';
 
 const BurgerIngredients = (): React.JSX.Element => {
 	const [current, setCurrent] = useState<string>('one');
-	//@ts-ignore
 	const stateData = useSelector((state) => state.data);
-	//@ts-ignore
 	const ingredientsData = useSelector((state) => state.constructorReducer.constructorElems);
 
 	const bunRef = useRef<HTMLDivElement | null>(null);
@@ -55,15 +53,12 @@ const BurgerIngredients = (): React.JSX.Element => {
 			<div className={ingredientCss.products}>
 				<div>
 					<div ref={bunRefView}>
-						{/* @ts-ignore */}
 						<IngredientBox dataStore={ingredientsData.bunItems} ref={bunRef} data={stateData.rollsArray} title="Булки" />
 					</div>
 					<div ref={sauceRefView}>
-						{/* @ts-ignore */}
 						<IngredientBox dataStore={ingredientsData.ingredients} ref={sauceRef} data={stateData.sauceArray} title="Соусы" />
 					</div>
 					<div ref={mainRefView}>
-						{/* @ts-ignore */}
 						<IngredientBox dataStore={ingredientsData.ingredients} ref={mainRef} data={stateData.mainArray} title="Начинки" />
 					</div>
 				</div>

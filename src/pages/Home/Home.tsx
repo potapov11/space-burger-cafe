@@ -1,11 +1,11 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import HomeCss from './Home.module.css';
+import { useDispatch, useSelector } from '../../main';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { createOrder } from '../../services/actions/data-action.js';
 import { addOrderDetail, orderFailure, orderSuccess } from '../../services/actions/order-modal-action.js';
 import { addIngredient, clearConstructor } from '../../services/actions/constructor-action.js';
-import HomeCss from './Home.module.css';
 import Modal from '../../components/Modal/Modal.jsx';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients.tsx';
 import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor.tsx';
@@ -20,7 +20,6 @@ interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = ({ onClose, isModalOrderOpen, setModalOrderOpen }): React.JSX.Element => {
 	const [orderDataNumber, setOrderData] = React.useState(null);
 	const dispatch = useDispatch();
-	//@ts-ignore
 	const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
 
 	const openOrderModal = async () => {
@@ -29,23 +28,18 @@ const HomePage: React.FC<HomePageProps> = ({ onClose, isModalOrderOpen, setModal
 
 		try {
 			dispatch(addOrderDetail());
-			//@ts-ignore
 			const orderData = await dispatch(createOrder(ingredientIds));
 
 			if (orderData && orderData.order) {
-				//@ts-ignore
 				const orderDataNum = orderData.order.number;
 				setOrderData(orderDataNum);
-				//@ts-ignore
-				dispatch(orderSuccess(orderData));
+				dispatch(orderSuccess());
 				dispatch(clearConstructor());
 			} else {
 				throw new Error('Не удалось получить данные заказа');
 			}
 		} catch (error) {
 			console.error('Ошибка при создании заказа:', error);
-			//@ts-ignore
-			dispatch(orderFailure(error.message));
 		}
 	};
 

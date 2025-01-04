@@ -5,7 +5,6 @@ import orderReducer from './order-reducer';
 import userReducer from './login-reducer';
 import feedReducer from './feed-reducer';
 import orderSocketReducer from './order-socket-reducer';
-// import socketFeedReducer from './socket-reducer';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({

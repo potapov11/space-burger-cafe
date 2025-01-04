@@ -1,12 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import IngredientDetailStyle from './IngredientDetails.module.css';
+import { useSelector } from '../../main';
+import { useParams } from 'react-router-dom';
 
 const IngredientDetails = ({ styleCenter }: { styleCenter?: boolean }): React.JSX.Element => {
 	const { id } = useParams();
 
-	//@ts-ignore
 	const ingredientsData = useSelector((store) => store.data);
 	const { mainArray, rollsArray, sauceArray } = ingredientsData;
 	const allsData = [...mainArray, ...sauceArray, ...rollsArray];
