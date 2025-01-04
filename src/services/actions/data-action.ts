@@ -20,7 +20,7 @@ import {
 } from '../../utils/vars.ts';
 
 import { checkResponses } from '../../utils/utils.ts';
-import { ItemConstructor } from '../../utils/types.ts';
+import { ItemConstructor, serverResponseResetPassword } from '../../utils/types.ts';
 
 interface ServerResponse<T> {
 	success: boolean;
@@ -34,26 +34,24 @@ interface Action<T> {
 	payload: T;
 }
 
-interface TokenResponse {
-	accessToken: string;
-	refreshToken: string;
+interface OrderData {
+	orderId: string;
+	items: ItemConstructor[];
 }
 
 // Типы действий
 type SetMainArrayAction = Action<ItemConstructor[]>;
 type SetSauceArrayAction = Action<ItemConstructor[]>;
 type SetRollsArrayAction = Action<ItemConstructor[]>;
-type OrderSuccessAction = Action<ServerResponse<any>>;
+type OrderSuccessAction = Action<ServerResponse<OrderData>>;
 type OrderFailureAction = Action<string>;
-type EmailSuccessAction = Action<ServerResponse<any>>;
+type EmailSuccessAction = Action<ServerResponse<{ email: string }>>;
 type EmailFailureAction = Action<string>;
-type RegisterUserAction = Action<ServerResponse<any>>;
+type RegisterUserAction = Action<ServerResponse<TokenResponse>>;
 type RegisterFailureAction = Action<string>;
-type LoginUserAction = Action<ServerResponse<any>>;
+type LoginUserAction = Action<ServerResponse<TokenResponse>>;
 type LoginFailureAction = Action<string>;
-type DataCheckUserAction = Action<ServerResponse<any>>;
 type DataFetchErrorAction = Action<string>;
-type ResetPasswordSuccessAction = Action<ServerResponse<any>>;
 type ResetPasswordFailureAction = Action<string>;
 type LogoutUserAction = Action<ServerResponse<any>>;
 type LogoutFailureAction = Action<string>;
@@ -71,9 +69,7 @@ type FeedActions =
 	| RegisterFailureAction
 	| LoginUserAction
 	| LoginFailureAction
-	| DataCheckUserAction
 	| DataFetchErrorAction
-	| ResetPasswordSuccessAction
 	| ResetPasswordFailureAction
 	| LogoutUserAction
 	| LogoutFailureAction;
@@ -121,7 +117,7 @@ export const createOrder = (ingredients: string[]) => async (dispatch: Dispatch)
 			body: JSON.stringify({ ingredients }),
 		});
 
-		const data: ServerResponse<any> = await checkResponses(response);
+		const data: ServerResponse<ItemConstructor[]> = await checkResponses(response);
 		dispatch({ type: ORDER_SUCCESS, payload: data });
 
 		return data;
@@ -142,7 +138,7 @@ export const resetPassword = (email: string) => async (dispatch: Dispatch) => {
 			body: JSON.stringify(sendObject),
 		});
 
-		const data: ServerResponse<any> = await checkResponses(response);
+		const data: ServerResponse<serverResponseResetPassword> = await checkResponses(response);
 		dispatch({ type: EMAIL_SUCCESS, payload: data });
 
 		return data;
@@ -161,7 +157,7 @@ export const resetPasswordReset = (obj: { password: string; token: string }) => 
 			body: JSON.stringify(obj),
 		});
 
-		const data: ServerResponse<any> = await checkResponses(response);
+		const data: ServerResponse<serverResponseResetPassword> = await checkResponses(response);
 		dispatch({ type: RESET_PASSWORD_SUCCESS, payload: data });
 
 		return data;
@@ -180,7 +176,7 @@ export const registerFunc = (object: { email: string; password: string; name: st
 			body: JSON.stringify(object),
 		});
 
-		const data: ServerResponse<any> = await checkResponse(response);
+		const data = await checkResponse(response);
 
 		if (data.success) {
 			localStorage.setItem('refreshToken', data.data?.refreshToken || '');
@@ -203,7 +199,7 @@ export const logOutFunc = () => async (dispatch: Dispatch) => {
 			body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
 		});
 
-		const data: ServerResponse<any> = await checkResponse(response);
+		const data = await checkResponse(response);
 
 		dispatch({ type: LOGOUT_USER, payload: data });
 		return data;
@@ -222,15 +218,11 @@ export const loginFunc = (object: { email: string; password: string }) => async 
 			body: JSON.stringify(object),
 		});
 
-		const data: ServerResponse<TokenResponse> = await checkResponse(response);
+		const data = await checkResponse(response);
 
 		if (data.success) {
-			const tokenData = data.data;
-
-			if (tokenData) {
-				localStorage.setItem('refreshToken', tokenData.refreshToken || '');
-				localStorage.setItem('accessToken', tokenData.accessToken || '');
-			}
+			localStorage.setItem('refreshToken', data.refreshToken || '');
+			localStorage.setItem('accessToken', data.accessToken || '');
 		}
 
 		dispatch({ type: LOGIN_USER, payload: data });
@@ -248,7 +240,7 @@ export const loginFunc = (object: { email: string; password: string }) => async 
 					body: JSON.stringify(object),
 				});
 
-				const retryData: ServerResponse<TokenResponse> = await checkResponse(retryResponse);
+				const retryData = await checkResponse(retryResponse);
 				dispatch({ type: LOGIN_USER, payload: retryData });
 				return retryData;
 			} catch (refreshError) {
@@ -264,7 +256,7 @@ export const fetchUserData = () => async (dispatch: Dispatch) => {
 	const accessToken = localStorage.getItem('accessToken');
 
 	try {
-		const userData: ServerResponse<any> = await fetchWithRefresh(`${baseURL}auth/user`, {
+		const userData = await fetchWithRefresh(`${baseURL}auth/user`, {
 			method: 'GET',
 			headers: {
 				Authorization: accessToken || '',
