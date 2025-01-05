@@ -66,9 +66,13 @@ const App = (): React.JSX.Element => {
 					<Route
 						path="/profile/orders/:orderId"
 						element={
-							<Modal onClose={closeModal}>
-								<OrderInfo />
-							</Modal>
+							<OnlyAuth
+								component={
+									<Modal onClose={closeModal}>
+										<OrderInfo />
+									</Modal>
+								}
+							/>
 						}
 					/>
 					<Route

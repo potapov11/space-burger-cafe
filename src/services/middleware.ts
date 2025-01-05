@@ -22,8 +22,6 @@ type FeedActions = ConnectFeedAction | DisconnectFeedAction;
 
 type Dispatch = (action: FeedActions) => void;
 
-type GetState = () => { feedSocket?: WebSocket };
-
 let socket: WebSocket | null = null;
 
 export const ordersSocketMiddleware = (wsUrl: string): Middleware => {
@@ -41,29 +39,16 @@ export const ordersSocketMiddleware = (wsUrl: string): Middleware => {
 						return;
 					}
 
-					console.log(payload, '.....payload....');
-
 					const socketUrl = payload; // Используем URL из payload
-
-					console.log(socketUrl, '...socketUrl...');
-
 					socket = new WebSocket(socketUrl);
 
-					socket.onopen = () => {
-						console.log('WebSocket connected');
-					};
+					socket.onopen = () => {};
 
 					socket.onmessage = (event) => {
 						const data = JSON.parse(event.data);
 
-						console.log(data, '...ordersSocketMiddleware');
-
 						if (data.success) {
 							const orders = data.orders.filter((order) => order && order._id);
-
-							console.log('Orders:', orders);
-							console.log('Total:', data.total);
-							console.log('Total Today:', data.totalToday);
 
 							dispatch({ type: 'UPDATE_ORDERS', payload: orders });
 							dispatch({ type: 'UPDATE_TOTAL', payload: data.total });
@@ -81,7 +66,6 @@ export const ordersSocketMiddleware = (wsUrl: string): Middleware => {
 					};
 
 					socket.onclose = () => {
-						console.log('WebSocket closed');
 						socket = null; // Освобождаем сокет
 					};
 
