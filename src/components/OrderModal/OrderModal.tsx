@@ -44,6 +44,21 @@ const OrderInfo = ({ styleCenter }: { styleCenter?: boolean }): React.JSX.Elemen
 		return <p className="text text_type_main-medium">Ищем заказ...</p>;
 	}
 
+	let selectedOrderStatus;
+	switch (selectedOrder.status) {
+		case 'created':
+			selectedOrderStatus = 'Создан';
+			break;
+		case 'pending':
+			selectedOrderStatus = 'Выполняется';
+			break;
+		case 'done':
+			selectedOrderStatus = 'Выполнен';
+			break;
+		default:
+			selectedOrderStatus = '';
+	}
+
 	const ingredients = selectedOrder.ingredients;
 	const quantity = ingredients.reduce((acc, ingredientId) => {
 		acc[ingredientId] = (acc[ingredientId] || 0) + 1;
@@ -66,7 +81,7 @@ const OrderInfo = ({ styleCenter }: { styleCenter?: boolean }): React.JSX.Elemen
 		<div className={styleCenter ? OrderModalCss.otherPage : OrderModalCss.modalWrapper}>
 			<p className={`${OrderModalCss.textCenter} text text_type_digits-default`}>#{selectedOrder.number}</p>
 			<p className="text text_type_main-medium">{selectedOrder.name}</p>
-			<p className={`${OrderModalCss.textStatus} text text_type_main-default`}>{selectedOrder.status}</p>
+			<p className={`${OrderModalCss.textStatus} text text_type_main-default`}>{selectedOrderStatus}</p>
 			<div className={OrderModalCss.wrapper}>
 				<p className="text text_type_main-default">Состав :</p>
 				<ul className={OrderModalCss.list}>

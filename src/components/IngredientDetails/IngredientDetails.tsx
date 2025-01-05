@@ -18,6 +18,7 @@ const IngredientDetails = ({ styleCenter }: { styleCenter?: boolean }): React.JS
 
 	return (
 		<div className={styleCenter ? `${IngredientDetailStyle.modalInfo} ${IngredientDetailStyle.centerWindow}` : `${IngredientDetailStyle.modalInfo}`}>
+			<p className="text text_type_main-large">Детали ингредиента</p>
 			<div className={IngredientDetailStyle.modalImageBox}>
 				<img src={selectedIngredient.image_large} alt={selectedIngredient.name} />
 			</div>
