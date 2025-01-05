@@ -48,6 +48,7 @@ const App = (): React.JSX.Element => {
 				<Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword />} />} />
 				<Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword />} />} />
 				<Route path="/profile/orders" element={<OnlyAuth component={<ProfileOrders />} />} />
+				<Route path="/profile/orders/:orderId" element={<OnlyAuth component={<OrderInfo styleCenter={true} />} />} />
 				<Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} />
 				<Route path="/ingredients/:id" element={<IngredientDetails styleCenter={true} />} />
 			</Routes>

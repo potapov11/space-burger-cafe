@@ -13,6 +13,8 @@ const FeedListOrder: React.FC<OrderFeed> = ({ _id, ingredients, name, createdAt,
 
 	const targetUrl = location.pathname;
 
+	console.log(targetUrl, '...targetUrl...');
+
 	const quantity = {};
 
 	for (let i = 0; i < ingredients.length; i++) {

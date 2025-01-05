@@ -27,9 +27,6 @@ const OrderInfo = ({ styleCenter }: { styleCenter?: boolean }): React.JSX.Elemen
 
 	useEffect(() => {
 		dispatch(connectFeed(URL));
-		return () => {
-			dispatch(disconnectFeed());
-		};
 	}, [dispatch]);
 
 	let selectedOrder;
