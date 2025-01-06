@@ -6,7 +6,7 @@ import OrderInWorks from '../../components/OrdersInWork/OrderInWorks';
 
 const OrderStatus = (): React.JSX.Element => {
 	const OrdersSocketTotal = useSelector((store) => store.orderSocketReducer.total);
-	const OrdersSockettotalToday = useSelector((store) => store.orderSocketReducer.total_today);
+	const OrdersSockettotalToday = useSelector((store) => store.orderSocketReducer.totalToday);
 
 	return (
 		<div className={OrderStatusCss.box}>

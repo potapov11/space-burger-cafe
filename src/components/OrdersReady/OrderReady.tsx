@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import OrderReadyCss from './OrderReady.module.css';
 import { useSelector } from '../../main';
 
@@ -9,7 +10,14 @@ const OrderReady = (): React.JSX.Element => {
 	return (
 		<div>
 			<span className="text text_type_main-default">Готовы:</span>
-			<ul className={OrderReadyCss.list}>{doneOrders?.length > 0 && doneOrders.map((item) => <li className={`${OrderReadyCss.listItem} text text_type_main-default`}>{item.number}</li>)}</ul>
+			<ul className={OrderReadyCss.list}>
+				{doneOrders?.length > 0 &&
+					doneOrders.map((item) => (
+						<li className={`${OrderReadyCss.listItem} text text_type_main-default`} key={uuidv4()}>
+							{item.number}
+						</li>
+					))}
+			</ul>
 		</div>
 	);
 };

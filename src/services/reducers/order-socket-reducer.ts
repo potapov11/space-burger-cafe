@@ -18,7 +18,7 @@ const initialState = {
 	userOrders: [],
 	isLoading: true,
 	total: '',
-	total_today: '',
+	totalToday: '',
 };
 
 const orderSocketReducer = (state = initialState, action: TWSActions | TWSAuthActions) => {

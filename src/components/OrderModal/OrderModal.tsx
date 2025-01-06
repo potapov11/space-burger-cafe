@@ -25,15 +25,6 @@ const OrderInfo = ({ styleCenter }: { styleCenter?: boolean }): React.JSX.Elemen
 		if (currentUrl.includes('profile')) {
 			dispatch({ type: WS_AUTH_CONNECTION_START, payload: `?token=${token}` });
 		}
-
-		return () => {
-			if (currentUrl.includes('feed')) {
-				dispatch({ type: WS_CONNECTION_CLOSED });
-			}
-			if (currentUrl.includes('profile')) {
-				dispatch({ type: WS_AUTH_CONNECTION_CLOSED });
-			}
-		};
 	}, [currentUrl, dispatch]);
 
 	let selectedOrder;
