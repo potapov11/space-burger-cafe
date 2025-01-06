@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from '../../main';
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/socket-action';
 import FeedListOrder from '../FeedListOrder/FeedListOrder';
-import { OrderFeed } from '../../utils/types';
+import { IWSOrder } from '../../utils/types';
 const MAX_ORDERS_COUNT = 5;
 
 const FeedListOrders = () => {
@@ -18,8 +18,7 @@ const FeedListOrders = () => {
 	}, [dispatch]);
 
 	const arrayAllOrdersSocket = useSelector((store) => store.orderSocketReducer.orders);
-	const isLoadingOrders = useSelector((store) => store.feedReducer.isLoading);
-	const slicedArrayOrders: OrderFeed[] = arrayAllOrdersSocket?.slice(0, MAX_ORDERS_COUNT);
+	const slicedArrayOrders: IWSOrder[] = arrayAllOrdersSocket?.slice(0, MAX_ORDERS_COUNT);
 
 	return (
 		<div>

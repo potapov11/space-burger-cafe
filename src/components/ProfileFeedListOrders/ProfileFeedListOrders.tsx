@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from '../../main';
 import { WS_AUTH_CONNECTION_CLOSED, WS_AUTH_CONNECTION_START } from '../../services/actions/socket-action';
 import FeedListOrder from '../FeedListOrder/FeedListOrder';
-import { OrderFeed } from '../../utils/types';
+import { IWSOrder } from '../../utils/types';
 const MAX_ORDERS_COUNT = 5;
 
 const ProfileFeedListOrders = () => {
@@ -12,7 +12,7 @@ const ProfileFeedListOrders = () => {
 	const userSocketOrders = useSelector((store) => store.orderSocketReducer.userOrders);
 
 	const lengthArrBefore = userSocketOrders?.length - MAX_ORDERS_COUNT;
-	const slicedArrayOrders: OrderFeed[] = userSocketOrders?.slice(lengthArrBefore, userSocketOrders.length - 1);
+	const slicedArrayOrders: IWSOrder[] = userSocketOrders?.slice(lengthArrBefore, userSocketOrders.length - 1);
 
 	useEffect(() => {
 		const accessToken = localStorage.getItem('accessToken');
