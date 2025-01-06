@@ -13,7 +13,6 @@ const ProfileFeedListOrders = () => {
 
 	const lengthArrBefore = userSocketOrders?.length - MAX_ORDERS_COUNT;
 	const slicedArrayOrders: OrderFeed[] = userSocketOrders?.slice(lengthArrBefore, userSocketOrders.length - 1);
-	const isLoadingOrders = useSelector((store) => store.orderSocketReducer.isLoading);
 
 	useEffect(() => {
 		const accessToken = localStorage.getItem('accessToken');
@@ -26,25 +25,23 @@ const ProfileFeedListOrders = () => {
 
 	return (
 		<div>
-			{isLoadingOrders && <p className="text text_type_main-default">Заказы загружаются...</p>}
+			{slicedArrayOrders?.length === 0 && <p className={`text text_type_main-large ${ProfileFeedListOrdersCss.text}`}>Заказы загружаются...</p>}
 
-			{!isLoadingOrders && (
-				<ul className={ProfileFeedListOrdersCss.list}>
-					{slicedArrayOrders?.length > 0 &&
-						slicedArrayOrders.map((item) => (
-							<FeedListOrder
-								key={item._id}
-								_id={item._id}
-								ingredients={item.ingredients}
-								status={item.status}
-								name={item.name}
-								createdAt={item.createdAt}
-								updatedAt={item.updatedAt}
-								number={item.number}
-							/>
-						))}
-				</ul>
-			)}
+			<ul className={ProfileFeedListOrdersCss.list}>
+				{slicedArrayOrders?.length > 0 &&
+					slicedArrayOrders.map((item) => (
+						<FeedListOrder
+							key={item._id}
+							_id={item._id}
+							ingredients={item.ingredients}
+							status={item.status}
+							name={item.name}
+							createdAt={item.createdAt}
+							updatedAt={item.updatedAt}
+							number={item.number}
+						/>
+					))}
+			</ul>
 		</div>
 	);
 };

@@ -23,24 +23,23 @@ const FeedListOrders = () => {
 
 	return (
 		<div>
-			{isLoadingOrders && <p className="text text_type_main-default">Заказы загружаются...</p>}
-			{!isLoadingOrders && (
-				<ul className={FeedListOrdersCss.list}>
-					{slicedArrayOrders?.length > 0 &&
-						slicedArrayOrders.map((item) => (
-							<FeedListOrder
-								key={item._id}
-								_id={item._id}
-								ingredients={item.ingredients}
-								status={item.status}
-								name={item.name}
-								createdAt={item.createdAt}
-								updatedAt={item.updatedAt}
-								number={item.number}
-							/>
-						))}
-				</ul>
-			)}
+			{slicedArrayOrders?.length === 0 && <p className="text text_type_main-default">Заказы загружаются...</p>}
+
+			<ul className={FeedListOrdersCss.list}>
+				{slicedArrayOrders?.length > 0 &&
+					slicedArrayOrders.map((item) => (
+						<FeedListOrder
+							key={item._id}
+							_id={item._id}
+							ingredients={item.ingredients}
+							status={item.status}
+							name={item.name}
+							createdAt={item.createdAt}
+							updatedAt={item.updatedAt}
+							number={item.number}
+						/>
+					))}
+			</ul>
 		</div>
 	);
 };
