@@ -16,8 +16,6 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ isModalOpen = true, onClose, children }): React.JSX.Element | null => {
 	const isloadBool = useSelector((store) => store.orderReducer.loading);
 
-	console.log(isloadBool, '..isloadBool>>>');
-
 	if (!modalRoot) {
 		return null;
 	}

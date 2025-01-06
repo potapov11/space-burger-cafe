@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch } from '../../main';
+// import { useDispatch } from '../../main';
+import { useDispatch, useSelector } from '../../main';
 import Modal from '../Modal/Modal';
 import HomePage from '../../pages/Home/Home';
 import LoginPage from '../../pages/Login/Login';
@@ -17,6 +18,7 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import OrderInfo from '../OrderModal/OrderModal';
 import { fetchUserData, fetchServerData } from '../../services/actions/data-action';
 import { OnlyAuth, OnlyUnAuth } from '../ProtectedRoute/ProtectedRoute';
+// import { WS_AUTH_CONNECTION_CLOSED, WS_AUTH_CONNECTION_START, WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/socket-action';
 
 const App = (): React.JSX.Element => {
 	const location = useLocation();

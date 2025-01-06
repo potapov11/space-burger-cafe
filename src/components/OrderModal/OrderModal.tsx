@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import OrderModalCss from './OrderModal.module.css';
-import { connectFeed, disconnectFeed } from '../../services/actions/socket-action';
 import { useDispatch, useSelector } from '../../main';
 import { useParams, useLocation } from 'react-router-dom';
 import { formatDate } from '../../utils/utils';
-import { ORDERS_SOCKET } from '../../utils/vars';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { WS_AUTH_CONNECTION_CLOSED, WS_CONNECTION_CLOSED, WS_AUTH_CONNECTION_START, WS_CONNECTION_START } from '../../services/actions/socket-action';
 
 const OrderInfo = ({ styleCenter }: { styleCenter?: boolean }): React.JSX.Element => {
 	const { orderId } = useParams();
@@ -13,26 +12,34 @@ const OrderInfo = ({ styleCenter }: { styleCenter?: boolean }): React.JSX.Elemen
 	const { mainArray, rollsArray, sauceArray } = useSelector((store) => store.data);
 	const concatedArrayIngredients = [...mainArray, ...rollsArray, ...sauceArray];
 
-	let URL;
-
 	const location = useLocation();
-	const targetUrl = location.pathname;
-	if (targetUrl.includes('profile')) {
-		const accessToken = localStorage.getItem('accessToken'); // Получаем токен из localStorage
-		const token = accessToken ? accessToken.split(' ')[1] : null;
-		URL = `${ORDERS_SOCKET}?token=${token}`;
-	} else if (targetUrl.includes('feed')) {
-		URL = `${ORDERS_SOCKET}/all`;
-	}
+	const currentUrl = location.pathname;
+
+	const accessToken = localStorage.getItem('accessToken');
+	const token = accessToken ? accessToken.split(' ')[1] : null;
 
 	useEffect(() => {
-		dispatch(connectFeed(URL));
-	}, [dispatch]);
+		if (currentUrl.includes('feed')) {
+			dispatch({ type: WS_CONNECTION_START, payload: `/all` });
+		}
+		if (currentUrl.includes('profile')) {
+			dispatch({ type: WS_AUTH_CONNECTION_START, payload: `?token=${token}` });
+		}
+
+		return () => {
+			if (currentUrl.includes('feed')) {
+				dispatch({ type: WS_CONNECTION_CLOSED });
+			}
+			if (currentUrl.includes('profile')) {
+				dispatch({ type: WS_AUTH_CONNECTION_CLOSED });
+			}
+		};
+	}, [currentUrl, dispatch]);
 
 	let selectedOrder;
 	const arrayAllOrdersSocket = useSelector((store) => store.orderSocketReducer.orders);
 
-	const arrayPrivateOrdersSocket = useSelector((store) => store.orderSocketReducer.orders.orders);
+	const arrayPrivateOrdersSocket = useSelector((store) => store.orderSocketReducer.userOrders);
 
 	if (arrayAllOrdersSocket && arrayAllOrdersSocket.length > 0) {
 		selectedOrder = arrayAllOrdersSocket?.find((socketItem) => socketItem._id === orderId);

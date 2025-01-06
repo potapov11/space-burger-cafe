@@ -2,19 +2,18 @@ import React from 'react';
 import FeedListOrdersCss from './FeedListOrders.module.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from '../../main';
-import { connectFeed, disconnectFeed } from '../../services/actions/socket-action';
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/socket-action';
 import FeedListOrder from '../FeedListOrder/FeedListOrder';
 import { OrderFeed } from '../../utils/types';
-import { ORDERS_SOCKET } from '../../utils/vars';
 const MAX_ORDERS_COUNT = 5;
 
 const FeedListOrders = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(connectFeed(`${ORDERS_SOCKET}/all`)); // Передаем только URL
+		dispatch({ type: WS_CONNECTION_START, payload: `/all` });
 		return () => {
-			dispatch(disconnectFeed());
+			dispatch({ type: WS_CONNECTION_CLOSED });
 		};
 	}, [dispatch]);
 
