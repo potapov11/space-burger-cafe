@@ -3,7 +3,8 @@ import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer
 import LoginPageCss from './Login.module.css';
 import { useNavigate } from 'react-router-dom';
 import { loginFunc } from '../../services/actions/data-action';
-import { useDispatch, useSelector } from '../../main';
+import { useSelector } from '../../main';
+import { useDispatch } from '../../hooks/useDispatch';
 import { useState } from 'react';
 
 const LoginPage = (): React.JSX.Element => {

@@ -2,7 +2,7 @@ import React from 'react';
 import ForgotPasswordCss from './ForgotPassword.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { resetPassword } from '../../services/actions/data-action';
-import { useDispatch } from '../../main';
+import { useDispatch } from '../../hooks/useDispatch';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 

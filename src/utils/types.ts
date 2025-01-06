@@ -1,5 +1,26 @@
 import { store } from '../main';
+import { Action, ActionCreator } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { TBurgerConstructorActions } from '../services/actions/constructor-action';
+import { TModalIngredientActions } from '../services/actions/modal-ingredient-action';
+import { TOrderActions } from '../services/actions/order-modal-action';
+import { TWSActions, TWSAuthActions } from '../services/actions/socket-action';
+
 export type RootState = ReturnType<typeof store.getState>;
+
+export interface IUser {
+	name: string;
+	email: string;
+	password: string;
+}
+
+export type TAuthState = {
+	error: boolean | null | string;
+	loading: boolean;
+	accessToken: string | undefined;
+	refreshToken: string | undefined;
+	user: IUser;
+};
 
 export interface ItemConstructor {
 	_id: string;
@@ -17,36 +38,11 @@ export interface ItemConstructor {
 	uniqueId?: string;
 }
 
-// export interface OrderFeed {
-// 	_id: string;
-// 	ingredients: string[];
-// 	status: string;
-// 	name: string;
-// 	createdAt: string;
-// 	updatedAt: string;
-// 	number: number;
-// }
-
-// export type TOrder = {
-// 	readonly ingredients: string[];
-// 	readonly _id: string;
-// 	readonly name: string;
-// 	readonly status: string;
-// 	readonly number: number;
-// 	readonly createdAt: string;
-// 	readonly updatedAt: string;
-// };
-
 export interface DraggedItem extends ItemConstructor {
 	index?: number;
 }
 
-// export type TFResponse = {
-// 	success: boolean;
-// 	orders: TOrder[];
-// 	total: number;
-// 	totalToday: number;
-// };
+export type TAppActions = TBurgerConstructorActions | TModalIngredientActions | TOrderActions | TWSActions | TWSAuthActions;
 
 export interface serverResponseResetPassword {
 	success: boolean;
@@ -77,3 +73,7 @@ export interface IWSOrder {
 	createdAt: string;
 	updatedAt: string;
 }
+
+// export type AppThunk<ReturnType = void> = ActionCreator<ThunkAction<ReturnType, RootState, Action, TAppActions>>;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
+export type AppDispatch = typeof store.dispatch;

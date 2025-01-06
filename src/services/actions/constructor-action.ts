@@ -2,26 +2,27 @@ import { v4 as uuidv4 } from 'uuid';
 import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT, CLEAR_CONSRUCTOR } from '../../utils/vars';
 import { ItemConstructor } from '../../utils/types';
 
-interface AddIngredientAction {
+// Определение интерфейсов действий с префиксом I
+interface IAddIngredientAction {
 	type: typeof ADD_INGREDIENT;
 	payload: (ItemConstructor & { uniqueId: string })[];
 }
 
-interface RemoveIngredientAction {
+interface IRemoveIngredientAction {
 	type: typeof REMOVE_INGREDIENT;
 	payload: ItemConstructor[];
 }
 
-interface MoveIngredientAction {
+interface IMoveIngredientAction {
 	type: typeof MOVE_INGREDIENT;
 	payload: { fromIndex: number; toIndex: number };
 }
 
-interface ClearConstructorAction {
+interface IClearConstructorAction {
 	type: typeof CLEAR_CONSRUCTOR;
 }
 
-const addIngredient = (ingredient: ItemConstructor): AddIngredientAction => {
+const addIngredient = (ingredient: ItemConstructor): IAddIngredientAction => {
 	if (ingredient?.type === 'bun') {
 		return {
 			type: ADD_INGREDIENT,
@@ -49,18 +50,19 @@ const addIngredient = (ingredient: ItemConstructor): AddIngredientAction => {
 	}
 };
 
-const removeIngredient = (arr: ItemConstructor[]): RemoveIngredientAction => ({
+const removeIngredient = (arr: ItemConstructor[]): IRemoveIngredientAction => ({
 	type: REMOVE_INGREDIENT,
 	payload: arr,
 });
 
-const moveIngredient = (fromIndex: number, toIndex: number): MoveIngredientAction => ({
+const moveIngredient = (fromIndex: number, toIndex: number): IMoveIngredientAction => ({
 	type: MOVE_INGREDIENT,
 	payload: { fromIndex, toIndex },
 });
 
-const clearConstructor = (): ClearConstructorAction => ({
+const clearConstructor = (): IClearConstructorAction => ({
 	type: CLEAR_CONSRUCTOR,
 });
 
 export { addIngredient, removeIngredient, moveIngredient, clearConstructor };
+export type TBurgerConstructorActions = IAddIngredientAction | IRemoveIngredientAction | IMoveIngredientAction | IClearConstructorAction;

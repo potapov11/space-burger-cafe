@@ -18,9 +18,9 @@ import {
 	LOGOUT_USER,
 	LOGOUT_FAILURE,
 } from '../../utils/vars.ts';
-
+import { AppThunk, AppDispatch } from '../../utils/types.ts';
 import { checkResponses } from '../../utils/utils.ts';
-import { ItemConstructor, serverResponseResetPassword } from '../../utils/types.ts';
+import { ItemConstructor, serverResponseResetPassword, IUser } from '../../utils/types.ts';
 
 interface ServerResponse<T> {
 	success: boolean;
@@ -85,111 +85,134 @@ const checkResponse = async (res: Response): Promise<any> => {
 	return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-export const fetchServerData = () => {
-	return async (dispatch: Dispatch) => {
+export const fetchUserData = (): AppThunk => async (dispatch: AppDispatch) => {
+	const accessToken = localStorage.getItem('accessToken');
+
+	try {
+		const userData = await fetchWithRefresh(`${baseURL}auth/user`, {
+			method: 'GET',
+			headers: {
+				Authorization: accessToken || '',
+			},
+		});
+
+		dispatch({ type: DATA_CHECK_USER, payload: userData });
+	} catch (error) {
+		dispatch({ type: DATA_FETCH_ERROR, payload: error.message });
+	}
+};
+
+export const fetchServerData = (): AppThunk => async (dispatch: AppDispatch) => {
+	try {
+		const response = await fetch(`${baseURL}ingredients`);
+		const data: ServerResponse<ItemConstructor[]> = await checkResponses(response);
+
+		if (data.success && data.data) {
+			const rollsArray = data.data.filter((item) => item.type === 'bun');
+			const sauceArray = data.data.filter((item) => item.type === 'sauce');
+			const mainArray = data.data.filter((item) => item.type === 'main');
+
+			dispatch({ type: SET_ROLLS_ARRAY, payload: rollsArray });
+			dispatch({ type: SET_SAUCE_ARRAY, payload: sauceArray });
+			dispatch({ type: SET_MAIN_ARRAY, payload: mainArray });
+		}
+	} catch (error) {
+		// console.error(`Произошла ошибка ${error}`);
+	}
+};
+
+export const createOrder =
+	(ingredients: string[]): AppThunk =>
+	async (dispatch: AppDispatch) => {
 		try {
-			const response = await fetch(`${baseURL}ingredients`);
+			const response = await fetch(`${baseURL}orders`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					authorization: localStorage.getItem('accessToken') || '',
+				},
+				body: JSON.stringify({ ingredients }),
+			});
+
 			const data: ServerResponse<ItemConstructor[]> = await checkResponses(response);
+			dispatch({ type: ORDER_SUCCESS, payload: data });
 
-			if (data.success && data.data) {
-				const rollsArray = data.data.filter((item) => item.type === 'bun');
-				const sauceArray = data.data.filter((item) => item.type === 'sauce');
-				const mainArray = data.data.filter((item) => item.type === 'main');
-
-				dispatch({ type: SET_ROLLS_ARRAY, payload: rollsArray });
-				dispatch({ type: SET_SAUCE_ARRAY, payload: sauceArray });
-				dispatch({ type: SET_MAIN_ARRAY, payload: mainArray });
-			}
+			return data;
 		} catch (error) {
-			// console.error(`Произошла ошибка ${error}`);
+			dispatch({ type: ORDER_FAILURE, payload: error.message });
 		}
 	};
-};
 
-export const createOrder = (ingredients: string[]) => async (dispatch: Dispatch) => {
-	try {
-		const response = await fetch(`${baseURL}orders`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				authorization: localStorage.getItem('accessToken') || '',
-			},
-			body: JSON.stringify({ ingredients }),
-		});
+export const resetPassword =
+	(email: string): AppThunk =>
+	async (dispatch: AppDispatch) => {
+		const sendObject = { email };
 
-		const data: ServerResponse<ItemConstructor[]> = await checkResponses(response);
-		dispatch({ type: ORDER_SUCCESS, payload: data });
+		try {
+			const response = await fetch(`${baseURL}password-reset`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(sendObject),
+			});
 
-		return data;
-	} catch (error) {
-		dispatch({ type: ORDER_FAILURE, payload: error.message });
-	}
-};
+			const data: ServerResponse<serverResponseResetPassword> = await checkResponses(response);
+			dispatch({ type: EMAIL_SUCCESS, payload: data });
 
-export const resetPassword = (email: string) => async (dispatch: Dispatch) => {
-	const sendObject = { email };
-
-	try {
-		const response = await fetch(`${baseURL}password-reset`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(sendObject),
-		});
-
-		const data: ServerResponse<serverResponseResetPassword> = await checkResponses(response);
-		dispatch({ type: EMAIL_SUCCESS, payload: data });
-
-		return data;
-	} catch (error) {
-		dispatch({ type: EMAIL_FAILURE, payload: error.message });
-	}
-};
-
-export const resetPasswordReset = (obj: { password: string; token: string }) => async (dispatch: Dispatch) => {
-	try {
-		const response = await fetch(`${baseURL}password-reset/reset`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(obj),
-		});
-
-		const data: ServerResponse<serverResponseResetPassword> = await checkResponses(response);
-		dispatch({ type: RESET_PASSWORD_SUCCESS, payload: data });
-
-		return data;
-	} catch (error) {
-		dispatch({ type: RESET_PASSWORD_FAILURE, payload: error.message });
-	}
-};
-
-export const registerFunc = (object: { email: string; password: string; name: string }) => async (dispatch: Dispatch) => {
-	try {
-		const response = await fetch(`${baseURL}auth/register`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(object),
-		});
-
-		const data = await checkResponse(response);
-
-		if (data.success) {
-			localStorage.setItem('refreshToken', data.data?.refreshToken || '');
+			return data;
+		} catch (error) {
+			dispatch({ type: EMAIL_FAILURE, payload: error.message });
 		}
+	};
 
-		dispatch({ type: REGISTER_USER, payload: data });
-		return data;
-	} catch (error) {
-		dispatch({ type: REGISTER_FAILURE, payload: error.message });
-	}
-};
+export const resetPasswordReset =
+	(obj: { password: string; token: string }): AppThunk =>
+	async (dispatch: AppDispatch) => {
+		try {
+			const response = await fetch(`${baseURL}password-reset/reset`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(obj),
+			});
 
-export const logOutFunc = () => async (dispatch: Dispatch) => {
+			const data: ServerResponse<serverResponseResetPassword> = await checkResponses(response);
+			dispatch({ type: RESET_PASSWORD_SUCCESS, payload: data });
+
+			return data;
+		} catch (error) {
+			dispatch({ type: RESET_PASSWORD_FAILURE, payload: error.message });
+		}
+	};
+
+export const registerFunc =
+	(object: { email: string; password: string; name: string }): AppThunk =>
+	async (dispatch: AppDispatch) => {
+		try {
+			const response = await fetch(`${baseURL}auth/register`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(object),
+			});
+
+			const data = await checkResponse(response);
+
+			if (data.success) {
+				localStorage.setItem('refreshToken', data.data?.refreshToken || '');
+			}
+
+			dispatch({ type: REGISTER_USER, payload: data });
+			return data;
+		} catch (error) {
+			dispatch({ type: REGISTER_FAILURE, payload: error.message });
+		}
+	};
+
+export const logOutFunc = (): AppThunk => async (dispatch: AppDispatch) => {
 	try {
 		const response = await fetch(`${baseURL}auth/logout`, {
 			method: 'POST',
@@ -208,68 +231,51 @@ export const logOutFunc = () => async (dispatch: Dispatch) => {
 	}
 };
 
-export const loginFunc = (object: { email: string; password: string }) => async (dispatch: Dispatch) => {
-	try {
-		const response = await fetch(`${baseURL}auth/login`, {
+export const loginFunc =
+	(object: { email: string; password: string }): AppThunk =>
+	(dispatch: AppDispatch) => {
+		return fetch(`${baseURL}auth/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify(object),
-		});
-
-		const data = await checkResponse(response);
-
-		if (data.success) {
-			localStorage.setItem('refreshToken', data.refreshToken || '');
-			localStorage.setItem('accessToken', data.accessToken || '');
-		}
-
-		dispatch({ type: LOGIN_USER, payload: data });
-		return data;
-	} catch (error) {
-		if (error.message === 'jwt expired') {
-			try {
-				const refreshData = await refreshToken();
-				const retryResponse = await fetch(`${baseURL}auth/login`, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-						Authorization: `Bearer ${refreshData.data?.accessToken || ''}`,
-					},
-					body: JSON.stringify(object),
-				});
-
-				const retryData = await checkResponse(retryResponse);
-				dispatch({ type: LOGIN_USER, payload: retryData });
-				return retryData;
-			} catch (refreshError) {
-				dispatch({ type: LOGIN_FAILURE, payload: refreshError.message });
-			}
-		} else {
-			dispatch({ type: LOGIN_FAILURE, payload: error.message });
-		}
-	}
-};
-
-export const fetchUserData = () => async (dispatch: Dispatch) => {
-	const accessToken = localStorage.getItem('accessToken');
-
-	try {
-		const userData = await fetchWithRefresh(`${baseURL}auth/user`, {
-			method: 'GET',
-			headers: {
-				Authorization: accessToken || '',
-			},
-		});
-
-		dispatch({ type: DATA_CHECK_USER, payload: userData });
-		return userData;
-	} catch (error) {
-		// console.error('Ошибка при получении данных пользователя:', error);
-		dispatch({ type: DATA_FETCH_ERROR, payload: error.message });
-	}
-};
+		})
+			.then((response) => checkResponse(response))
+			.then((data) => {
+				if (data.success) {
+					localStorage.setItem('refreshToken', data.refreshToken || '');
+					localStorage.setItem('accessToken', data.accessToken || '');
+				}
+				dispatch({ type: LOGIN_USER, payload: data });
+				return data;
+			})
+			.catch((error) => {
+				if (error.message === 'jwt expired') {
+					return refreshToken()
+						.then((refreshData) => {
+							return fetch(`${baseURL}auth/login`, {
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json',
+									Authorization: `Bearer ${refreshData.data?.accessToken || ''}`,
+								},
+								body: JSON.stringify(object),
+							});
+						})
+						.then((retryResponse) => checkResponse(retryResponse))
+						.then((retryData) => {
+							dispatch({ type: LOGIN_USER, payload: retryData });
+							return retryData;
+						})
+						.catch((refreshError) => {
+							dispatch({ type: LOGIN_FAILURE, payload: refreshError.message });
+						});
+				} else {
+					dispatch({ type: LOGIN_FAILURE, payload: error.message });
+				}
+			});
+	};
 
 export const refreshToken = async (): Promise<ServerResponse<TokenResponse>> => {
 	return fetch(`${baseURL}auth/token`, {

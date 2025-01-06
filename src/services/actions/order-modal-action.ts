@@ -33,3 +33,4 @@ const clearOrderDetail = (): ClearOrderDetailAction => ({
 });
 
 export { addOrderDetail, clearOrderDetail, orderSuccess, orderFailure };
+export type TOrderActions = AddOrderDetailAction | OrderSuccessAction | OrderFailureAction | ClearOrderDetailAction;

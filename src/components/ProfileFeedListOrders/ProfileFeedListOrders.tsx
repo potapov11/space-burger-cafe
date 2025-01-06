@@ -1,7 +1,8 @@
 import React from 'react';
 import ProfileFeedListOrdersCss from './ProfileFeedListOrders.module.css';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from '../../main';
+import { useSelector } from '../../main';
+import { useDispatch } from '../../hooks/useDispatch';
 import { WS_AUTH_CONNECTION_CLOSED, WS_AUTH_CONNECTION_START } from '../../services/actions/socket-action';
 import FeedListOrder from '../FeedListOrder/FeedListOrder';
 import { IWSOrder } from '../../utils/types';

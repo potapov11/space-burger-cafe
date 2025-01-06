@@ -2,11 +2,11 @@ import React from 'react';
 import FeedListOrderCss from './FeedListOrderCss.module.css';
 import { useSelector } from '../../main';
 import { Link, useLocation } from 'react-router-dom';
-import { OrderFeed } from '../../utils/types';
+import { IWSOrder } from '../../utils/types';
 import { formatDate } from '../../utils/utils';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-const FeedListOrder: React.FC<OrderFeed> = ({ _id, ingredients, name, createdAt, number }): React.JSX.Element => {
+const FeedListOrder: React.FC<IWSOrder> = ({ _id, ingredients, name, createdAt, number }): React.JSX.Element => {
 	const { mainArray, rollsArray, sauceArray } = useSelector((store) => store.data);
 	const concatedArrayIngredients = [...mainArray, ...rollsArray, ...sauceArray];
 	const location = useLocation();

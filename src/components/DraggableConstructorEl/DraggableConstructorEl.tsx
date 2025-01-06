@@ -2,7 +2,7 @@ import React from 'react';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorCss from '../BurgerConstructor/BurgerConstructor.module.css';
 import { moveIngredient } from '../../services/actions/constructor-action';
-import { useDispatch } from '../../main';
+import { useDispatch } from '../../hooks/useDispatch';
 import { DraggedItem } from '../../utils/types.tsx';
 import { useDrag, useDrop } from 'react-dnd';
 

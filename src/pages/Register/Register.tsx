@@ -3,7 +3,7 @@ import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-de
 import RegisterPageCss from './Register.module.css';
 import { useNavigate } from 'react-router-dom';
 import { registerFunc } from '../../services/actions/data-action';
-import { useDispatch } from '../../main';
+import { useDispatch } from '../../hooks/useDispatch';
 import { useState } from 'react';
 
 const RegisterPage = () => {

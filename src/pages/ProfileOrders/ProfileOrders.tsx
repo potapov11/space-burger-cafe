@@ -2,7 +2,7 @@ import React from 'react';
 import ProfilePageCss from './ProfileOrders.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { logOutFunc } from '../../services/actions/data-action';
-import { useDispatch } from '../../main';
+import { useDispatch } from '../../hooks/useDispatch';
 import ProfileFeedListOrders from '../../components/ProfileFeedListOrders/ProfileFeedListOrders';
 
 const ProfileOrders = () => {

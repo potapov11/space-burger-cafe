@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import OrderModalCss from './OrderModal.module.css';
-import { useDispatch, useSelector } from '../../main';
+import { useSelector } from '../../main';
+import { useDispatch } from '../../hooks/useDispatch';
 import { useParams, useLocation } from 'react-router-dom';
 import { formatDate } from '../../utils/utils';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';

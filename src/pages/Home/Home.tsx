@@ -1,6 +1,7 @@
 import React from 'react';
 import HomeCss from './Home.module.css';
-import { useDispatch, useSelector } from '../../main';
+import { useSelector } from '../../main';
+import { useDispatch } from '../../hooks/useDispatch';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { createOrder } from '../../services/actions/data-action.js';
