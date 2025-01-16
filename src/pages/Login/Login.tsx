@@ -3,14 +3,14 @@ import { EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer
 import LoginPageCss from './Login.module.css';
 import { useNavigate } from 'react-router-dom';
 import { loginFunc } from '../../services/actions/data-action';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from '../../main';
+import { useDispatch } from '../../hooks/useDispatch';
 import { useState } from 'react';
 
 const LoginPage = (): React.JSX.Element => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	//@ts-ignore
 	const storeLoginSuccess = useSelector((store) => store.loginReducer.success);
 	if (storeLoginSuccess) {
 		navigate('/');
@@ -35,7 +35,6 @@ const LoginPage = (): React.JSX.Element => {
 			password: userPasswordInput,
 		};
 
-		//@ts-ignore
 		dispatch(loginFunc(dataRegister));
 	};
 

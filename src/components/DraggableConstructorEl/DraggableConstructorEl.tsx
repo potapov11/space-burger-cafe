@@ -2,13 +2,14 @@ import React from 'react';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerConstructorCss from '../BurgerConstructor/BurgerConstructor.module.css';
 import { moveIngredient } from '../../services/actions/constructor-action';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../hooks/useDispatch';
 import { DraggedItem } from '../../utils/types.tsx';
 import { useDrag, useDrop } from 'react-dnd';
 
 interface DraggableIngredientProps {
 	item: DraggedItem;
 	index: number;
+	key: string;
 	handleClose: (id: string, index: number) => void;
 }
 
@@ -26,16 +27,18 @@ const DraggableIngredient: React.FC<DraggableIngredientProps> = ({ item, index, 
 	const [, dropRef] = useDrop({
 		accept: 'ingr',
 		hover: (draggedItem: DraggedItem) => {
-			if (draggedItem.index !== index) {
+			const fromIndex = draggedItem.index !== undefined ? draggedItem.index : 0;
+
+			if (fromIndex !== index) {
 				const newIndex = index;
-				dispatch(moveIngredient(draggedItem.index, newIndex));
+				dispatch(moveIngredient(fromIndex, newIndex));
 				draggedItem.index = newIndex;
 			}
 		},
 	});
 
 	return (
-		<li className={`${BurgerConstructorCss.constructorListItem} mb-4 ${isDragging ? BurgerConstructorCss.dragging : ''}`} ref={(node) => dragRef(dropRef(node))} key={item.uniqueId}>
+		<li className={`${BurgerConstructorCss.constructorListItem} mb-4 ${isDragging ? BurgerConstructorCss.dragging : ''}`} ref={(node) => dragRef(dropRef(node))}>
 			<DragIcon type="primary" />
 			<ConstructorElement text={item.name} price={item.price} thumbnail={item.image} handleClose={() => handleClose(item._id, index)} />
 		</li>

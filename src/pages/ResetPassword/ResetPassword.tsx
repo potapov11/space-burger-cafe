@@ -2,7 +2,7 @@ import React from 'react';
 import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import ResetPasswordCss from './ResetPasswordCss.module.css';
 import { resetPasswordReset } from '../../services/actions/data-action';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../hooks/useDispatch';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -24,7 +24,6 @@ const RecoverPassword = () => {
 		e.preventDefault();
 
 		dispatch(
-			//@ts-ignore
 			resetPasswordReset({
 				password: inputPasswordState,
 				token: inputTokenState,

@@ -4,7 +4,8 @@ import { ItemConstructor } from '../../utils/types';
 import TotalPrice from '../TotalPrice/TotalPrice';
 import { removeIngredient } from '../../services/actions/constructor-action';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from '../../main';
+import { useDispatch } from '../../hooks/useDispatch';
 import { useDrop } from 'react-dnd';
 import isEmpty from '../../utils/utils';
 import DraggableIngredient from '../DraggableConstructorEl/DraggableConstructorEl';
@@ -15,11 +16,11 @@ interface BurgerMainIngredientsProps {
 }
 
 const BurgerMainIngredients: React.FC<BurgerMainIngredientsProps> = ({ openModal, handleDrop }): React.JSX.Element => {
-	// @ts-ignore
 	const dataConstructor = useSelector((store) => store.constructorReducer.constructorElems);
 	const dispatch = useDispatch();
 
 	const { bunItems, ingredients } = dataConstructor;
+
 	const conditionArraysEmpty = isEmpty(bunItems) && isEmpty(ingredients);
 
 	const [, dropTarget] = useDrop<ItemConstructor>({
@@ -56,10 +57,10 @@ const BurgerMainIngredients: React.FC<BurgerMainIngredientsProps> = ({ openModal
 					)}
 					<ul className={`${BurgerConstructorCss.constructorList} mt-4`}>
 						{ingredients
-							.filter((item) => item.type !== 'bun')
-							.map((item, index) => (
-								<DraggableIngredient key={item.uniqueId} item={item} index={index} handleClose={handleClose} />
-							))}
+							.filter((item) => item.type !== 'bun' && item._id)
+							.map((item, index) => {
+								return <DraggableIngredient key={item.uniqueId} item={item} index={index} handleClose={handleClose} />;
+							})}
 					</ul>
 					{bunItems?.length && (
 						<ConstructorElement

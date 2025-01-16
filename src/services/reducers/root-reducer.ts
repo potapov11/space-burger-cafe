@@ -3,6 +3,7 @@ import constructorReducer from './constructor-reducer';
 import modalIngredientReducer from './modal-ingredient-reducer';
 import orderReducer from './order-reducer';
 import userReducer from './login-reducer';
+import orderSocketReducer from './order-socket-reducer';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
 	modalIngredientReducer: modalIngredientReducer,
 	orderReducer: orderReducer,
 	loginReducer: userReducer,
+	orderSocketReducer: orderSocketReducer,
 });
 
 export default rootReducer;

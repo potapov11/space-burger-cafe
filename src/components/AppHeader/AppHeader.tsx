@@ -11,7 +11,16 @@ const AppHeader = (): React.JSX.Element => {
 
 	const isActiveProfile = location.pathname;
 
-	const onClickNavigate = () => {
+	const onClickNavigate = (e: React.MouseEvent<HTMLParagraphElement>): void => {
+		const resultTextContent = (e.target as HTMLParagraphElement).textContent;
+		if (resultTextContent === 'Лента заказов') {
+			navigate('/feed');
+			return;
+		}
+		if (resultTextContent === 'Конструктор') {
+			navigate('/');
+			return;
+		}
 		navigate('/profile');
 	};
 
@@ -21,11 +30,15 @@ const AppHeader = (): React.JSX.Element => {
 				<div className={headerCss.nav}>
 					<div className={headerCss.constructorMain}>
 						<BurgerIcon type={`${isActiveProfile === '/' ? 'primary' : 'secondary'}`} />
-						<p className={`text text_type_main-small ${isActiveProfile === '/' ? '' : 'text_color_inactive'}`}>Конструктор</p>
+						<p onClick={onClickNavigate} className={`text text_type_main-small ${isActiveProfile === '/' ? '' : 'text_color_inactive'}`}>
+							Конструктор
+						</p>
 					</div>
 					<div className={headerCss.constructorMain}>
-						<ListIcon type="secondary" />
-						<p className="text text_type_main-small text_color_inactive">Лента заказов</p>
+						<ListIcon type={`${isActiveProfile === '/feed' ? 'primary' : 'secondary'}`} />
+						<p onClick={onClickNavigate} className={`text text_type_main-small ${isActiveProfile === '/feed' ? '' : 'text_color_inactive'}`}>
+							Лента заказов
+						</p>
 					</div>
 				</div>
 				<Link to={'/'} className={headerCss.logoWrapper}>

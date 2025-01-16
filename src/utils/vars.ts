@@ -28,6 +28,8 @@ const RESET_PASSWORD_SUCCESS: string = 'RESET_PASSWORD_SUCCESS';
 const RESET_PASSWORD_FAILURE: string = 'RESET_PASSWORD_FAILURE';
 const LOGOUT_USER: string = 'LOGOUT_USERE';
 const LOGOUT_FAILURE: string = 'LOGOUT_FAILURE';
+// const FEED_SOCKET_URL_All: string = 'wss://norma.nomoreparties.space/orders/all';
+const ORDERS_SOCKET = 'wss://norma.nomoreparties.space/orders';
 
 const mb40: { marginBottom: string } = {
 	marginBottom: '40px',
@@ -69,4 +71,5 @@ export {
 	RESET_PASSWORD_FAILURE,
 	LOGOUT_USER,
 	LOGOUT_FAILURE,
+	ORDERS_SOCKET,
 };

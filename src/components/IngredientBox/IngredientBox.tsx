@@ -16,8 +16,8 @@ interface IngredientBoxProps {
 	dataStore: ItemConstructor[];
 	data: Item[];
 	title: string;
-	isModalOpen: boolean;
-	openModal: () => void;
+	isModalOpen?: boolean;
+	openModal?: () => void;
 }
 
 const IngredientBox = forwardRef<HTMLDivElement, IngredientBoxProps>(({ dataStore, data, title, isModalOpen, openModal }, ref): React.JSX.Element => {

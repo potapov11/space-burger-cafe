@@ -1,5 +1,6 @@
 interface Item {
 	price: number;
+	_id: string;
 }
 
 export const checkResponses = <T>(res: Response): Promise<T> => {
@@ -16,5 +17,19 @@ const isEmpty = <T>(value: T | null): value is T => {
 export default isEmpty;
 
 export function calculateTotalPrice(items: Item[]): number {
+	items = items.filter((item) => item._id !== undefined && item._id);
 	return items.reduce((total, item) => total + item.price, 0);
 }
+
+function formatDate(dateString: string): string {
+	const date = new Date(dateString);
+
+	const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long' };
+	const formattedDate = date.toLocaleDateString('ru-RU', options);
+	const hours = String(date.getHours()).padStart(2, '0');
+	const minutes = String(date.getMinutes()).padStart(2, '0');
+
+	return `${formattedDate}, ${hours}:${minutes}`;
+}
+
+export { formatDate };
