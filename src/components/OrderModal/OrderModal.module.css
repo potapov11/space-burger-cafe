@@ -1,0 +1,69 @@
+.list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.imgWrapper {
+  position: relative;
+  width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #5d3be5;
+  border-radius: 50%;
+  background-color: #131316;
+}
+
+.imgWrapper img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item:not(:last-child) {
+  margin-bottom: 24px;
+}
+
+.modalWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.textStatus {
+  margin-top: -25px;
+  color: #00cccc;
+}
+
+.priceWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bottomWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.otherPage {
+  width: 40%;
+  margin: 0 auto;
+  margin-top: 100px;
+  padding: 30px 50px;
+  background: #1c1c21;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
