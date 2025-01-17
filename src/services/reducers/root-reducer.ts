@@ -1,4 +1,4 @@
-import dataReducer from './data-reducer';
+import { dataReducer } from './data-reducer/data-reducer';
 import constructorReducer from './constructor-reducer';
 import modalIngredientReducer from './modal-ingredient-reducer';
 import { orderReducer } from './order-reducer/order-reducer';
