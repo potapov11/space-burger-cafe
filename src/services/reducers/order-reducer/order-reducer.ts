@@ -1,7 +1,8 @@
-import { ADD_ORDER_DETAIL, CLEAR_ORDER_DETAIL, ORDER_SUCCESS, ORDER_FAILURE } from '../../utils/vars';
+import { ADD_ORDER_DETAIL, CLEAR_ORDER_DETAIL, ORDER_SUCCESS, ORDER_FAILURE } from '../../../utils/vars';
+import { ItemConstructor } from '../../../utils/types';
 
 interface OrderState {
-	order: null;
+	order: ItemConstructor[] | null;
 	loading: boolean;
 	error: string | null;
 }
@@ -13,42 +14,37 @@ interface AddOrderDetailAction {
 
 interface OrderSuccessAction {
 	type: typeof ORDER_SUCCESS;
-	payload: any; // Замените `any` на конкретный тип данных заказа
+	payload: ItemConstructor[];
 }
 
 interface OrderFailureAction {
 	type: typeof ORDER_FAILURE;
-	payload: string; // Ошибка как строка
+	payload: string;
 }
 
 interface ClearOrderDetailAction {
 	type: typeof CLEAR_ORDER_DETAIL;
 }
 
-// Объедините типы действий
 type OrderAction = AddOrderDetailAction | OrderSuccessAction | OrderFailureAction | ClearOrderDetailAction;
 
-// Начальное состояние
-const initialState: OrderState = {
+export const initialState: OrderState = {
 	order: null,
 	loading: false,
 	error: null,
 };
 
-// Редьюсер
-const orderReducer = (state = initialState, action: OrderAction): OrderState => {
+export const orderReducer = (state = initialState, action: OrderAction): OrderState => {
 	switch (action.type) {
 		case ADD_ORDER_DETAIL:
 			return { ...state, loading: true, error: null };
 		case ORDER_SUCCESS:
-			return { ...state, loading: false, order: action.payload, error: null };
+			return { ...state, loading: false, order: (action as OrderSuccessAction).payload, error: null };
 		case ORDER_FAILURE:
-			return { ...state, loading: false, error: action.payload };
+			return { ...state, loading: false, error: (action as OrderFailureAction).payload };
 		case CLEAR_ORDER_DETAIL:
 			return initialState;
 		default:
 			return state;
 	}
 };
-
-export default orderReducer;
