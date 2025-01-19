@@ -1,5 +1,5 @@
 import { dataReducer } from './data-reducer/data-reducer';
-import constructorReducer from './constructor-reducer';
+import { constructorReducer } from './constructor-reducer/constructor-reducer';
 import { modalIngredientReducer } from './modal-ingredient-reducer/modal-ingredient-reducer';
 import { orderReducer } from './order-reducer/order-reducer';
 import userReducer from './login-reducer';

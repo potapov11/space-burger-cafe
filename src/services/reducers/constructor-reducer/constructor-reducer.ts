@@ -1,5 +1,5 @@
-import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT, CLEAR_CONSRUCTOR } from '../../utils/vars';
-import { ItemConstructor } from '../../utils/types';
+import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT, CLEAR_CONSRUCTOR } from '../../../utils/vars';
+import { ItemConstructor } from '../../../utils/types';
 
 // Тип для состояния конструктора
 interface ConstructorState {
@@ -35,7 +35,7 @@ interface ClearConstructorAction {
 type ConstructorAction = AddIngredientAction | RemoveIngredientAction | MoveIngredientAction | ClearConstructorAction;
 
 // Начальное состояние
-const initialState: ConstructorState = {
+export const initialState: ConstructorState = {
 	constructorElems: {
 		bunItems: [],
 		ingredients: [],
@@ -43,7 +43,7 @@ const initialState: ConstructorState = {
 };
 
 // Редюсер
-const constructorReducer = (state = initialState, action: ConstructorAction): ConstructorState => {
+export const constructorReducer = (state = initialState, action: ConstructorAction): ConstructorState => {
 	switch (action.type) {
 		case MOVE_INGREDIENT: {
 			const moveAction = action as MoveIngredientAction;
@@ -123,5 +123,3 @@ const constructorReducer = (state = initialState, action: ConstructorAction): Co
 			return state;
 	}
 };
-
-export default constructorReducer;
