@@ -1,9 +1,10 @@
 import { orderReducer, initialState } from './order-reducer';
 import { ADD_ORDER_DETAIL, CLEAR_ORDER_DETAIL, ORDER_SUCCESS, ORDER_FAILURE } from '../../../utils/vars';
+import { describe, it, expect } from '@jest/globals';
 
 describe('orderReducer', () => {
 	it('должен вернуть начальное состояние', () => {
-		expect(orderReducer(undefined, {} as any)).toEqual(initialState);
+		expect(orderReducer(undefined, { type: '', payload: [] })).toEqual(initialState);
 	});
 
 	it('должен установить loading в true при добавлении деталей заказа', () => {

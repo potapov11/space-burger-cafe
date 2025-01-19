@@ -1,9 +1,10 @@
 import { modalIngredientReducer, initialState } from './modal-ingredient-reducer';
 import { ADD_MODAL_INGREDIENT, CLEAR_MODAL_INGREDIENT } from '../../../utils/vars';
+import { describe, it, expect } from '@jest/globals';
 
 describe('modalIngredientReducer', () => {
 	it('должен вернуть начальное состояние', () => {
-		expect(modalIngredientReducer(undefined, {} as any)).toEqual(initialState);
+		expect(modalIngredientReducer(undefined, { type: '', payload: [] })).toEqual(initialState);
 	});
 
 	it('устанавливает значение modal', () => {

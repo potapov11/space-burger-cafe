@@ -75,6 +75,37 @@ const initialStateConstructor = {
 	},
 };
 
+const testArray = [
+	{
+		_id: '1',
+		name: 'Биокотлета из марсианской Магнолии',
+		type: 'main',
+		proteins: 420,
+		fat: 142,
+		carbohydrates: 242,
+		calories: 4242,
+		price: 424,
+		image: 'https://code.s3.yandex.net/react/code/meat-01.png',
+		image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
+		image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
+		__v: 0,
+	},
+	{
+		_id: '2',
+		name: 'Биокотлета из марсианской Магнолии',
+		type: 'main',
+		proteins: 420,
+		fat: 142,
+		carbohydrates: 242,
+		calories: 4242,
+		price: 424,
+		image: 'https://code.s3.yandex.net/react/code/meat-01.png',
+		image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
+		image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
+		__v: 0,
+	},
+];
+
 export {
 	keyButton,
 	mt40,
@@ -109,4 +140,5 @@ export {
 	LOGOUT_FAILURE,
 	ORDERS_SOCKET,
 	initialStateConstructor,
+	testArray,
 };
