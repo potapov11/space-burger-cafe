@@ -10,7 +10,7 @@ import {
 	RESET_PASSWORD_SUCCESS,
 	LOGOUT_USER,
 	LOGOUT_FAILURE,
-} from '../../utils/vars';
+} from '../../../utils/vars';
 
 interface UserState {
 	email: string;
@@ -35,16 +35,18 @@ interface LoginUserAction {
 
 interface LoginFailureAction {
 	type: typeof LOGIN_FAILURE;
-	payload: string; // Ошибка
+	payload: string;
 }
 
 interface EmailSuccessAction {
 	type: typeof EMAIL_SUCCESS;
+	success: boolean;
 	payload: string; // Сообщение
 }
 
 interface EmailFailureAction {
 	type: typeof EMAIL_FAILURE;
+	success: boolean;
 	payload: string; // Сообщение
 }
 
@@ -112,7 +114,7 @@ type UserAction =
 	| LogoutUserAction
 	| LogoutFailureAction;
 
-const initialState: UserState = {
+export const initialState: UserState = {
 	email: '',
 	name: '',
 	success: '',
@@ -121,44 +123,44 @@ const initialState: UserState = {
 	isAuthChecked: false,
 };
 
-const userReducer = (state = initialState, action: UserAction): UserState => {
+export const userReducer = (state = initialState, action: UserAction): UserState => {
 	switch (action.type) {
 		case LOGIN_USER:
 			return {
 				...state,
-				email: action.payload.user.email,
-				name: action.payload.user.name,
-				success: action.payload.success,
+				email: (action as LoginUserAction).payload.user.email,
+				name: (action as LoginUserAction).payload.user.name,
+				success: (action as LoginUserAction).payload.success,
 				isAuthChecked: true,
 			};
 		case LOGIN_FAILURE:
 			return {
 				...state,
-				error: action.payload,
+				error: (action as LoginFailureAction).payload,
 				isAuthChecked: false,
 			};
 		case EMAIL_SUCCESS:
-			return { ...state, success: true, message: action.payload };
+			return { ...state, success: 'true', message: (action as EmailSuccessAction).payload };
 		case EMAIL_FAILURE:
-			return { ...state, success: false, message: action.payload };
+			return { ...state, success: 'false', message: (action as EmailFailureAction).payload };
 		case REGISTER_USER:
 			return {
 				...state,
-				email: action.payload.user.email,
-				name: action.payload.user.name,
+				email: (action as RegisterUserAction).payload.user.email,
+				name: (action as RegisterUserAction).payload.user.name,
 				isAuthChecked: true,
 			};
 		case REGISTER_FAILURE:
 			return {
 				...state,
-				error: action.payload,
+				error: (action as RegisterFailureAction).payload,
 				isAuthChecked: false,
 			};
 		case DATA_CHECK_USER:
 			return {
 				...state,
-				email: action.payload.user.email,
-				name: action.payload.user.name,
+				email: (action as DataCheckUserAction).payload.user.email,
+				name: (action as DataCheckUserAction).payload.user.name,
 				isAuthChecked: true,
 			};
 		case DATA_FETCH_ERROR:
@@ -170,7 +172,7 @@ const userReducer = (state = initialState, action: UserAction): UserState => {
 		case RESET_PASSWORD_SUCCESS:
 			return {
 				...state,
-				message: action.payload.message,
+				message: (action as ResetPasswordSuccessAction).payload.message,
 			};
 		case LOGOUT_USER:
 			return {
@@ -179,12 +181,12 @@ const userReducer = (state = initialState, action: UserAction): UserState => {
 				success: '',
 				error: '',
 				isAuthChecked: true,
-				message: action.payload.message,
+				message: (action as LogoutUserAction).payload.message,
 			};
 		case LOGOUT_FAILURE:
 			return {
 				...state,
-				message: action.payload.message,
+				message: (action as LogoutFailureAction).payload.message,
 			};
 		default:
 			return state;
@@ -259,5 +261,3 @@ const userReducer = (state = initialState, action: UserAction): UserState => {
 // 			return state;
 // 	}
 // };
-
-export default userReducer;
