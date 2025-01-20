@@ -18,17 +18,9 @@
 		"noFallthroughCasesInSwitch": true,
 		"noUncheckedSideEffectImports": true,
 
-		/* Добавьте следующие параметры для совместимости с Jest */
-		"esModuleInterop": true, // Для поддержки импорта модулей
-		"forceConsistentCasingInFileNames": true // Обеспечить согласованность регистров
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true
 	},
-	"include": [
-		"vite.config.mts",
-		"src/**/*.ts",
-		"src/**/*.tsx" // Включите все ваши файлы .ts и .tsx
-	],
-	"exclude": [
-		"node_modules",
-		"dist" // Исключите директории, не нужные для компиляции
-	]
+	"include": ["vite.config.mts", "src/**/*.ts", "src/**/*.tsx"],
+	"exclude": ["node_modules", "dist"]
 }

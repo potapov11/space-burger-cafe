@@ -1,9 +1,10 @@
-import { defineConfig } from "cypress";
+import { defineConfig } from 'cypress';
 
 export default defineConfig({
-  e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
-    },
-  },
+	e2e: {
+		supportFile: false, // Отключение файла поддержки
+		setupNodeEvents(on, config) {
+			// Реализуйте обработчики событий здесь
+		},
+	},
 });
