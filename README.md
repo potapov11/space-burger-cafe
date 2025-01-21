@@ -1,5 +1,14 @@
 # React + Vite
 
+ссылка на deploy https://space-burger-cafe.vercel.app/
+
+В проекте быль использованы технологи  react, Redux, Jest, Cypress, WebSocket, TypeScript
+
+Для того чтобы скачать проект себе git clone -> npm i
+Для запуска проекта npm run dev
+Для запуска тестов npm test
+Для запуска тестов Cypress npm run cypress
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
