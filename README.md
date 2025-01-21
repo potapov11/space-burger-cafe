@@ -2,7 +2,7 @@
 
 ссылка на deploy https://space-burger-cafe.vercel.app/
 
-В проекте быль использованы технологи  react, Redux, Jest, Cypress, WebSocket, TypeScript
+В проекте были использованы технологи  react, Redux, Jest, Cypress, WebSocket, TypeScript
 
 Для того чтобы скачать проект себе git clone -> npm i
 Для запуска проекта npm run dev
