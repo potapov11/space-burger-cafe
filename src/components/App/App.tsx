@@ -33,9 +33,6 @@ const App = (): React.JSX.Element => {
 		dispatch(fetchServerData());
 	}, [dispatch]);
 
-	const STORE = useSelector((store) => store);
-	console.log(STORE);
-
 	const closeModal = () => {
 		navigate(-1);
 		setModalOrderOpen(false);
