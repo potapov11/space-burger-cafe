@@ -50,7 +50,7 @@ const Ingredient: React.FC<IngredientProps> = (props): React.JSX.Element => {
 	return (
 		<>
 			<li className={IngredientCss.ingredient} ref={dragRef}>
-				{quantityNum > 0 && <Counter count={quantityNum} size="default" extraClass="m-1" />}
+				{quantityNum > 0 && <Counter count={quantityNum} size="default" extraClass="m-1 counter-test" />}
 				<div>
 					<img src={image} alt={name} />
 				</div>

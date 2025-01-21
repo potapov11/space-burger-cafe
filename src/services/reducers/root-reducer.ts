@@ -1,9 +1,9 @@
-import dataReducer from './data-reducer';
-import constructorReducer from './constructor-reducer';
-import modalIngredientReducer from './modal-ingredient-reducer';
-import orderReducer from './order-reducer';
-import userReducer from './login-reducer';
-import orderSocketReducer from './order-socket-reducer';
+import { dataReducer } from './data-reducer/data-reducer';
+import { constructorReducer } from './constructor-reducer/constructor-reducer';
+import { modalIngredientReducer } from './modal-ingredient-reducer/modal-ingredient-reducer';
+import { orderReducer } from './order-reducer/order-reducer';
+import { userReducer } from './login-reducer/login-reducer';
+import { orderSocketReducer } from './order-socket-reducer/order-socket-reducer';
 import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({

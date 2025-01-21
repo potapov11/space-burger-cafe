@@ -1,5 +1,5 @@
-import { SET_ROLLS_ARRAY, SET_SAUCE_ARRAY, SET_MAIN_ARRAY } from '../../utils/vars';
-import { ItemConstructor } from '../../utils/types';
+import { SET_ROLLS_ARRAY, SET_SAUCE_ARRAY, SET_MAIN_ARRAY } from '../../../utils/vars';
+import { ItemConstructor } from '../../../utils/types';
 
 interface DataState {
 	rollsArray: ItemConstructor[];
@@ -24,13 +24,13 @@ interface SetMainArrayAction {
 
 type DataAction = SetRollsArrayAction | SetSauceArrayAction | SetMainArrayAction;
 
-const initialState: DataState = {
+export const initialState: DataState = {
 	rollsArray: [],
 	sauceArray: [],
 	mainArray: [],
 };
 
-const dataReducer = (state = initialState, action: DataAction): DataState => {
+export const dataReducer = (state = initialState, action: DataAction): DataState => {
 	switch (action.type) {
 		case SET_ROLLS_ARRAY:
 			return { ...state, rollsArray: action.payload };
@@ -42,5 +42,3 @@ const dataReducer = (state = initialState, action: DataAction): DataState => {
 			return state;
 	}
 };
-
-export default dataReducer;

@@ -39,6 +39,100 @@ const mt40: { marginTop: string } = {
 	marginTop: '40px',
 };
 
+const initialStateConstructor = {
+	constructorElems: {
+		bunItems: [],
+		ingredients: [
+			{
+				_id: '1',
+				name: 'Биокотлета из марсианской Магнолии',
+				type: 'main',
+				proteins: 420,
+				fat: 142,
+				carbohydrates: 242,
+				calories: 4242,
+				price: 424,
+				image: 'https://code.s3.yandex.net/react/code/meat-01.png',
+				image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
+				image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
+				__v: 0,
+			},
+			{
+				_id: '2',
+				name: 'Биокотлета из чего то еще',
+				type: 'main',
+				proteins: 420,
+				fat: 142,
+				carbohydrates: 242,
+				calories: 4242,
+				price: 424,
+				image: 'https://code.s3.yandex.net/react/code/meat-01.png',
+				image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
+				image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
+				__v: 0,
+			},
+		],
+	},
+};
+
+const testObject = {
+	_id: '1',
+	name: 'Биокотлета из марсианской Магнолии',
+	type: 'main',
+	proteins: 420,
+	fat: 142,
+	carbohydrates: 242,
+	calories: 4242,
+	price: 424,
+	image: 'https://code.s3.yandex.net/react/code/meat-01.png',
+	image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
+	image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
+	__v: 0,
+};
+
+const testArray = [
+	{
+		_id: '1',
+		name: 'Биокотлета из марсианской Магнолии',
+		type: 'main',
+		proteins: 420,
+		fat: 142,
+		carbohydrates: 242,
+		calories: 4242,
+		price: 424,
+		image: 'https://code.s3.yandex.net/react/code/meat-01.png',
+		image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
+		image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
+		__v: 0,
+	},
+	{
+		_id: '2',
+		name: 'Биокотлета из марсианской Магнолии',
+		type: 'main',
+		proteins: 420,
+		fat: 142,
+		carbohydrates: 242,
+		calories: 4242,
+		price: 424,
+		image: 'https://code.s3.yandex.net/react/code/meat-01.png',
+		image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
+		image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
+		__v: 0,
+	},
+];
+
+const testSelectors = {
+	constructorTarget: '[data-test="constructor-target-selector"]',
+	orderButton: 'button:contains("Оформить заказ")',
+	constructorElement: '.constructor-element',
+	bun: 'li:contains("Краторная булка")',
+	counter: '.counter',
+	liIngredient: 'li[class^="_ingredient"]',
+	modalIdRoot: '#modal-root',
+	productBox: 'ul[class*=_productsBox_]',
+	constructorBox: '[data-test="constructor-target-selector"]',
+};
+
 export {
 	keyButton,
 	mt40,
@@ -72,4 +166,8 @@ export {
 	LOGOUT_USER,
 	LOGOUT_FAILURE,
 	ORDERS_SOCKET,
+	initialStateConstructor,
+	testArray,
+	testSelectors,
+	testObject,
 };

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from '../../hooks/useDispatch';
-import { store, useSelector } from '../../main';
+import { useSelector } from '../../main';
 import Modal from '../Modal/Modal';
 import HomePage from '../../pages/Home/Home';
 import LoginPage from '../../pages/Login/Login';
@@ -32,8 +32,6 @@ const App = (): React.JSX.Element => {
 		dispatch(fetchUserData());
 		dispatch(fetchServerData());
 	}, [dispatch]);
-
-	const STORE = useSelector((store) => store);
 
 	const closeModal = () => {
 		navigate(-1);

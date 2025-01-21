@@ -11,9 +11,9 @@ import {
 	WS_CONNECTION_SUCCESS,
 	WS_GET_AUTH_ORDERS,
 	WS_GET_ORDERS,
-} from '../actions/socket-action';
+} from '../../actions/socket-action';
 
-const initialState = {
+export const initialState = {
 	orders: [],
 	userOrders: [],
 	isLoading: true,
@@ -21,7 +21,7 @@ const initialState = {
 	totalToday: '',
 };
 
-const orderSocketReducer = (state = initialState, action: TWSActions | TWSAuthActions) => {
+export const orderSocketReducer = (state = initialState, action: TWSActions | TWSAuthActions) => {
 	switch (action.type) {
 		case WS_CONNECTION_START:
 			return {
@@ -114,5 +114,3 @@ const orderSocketReducer = (state = initialState, action: TWSActions | TWSAuthAc
 			return state;
 	}
 };
-
-export default orderSocketReducer;
