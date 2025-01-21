@@ -1,5 +1,3 @@
-import { testSelectors } from '../../src/utils/vars';
-
 describe('drag and drop', () => {
 	beforeEach(() => {
 		cy.visit('/');

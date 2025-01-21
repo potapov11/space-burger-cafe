@@ -1,5 +1,3 @@
-// import { testSelectors } from '../../src/utils/constans';
-
 describe('ingredients modal', () => {
 	beforeEach(() => {
 		cy.visit('/');
