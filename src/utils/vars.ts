@@ -122,11 +122,15 @@ const testArray = [
 ];
 
 const testSelectors = {
-	ingredient: 'div[class*=ingredient__]',
-	tab: 'div[class^=tab]',
-	counter: 'div[class*=counter]',
-	constructor: 'section[class*=constructor]',
-	constructorElement: 'div[class^=constructor-element]',
+	constructorTarget: '[data-test="constructor-target-selector"]',
+	orderButton: 'button:contains("Оформить заказ")',
+	constructorElement: '.constructor-element',
+	bun: 'li:contains("Краторная булка")',
+	counter: '.counter',
+	liIngredient: 'li[class^="_ingredient"]',
+	modalIdRoot: '#modal-root',
+	productBox: 'ul[class*=_productsBox_]',
+	constructorBox: '[data-test="constructor-target-selector"]',
 };
 
 export {

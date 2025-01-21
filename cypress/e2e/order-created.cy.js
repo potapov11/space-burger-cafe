@@ -1,3 +1,5 @@
+import { testSelectors } from '../../src/utils/vars';
+
 describe('creating order', () => {
 	beforeEach(() => {
 		cy.intercept('GET', 'https://norma.nomoreparties.space/api/auth/user', { fixture: 'user.json' }).as('getUser');
@@ -10,7 +12,7 @@ describe('creating order', () => {
 	it('should disable the create order button when the constructor contains only a bun', () => {
 		// Получаем булочку и пустой контейнер конструктора
 		cy.get('li').contains('Краторная булка').as('bun');
-		cy.get('[data-test="constructor-target-selector"]').first().as('dropTarget');
+		cy.get(testSelectors.constructorBox).first().as('dropTarget');
 
 		// Перетаскиваем булочку в пустой контейнер
 		const dataTransfer = new DataTransfer();
@@ -26,21 +28,21 @@ describe('creating order', () => {
 		cy.wait(2000);
 
 		// Добавляем первую булочку
-		cy.get('li[class^="_ingredient"]').contains('Краторная булка').trigger('dragstart', { dataTransfer });
-		cy.get('[data-test="constructor-target-selector"]').first().as('dropTarget');
+		cy.get(testSelectors.liIngredient).contains('Краторная булка').trigger('dragstart', { dataTransfer });
+		cy.get(testSelectors.constructorBox).first().as('dropTarget');
 		cy.get('@dropTarget').trigger('drop', { dataTransfer });
 
 		// Добавляем соус
-		cy.get('li[class^="_ingredient"]').contains('Соус Spicy').trigger('dragstart', { dataTransfer });
+		cy.get(testSelectors.liIngredient).contains('Соус Spicy').trigger('dragstart', { dataTransfer });
 		cy.get('@dropTarget').trigger('drop', { dataTransfer });
 
 		// Проверяем, что кнопка "Оформить заказ" включена и нажимаем на нее
 		cy.get('button').contains('Оформить заказ').should('be.enabled').click();
 
 		// Проверяем, что отображается идентификатор заказа
-		cy.get('#modal-root', { timeout: 20000 }).should('contain', 'идентификатор заказа');
+		cy.get(testSelectors.modalIdRoot, { timeout: 20000 }).should('contain', 'идентификатор заказа');
 
 		// Нажимаем на кнопку для закрытия деталей заказа
-		cy.get('#modal-root').find('svg').click();
+		cy.get(testSelectors.modalIdRoot).find('svg').click();
 	});
 });

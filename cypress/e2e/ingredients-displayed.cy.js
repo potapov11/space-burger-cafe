@@ -1,3 +1,5 @@
+import { testSelectors } from '../../src/utils/vars';
+
 describe('displaying ingredients', () => {
 	beforeEach(() => {
 		cy.visit('/');
@@ -10,14 +12,14 @@ describe('displaying ingredients', () => {
 		cy.get('@ingredientsScrollbar').should('contain', 'Соусы');
 		cy.get('@ingredientsScrollbar').should('contain', 'Начинки');
 
-		cy.get('@ingredientsScrollbar').find('ul[class*=_productsBox_]').first().as('buns');
+		cy.get('@ingredientsScrollbar').find(testSelectors.productBox).first().as('buns');
 
-		cy.get('@ingredientsScrollbar').find('ul[class*=_productsBox_]').eq(1).as('sauces');
+		cy.get('@ingredientsScrollbar').find(testSelectors.productBox).eq(1).as('sauces');
 
-		cy.get('@ingredientsScrollbar').find('ul[class*=_productsBox_]').last().as('fillings');
+		cy.get('@ingredientsScrollbar').find(testSelectors.productBox).last().as('fillings');
 
-		cy.get('@buns').find('li[class^="_ingredient"]').should('have.length.above', 0);
-		cy.get('@sauces').find('li[class^="_ingredient"]').should('have.length.above', 0);
-		cy.get('@fillings').find('li[class^="_ingredient"]').should('have.length.above', 0);
+		cy.get('@buns').find(testSelectors.liIngredient).should('have.length.above', 0);
+		cy.get('@sauces').find(testSelectors.liIngredient).should('have.length.above', 0);
+		cy.get('@fillings').find(testSelectors.liIngredient).should('have.length.above', 0);
 	});
 });
