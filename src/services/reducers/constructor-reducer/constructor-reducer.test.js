@@ -1,5 +1,6 @@
 import { constructorReducer, initialState } from './constructor-reducer';
 import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT, CLEAR_CONSRUCTOR } from '../../../utils/vars';
+import { testObject } from '../../../utils/vars';
 import { describe, it, expect } from '@jest/globals';
 
 describe('constructor reducer', () => {
@@ -24,36 +25,7 @@ describe('constructor reducer', () => {
 		const prevState = {
 			constructorElems: {
 				bunItems: [],
-				ingredients: [
-					{
-						_id: '1',
-						name: 'Биокотлета из марсианской Магнолии',
-						type: 'main',
-						proteins: 420,
-						fat: 142,
-						carbohydrates: 242,
-						calories: 4242,
-						price: 424,
-						image: 'https://code.s3.yandex.net/react/code/meat-01.png',
-						image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
-						image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
-						__v: 0,
-					},
-					{
-						_id: '2',
-						name: 'Биокотлета из марсианской Магнолии',
-						type: 'main',
-						proteins: 420,
-						fat: 142,
-						carbohydrates: 242,
-						calories: 4242,
-						price: 424,
-						image: 'https://code.s3.yandex.net/react/code/meat-01.png',
-						image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
-						image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
-						__v: 0,
-					},
-				],
+				ingredients: [testObject, { ...testObject, _id: '2' }],
 			},
 		};
 
@@ -64,22 +36,7 @@ describe('constructor reducer', () => {
 		expect(constructorReducer(prevState, action)).toEqual({
 			constructorElems: {
 				bunItems: [],
-				ingredients: [
-					{
-						_id: '1',
-						name: 'Биокотлета из марсианской Магнолии',
-						type: 'main',
-						proteins: 420,
-						fat: 142,
-						carbohydrates: 242,
-						calories: 4242,
-						price: 424,
-						image: 'https://code.s3.yandex.net/react/code/meat-01.png',
-						image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
-						image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
-						__v: 0,
-					},
-				],
+				ingredients: [testObject],
 			},
 		});
 	});
@@ -88,50 +45,7 @@ describe('constructor reducer', () => {
 		const prevState = {
 			constructorElems: {
 				bunItems: [],
-				ingredients: [
-					{
-						_id: '1',
-						name: 'Биокотлета из марсианской Магнолии',
-						type: 'main',
-						proteins: 420,
-						fat: 142,
-						carbohydrates: 242,
-						calories: 4242,
-						price: 424,
-						image: 'https://code.s3.yandex.net/react/code/meat-01.png',
-						image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
-						image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
-						__v: 0,
-					},
-					{
-						_id: '2',
-						name: 'Биокотлета из марсианской Магнолии',
-						type: 'main',
-						proteins: 420,
-						fat: 142,
-						carbohydrates: 242,
-						calories: 4242,
-						price: 424,
-						image: 'https://code.s3.yandex.net/react/code/meat-01.png',
-						image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
-						image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
-						__v: 0,
-					},
-					{
-						_id: '3',
-						name: 'Биокотлета из марсианской Магнолии',
-						type: 'main',
-						proteins: 420,
-						fat: 142,
-						carbohydrates: 242,
-						calories: 4242,
-						price: 424,
-						image: 'https://code.s3.yandex.net/react/code/meat-01.png',
-						image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
-						image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
-						__v: 0,
-					},
-				],
+				ingredients: [testObject, { ...testObject, _id: '2' }, { ...testObject, _id: '3' }],
 			},
 		};
 
@@ -142,50 +56,7 @@ describe('constructor reducer', () => {
 		expect(constructorReducer(prevState, action)).toEqual({
 			constructorElems: {
 				bunItems: [],
-				ingredients: [
-					{
-						_id: '2',
-						name: 'Биокотлета из марсианской Магнолии',
-						type: 'main',
-						proteins: 420,
-						fat: 142,
-						carbohydrates: 242,
-						calories: 4242,
-						price: 424,
-						image: 'https://code.s3.yandex.net/react/code/meat-01.png',
-						image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
-						image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
-						__v: 0,
-					},
-					{
-						_id: '3',
-						name: 'Биокотлета из марсианской Магнолии',
-						type: 'main',
-						proteins: 420,
-						fat: 142,
-						carbohydrates: 242,
-						calories: 4242,
-						price: 424,
-						image: 'https://code.s3.yandex.net/react/code/meat-01.png',
-						image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
-						image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
-						__v: 0,
-					},
-					{
-						_id: '1',
-						name: 'Биокотлета из марсианской Магнолии',
-						type: 'main',
-						proteins: 420,
-						fat: 142,
-						carbohydrates: 242,
-						calories: 4242,
-						price: 424,
-						image: 'https://code.s3.yandex.net/react/code/meat-01.png',
-						image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
-						image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
-						__v: 0,
-					},
-				],
+				ingredients: [{ ...testObject, _id: '2' }, { ...testObject, _id: '3' }, testObject],
 			},
 		});
 	});
@@ -194,36 +65,7 @@ describe('constructor reducer', () => {
 		const prevState = {
 			constructorElems: {
 				bunItems: [],
-				ingredients: [
-					{
-						_id: '1',
-						name: 'Биокотлета из марсианской Магнолии',
-						type: 'main',
-						proteins: 420,
-						fat: 142,
-						carbohydrates: 242,
-						calories: 4242,
-						price: 424,
-						image: 'https://code.s3.yandex.net/react/code/meat-01.png',
-						image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
-						image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
-						__v: 0,
-					},
-					{
-						_id: '2',
-						name: 'Биокотлета из марсианской Магнолии',
-						type: 'main',
-						proteins: 420,
-						fat: 142,
-						carbohydrates: 242,
-						calories: 4242,
-						price: 424,
-						image: 'https://code.s3.yandex.net/react/code/meat-01.png',
-						image_large: 'https://code.s3.yandex.net/react/code/meat-01-large.png',
-						image_mobile: 'https://code.s3.yandex.net/react/code/meat-01-mobile.png',
-						__v: 0,
-					},
-				],
+				ingredients: [testObject, { ...testObject, _id: '2' }],
 			},
 		};
 

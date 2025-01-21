@@ -5,6 +5,6 @@ export default defineConfig({
 		setupNodeEvents(on, config) {
 			// Реализуйте обработчики событий здесь
 		},
-		baseUrl: 'http://localhost:5174/',
+		baseUrl: 'http://localhost:5173/',
 	},
 });
