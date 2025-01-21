@@ -23,7 +23,7 @@ describe('creating order', () => {
 
 	it('adds ingredients in constructor and makes order', () => {
 		const dataTransfer = new DataTransfer();
-		cy.wait(2000); // Небольшая задержка для стабильности теста
+		cy.wait(2000);
 
 		// Добавляем первую булочку
 		cy.get('li[class^="_ingredient"]').contains('Краторная булка').trigger('dragstart', { dataTransfer });
