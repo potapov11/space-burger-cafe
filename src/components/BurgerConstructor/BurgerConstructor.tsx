@@ -37,7 +37,7 @@ const BurgerMainIngredients: React.FC<BurgerMainIngredientsProps> = ({ openModal
 	};
 
 	return (
-		<section ref={dropTarget}>
+		<section ref={dropTarget} data-test="constructor-target-selector">
 			{conditionArraysEmpty ? (
 				<div className={BurgerConstructorCss.emptyBox}>
 					<p className="text text_type_main-large">Перенесите сюда булки и ингредиенты</p>
