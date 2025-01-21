@@ -106,6 +106,14 @@ const testArray = [
 	},
 ];
 
+const testSelectors = {
+	ingredient: 'div[class*=ingredient__]',
+	tab: 'div[class^=tab]',
+	counter: 'div[class*=counter]',
+	constructor: 'section[class*=constructor]',
+	constructorElement: 'div[class^=constructor-element]',
+};
+
 export {
 	keyButton,
 	mt40,
@@ -141,4 +149,5 @@ export {
 	ORDERS_SOCKET,
 	initialStateConstructor,
 	testArray,
+	testSelectors,
 };
