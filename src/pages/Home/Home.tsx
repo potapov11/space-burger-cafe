@@ -11,6 +11,7 @@ import Modal from '../../components/Modal/Modal.jsx';
 import BurgerIngredients from '../../components/BurgerIngredients/BurgerIngredients.tsx';
 import BurgerConstructor from '../../components/BurgerConstructor/BurgerConstructor.tsx';
 import OrderDetail from '../../components/OrderDetails/OrderDetail.jsx';
+// import { TestError } from '../../components/TestError/TestError.jsx';
 
 interface HomePageProps {
 	onClose: () => void;
