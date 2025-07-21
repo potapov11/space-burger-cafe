@@ -23,13 +23,8 @@ interface IngredientBoxProps {
 const IngredientBox = forwardRef<HTMLDivElement, IngredientBoxProps>(({ dataStore, data, title, isModalOpen, openModal }, ref): React.JSX.Element => {
 	const location = useLocation();
 
-	const handleButton = () => {
-		const res = dataStore.testString.split(',');
-	};
-
 	return (
 		<div ref={ref} className={IngredientBoxCss.ingredientBox}>
-			<button onClick={handleButton}>Клик здесь по кнопке</button>
 			<h3 className="text text_type_main-medium mb-6">{title}</h3>
 			<ul className={IngredientBoxCss.productsBox}>
 				{data?.length > 0 &&
