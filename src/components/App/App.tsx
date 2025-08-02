@@ -1,24 +1,23 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from '../../hooks/useDispatch';
-import { store, useSelector } from '../../main';
 import Modal from '../Modal/Modal';
-import HomePage from '../../pages/Home/Home';
-import LoginPage from '../../pages/Login/Login';
-import RegisterPage from '../../pages/Register/Register';
-import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
-import ResetPassword from '../../pages/ResetPassword/ResetPassword';
-import ProfilePage from '../../pages/Profile/ProfilePage';
-import Feed from '../../pages/Feed/Feed';
-import ProfileOrders from '../../pages/ProfileOrders/ProfileOrders';
 import AppHeader from '../AppHeader/AppHeader';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import OrderInfo from '../OrderModal/OrderModal';
 import { fetchUserData, fetchServerData } from '../../services/actions/data-action';
 import { OnlyAuth, OnlyUnAuth } from '../ProtectedRoute/ProtectedRoute';
-// import { WS_AUTH_CONNECTION_CLOSED, WS_AUTH_CONNECTION_START, WS_CONNECTION_CLOSED, WS_CONNECTION_START } from '../../services/actions/socket-action';
+
+const HomePage = React.lazy(() => import('../../pages/Home/Home'));
+const LoginPage = React.lazy(() => import('../../pages/Login/Login'));
+const RegisterPage = React.lazy(() => import('../../pages/Register/Register'));
+const ForgotPassword = React.lazy(() => import('../../pages/ForgotPassword/ForgotPassword'));
+const ResetPassword = React.lazy(() => import('../../pages/ResetPassword/ResetPassword'));
+const ProfilePage = React.lazy(() => import('../../pages/Profile/ProfilePage'));
+const Feed = React.lazy(() => import('../../pages/Feed/Feed'));
+const ProfileOrders = React.lazy(() => import('../../pages/ProfileOrders/ProfileOrders'));
 
 const App = (): React.JSX.Element => {
 	const location = useLocation();
@@ -41,52 +40,54 @@ const App = (): React.JSX.Element => {
 	return (
 		<>
 			<AppHeader />
-			<Routes location={background || location}>
-				<Route path="/" element={<HomePage onClose={closeModal} isModalOrderOpen={isModalOrderOpen} setModalOrderOpen={setModalOrderOpen} />} />
-				<Route path="/feed" element={<Feed />} />
-				<Route path="/feed/:orderId" element={<OrderInfo styleCenter={true} />} />
-				<Route path="/login" element={<OnlyUnAuth component={<LoginPage />} />} />
-				<Route path="/register" element={<OnlyUnAuth component={<RegisterPage />} />} />
-				<Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword />} />} />
-				<Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword />} />} />
-				<Route path="/profile/orders" element={<OnlyAuth component={<ProfileOrders />} />} />
-				<Route path="/profile/orders/:orderId" element={<OnlyAuth component={<OrderInfo styleCenter={true} />} />} />
-				<Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} />
-				<Route path="/ingredients/:id" element={<IngredientDetails styleCenter={true} />} />
-			</Routes>
-
-			{background && (
-				<Routes>
-					<Route
-						path="/ingredients/:id"
-						element={
-							<Modal onClose={closeModal}>
-								<IngredientDetails />
-							</Modal>
-						}
-					/>
-					<Route
-						path="/profile/orders/:orderId"
-						element={
-							<OnlyAuth
-								component={
-									<Modal onClose={closeModal}>
-										<OrderInfo />
-									</Modal>
-								}
-							/>
-						}
-					/>
-					<Route
-						path="/feed/:orderId"
-						element={
-							<Modal onClose={closeModal}>
-								<OrderInfo styleCenter={false} />
-							</Modal>
-						}
-					/>
+			<Suspense fallback={<div>Загрузка...</div>}>
+				<Routes location={background || location}>
+					<Route path="/" element={<HomePage onClose={closeModal} isModalOrderOpen={isModalOrderOpen} setModalOrderOpen={setModalOrderOpen} />} />
+					<Route path="/feed" element={<Feed />} />
+					<Route path="/feed/:orderId" element={<OrderInfo styleCenter={true} />} />
+					<Route path="/login" element={<OnlyUnAuth component={<LoginPage />} />} />
+					<Route path="/register" element={<OnlyUnAuth component={<RegisterPage />} />} />
+					<Route path="/forgot-password" element={<OnlyUnAuth component={<ForgotPassword />} />} />
+					<Route path="/reset-password" element={<OnlyUnAuth component={<ResetPassword />} />} />
+					<Route path="/profile/orders" element={<OnlyAuth component={<ProfileOrders />} />} />
+					<Route path="/profile/orders/:orderId" element={<OnlyAuth component={<OrderInfo styleCenter={true} />} />} />
+					<Route path="/profile" element={<OnlyAuth component={<ProfilePage />} />} />
+					<Route path="/ingredients/:id" element={<IngredientDetails styleCenter={true} />} />
 				</Routes>
-			)}
+
+				{background && (
+					<Routes>
+						<Route
+							path="/ingredients/:id"
+							element={
+								<Modal onClose={closeModal}>
+									<IngredientDetails />
+								</Modal>
+							}
+						/>
+						<Route
+							path="/profile/orders/:orderId"
+							element={
+								<OnlyAuth
+									component={
+										<Modal onClose={closeModal}>
+											<OrderInfo />
+										</Modal>
+									}
+								/>
+							}
+						/>
+						<Route
+							path="/feed/:orderId"
+							element={
+								<Modal onClose={closeModal}>
+									<OrderInfo styleCenter={false} />
+								</Modal>
+							}
+						/>
+					</Routes>
+				)}
+			</Suspense>
 		</>
 	);
 };
